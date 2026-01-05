@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نايف المحمدي - السيرة الذاتية</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #1e3a5f;
+            --primary-blue: #2c5282;
+            --accent-gold: #c9b896;
+            --text-dark: #1a202c;
+            --text-medium: #4a5568;
+            --text-light: #718096;
+            --bg-white: #ffffff;
+            --bg-offwhite: #fafbfc;
+            --bg-subtle: #f7f8fa;
+            --border-light: #e2e8f0;
+            --border-lighter: #edf2f7;
+            --whatsapp-green: #25D366;
+            --linkedin-blue: #0077b5;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.8;
+            color: var(--text-dark);
+            background: var(--bg-offwhite);
+            min-height: 100vh;
+        }
+
+        body[dir="ltr"] {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        /* ===== Top Header Bar ===== */
+        .top-bar {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-lighter);
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+        }
+
+        .top-bar-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .lang-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .lang-label {
+            font-size: 0.75em;
+            color: var(--text-light);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .lang-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            background: var(--bg-subtle);
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            color: var(--text-medium);
+            text-decoration: none;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            cursor: pointer;
+        }
+
+        .lang-btn:hover {
+            background: var(--primary-dark);
+            color: white;
+            border-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .lang-btn.active {
+            background: var(--primary-dark);
+            color: white;
+            border-color: var(--primary-dark);
+            box-shadow: 0 2px 8px rgba(30, 58, 95, 0.15);
+        }
+
+        .contact-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .contact-label {
+            font-size: 0.75em;
+            color: var(--text-light);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            background: var(--bg-subtle);
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            color: var(--text-medium);
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .social-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .social-icon.linkedin:hover {
+            background: var(--linkedin-blue);
+            color: white;
+            border-color: var(--linkedin-blue);
+        }
+
+        .social-icon.twitter:hover {
+            background: #000000;
+            color: white;
+            border-color: #000000;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 45px 30px;
+            background: var(--bg-white);
+            min-height: calc(100vh - 85px);
+        }
+
+        /* ===== Header Section ===== */
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2c5282 100%);
+            color: white;
+            padding: 55px 50px;
+            border-radius: 10px;
+            margin-bottom: 50px;
+            box-shadow: 0 4px 16px rgba(30, 58, 95, 0.15);
+            position: relative;
+        }
+
+        .executive-badge {
+            display: inline-block;
+            background: rgba(201, 184, 150, 0.25);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .header h1 {
+            font-size: 2.6em;
+            margin-bottom: 10px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header-subtitle {
+            font-size: 1.25em;
+            opacity: 0.95;
+            margin-bottom: 22px;
+            font-weight: 600;
+            color: white;
+            letter-spacing: 0.3px;
+        }
+
+        .header-tagline {
+            font-size: 1em;
+            line-height: 1.75;
+            opacity: 0.92;
+            margin-bottom: 32px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 28px;
+            font-size: 0.95em;
+            margin-bottom: 22px;
+            opacity: 0.95;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .phone-section {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .phone-number {
+            font-size: 1.05em;
+            font-weight: 500;
+        }
+
+        .phone-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .phone-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 6px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.88em;
+            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .phone-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .phone-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .phone-btn.whatsapp {
+            background: rgba(37, 211, 102, 0.25);
+            border-color: rgba(37, 211, 102, 0.45);
+        }
+
+        .phone-btn.whatsapp:hover {
+            background: var(--whatsapp-green);
+            border-color: var(--whatsapp-green);
+        }
+
+        .summary {
+            font-size: 0.98em;
+            line-height: 1.9;
+            text-align: justify;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 28px;
+            border-radius: 8px;
+            border-right: 3px solid var(--accent-gold);
+            margin-top: 28px;
+        }
+
+        [dir="ltr"] .summary {
+            border-right: none;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        /* ===== Executive Profile Separator ===== */
+        .profile-separator {
+            text-align: center;
+            margin: 45px 0;
+            position: relative;
+        }
+
+        .profile-separator::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--border-light), transparent);
+        }
+
+        .profile-label {
+            display: inline-block;
+            background: var(--bg-white);
+            padding: 8px 24px;
+            color: var(--accent-gold);
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== Section Styling ===== */
+        .section {
+            margin-bottom: 55px;
+        }
+
+        .section-title {
+            font-size: 1.7em;
+            color: var(--primary-dark);
+            margin-bottom: 32px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid var(--border-lighter);
+            font-weight: 700;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 90px;
+            height: 2px;
+            background: var(--accent-gold);
+        }
+
+        [dir="ltr"] .section-title::after {
+            right: auto;
+            left: 0;
+        }
+
+        /* ===== Focus Areas ===== */
+        .focus-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .focus-item {
+            background: var(--bg-white);
+            padding: 20px 24px;
+            border-radius: 8px;
+            border-right: 3px solid var(--accent-gold);
+            border: 1px solid var(--border-lighter);
+            border-right: 3px solid var(--accent-gold);
+            color: var(--text-dark);
+            font-size: 0.96em;
+            font-weight: 600;
+            line-height: 1.65;
+            transition: all 0.25s ease;
+        }
+
+        [dir="ltr"] .focus-item {
+            border-right: 1px solid var(--border-lighter);
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        .focus-item:hover {
+            transform: translateX(-3px);
+            box-shadow: 0 3px 12px rgba(30, 58, 95, 0.1);
+        }
+
+        [dir="ltr"] .focus-item:hover {
+            transform: translateX(3px);
+        }
+
+        /* ===== Experience Cards ===== */
+        .experience-item {
+            background: var(--bg-white);
+            padding: 36px;
+            margin-bottom: 26px;
+            border-radius: 10px;
+            border-right: 3px solid var(--primary-dark);
+            border: 1px solid var(--border-lighter);
+            border-right: 3px solid var(--primary-dark);
+            transition: all 0.3s ease;
+        }
+
+        [dir="ltr"] .experience-item {
+            border-right: 1px solid var(--border-lighter);
+            border-left: 3px solid var(--primary-dark);
+        }
+
+        .experience-item:hover {
+            box-shadow: 0 6px 16px rgba(30, 58, 95, 0.1);
+            transform: translateX(-3px);
+            border-right-color: var(--accent-gold);
+        }
+
+        [dir="ltr"] .experience-item:hover {
+            transform: translateX(3px);
+            border-left-color: var(--accent-gold);
+        }
+
+        .job-title {
+            font-size: 1.25em;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .job-context {
+            font-size: 0.9em;
+            color: var(--accent-gold);
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+
+        .company-name {
+            font-size: 1.05em;
+            color: var(--primary-blue);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .job-period {
+            font-size: 0.9em;
+            color: var(--text-light);
+            margin-bottom: 22px;
+            font-style: italic;
+        }
+
+        .job-description {
+            color: var(--text-medium);
+            line-height: 1.85;
+            text-align: justify;
+        }
+
+        .job-description ul {
+            list-style: none;
+            margin-top: 14px;
+        }
+
+        .job-description li {
+            padding-right: 24px;
+            margin-bottom: 16px;
+            position: relative;
+            line-height: 1.85;
+        }
+
+        [dir="ltr"] .job-description li {
+            padding-right: 0;
+            padding-left: 24px;
+        }
+
+        .job-description li::before {
+            content: "→";
+            position: absolute;
+            right: 0;
+            color: var(--accent-gold);
+            font-weight: 700;
+            font-size: 1.1em;
+        }
+
+        [dir="ltr"] .job-description li::before {
+            right: auto;
+            left: 0;
+        }
+
+        .job-description p {
+            margin-bottom: 16px;
+        }
+
+        /* ===== Highlight Achievements ===== */
+        .achievement-highlight {
+            background: linear-gradient(90deg, rgba(201, 184, 150, 0.1) 0%, transparent 100%);
+            border-right: 3px solid var(--accent-gold);
+            padding: 16px 20px;
+            margin: 18px 0;
+            border-radius: 6px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            font-size: 1.05em;
+        }
+
+        [dir="ltr"] .achievement-highlight {
+            background: linear-gradient(270deg, rgba(201, 184, 150, 0.1) 0%, transparent 100%);
+            border-right: none;
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        /* ===== Education ===== */
+        .education-item {
+            background: var(--bg-white);
+            padding: 32px 36px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid var(--border-lighter);
+            border-right: 3px solid var(--primary-dark);
+        }
+
+        [dir="ltr"] .education-item {
+            border-right: 1px solid var(--border-lighter);
+            border-left: 3px solid var(--primary-dark);
+        }
+
+        .degree {
+            font-size: 1.15em;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 10px;
+        }
+
+        .university {
+            color: var(--primary-blue);
+            font-weight: 600;
+            font-size: 0.98em;
+        }
+
+        /* ===== Skills Section ===== */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+        }
+
+        .skill-category {
+            background: var(--bg-white);
+            padding: 28px;
+            border-radius: 10px;
+            border-top: 3px solid var(--accent-gold);
+            border: 1px solid var(--border-lighter);
+            border-top: 3px solid var(--accent-gold);
+            transition: all 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(30, 58, 95, 0.1);
+        }
+
+        .skill-category-title {
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+            font-size: 1.08em;
+        }
+
+        .skill-category p {
+            color: var(--text-medium);
+            font-size: 0.95em;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        /* ===== Certifications ===== */
+        .cert-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .cert-item {
+            background: var(--bg-white);
+            padding: 24px 28px;
+            border-radius: 8px;
+            border-right: 3px solid var(--accent-gold);
+            border: 1px solid var(--border-lighter);
+            border-right: 3px solid var(--accent-gold);
+            color: var(--text-medium);
+            font-size: 0.96em;
+            line-height: 1.75;
+        }
+
+        [dir="ltr"] .cert-item {
+            border-right: 1px solid var(--border-lighter);
+            border-left: 3px solid var(--accent-gold);
+        }
+
+        /* ===== Responsive Design ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            .header {
+                padding: 40px 28px;
+            }
+
+            .header h1 {
+                font-size: 2.1em;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 14px;
+            }
+
+            .experience-item {
+                padding: 28px;
+            }
+
+            .skills-grid,
+            .cert-list,
+            .focus-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top-bar-content {
+                flex-direction: column;
+                gap: 20px;
+            }
+        }
+
+        @media print {
+            .top-bar {
+                display: none;
+            }
+
+            .container {
+                padding: 0;
+            }
+
+            .experience-item,
+            .education-item,
+            .skill-category {
+                page-break-inside: avoid;
+            }
+        }
+
+        /* ===== Hidden Content Toggle ===== */
+        .lang-content {
+            display: none;
+        }
+
+        .lang-content.active {
+            display: block;
+        }
+    </style>
+</head>
+<body dir="rtl">
+
+    <!-- Top Navigation Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="lang-section">
+                <div class="lang-label">لغة العرض • Language</div>
+                <div class="lang-switcher">
+                    <a href="#" class="lang-btn active" onclick="switchLang('ar'); return false;">🇸🇦 العربية</a>
+                    <a href="#" class="lang-btn" onclick="switchLang('en'); return false;">🇬🇧 English</a>
+                </div>
+            </div>
+            <div class="contact-section">
+                <div class="contact-label">التواصل • Contact</div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/naif-almohammadi" target="_blank" class="social-icon linkedin" title="LinkedIn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                    </a>
+                    <a href="https://x.com/naifalmohammadi" target="_blank" class="social-icon twitter" title="X">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Arabic Content -->
+    <div id="ar-content" class="lang-content active">
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <div class="executive-badge">Board-Level Executive</div>
+                <h1>نايف المحمدي</h1>
+                <div class="header-subtitle">مستشار مجالس إدارة ورئيس تنفيذي</div>
+                <div class="header-tagline">
+                    خبرة قيادية تتجاوز 25 عامًا في الاستشارة التنفيذية، قيادة التحول المؤسسي، الحوكمة والاستثمار عبر شركات عائلية، تعليمية، وصناعية.
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">📍 جدة، المملكة العربية السعودية</div>
+                    <div class="contact-item">✉️ almohammdin@gmail.com</div>
+                </div>
+                <div class="phone-section">
+                    <span class="phone-number">📱 0506350457</span>
+                    <div class="phone-actions">
+                        <a href="tel:+966506350457" class="phone-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                            اتصال
+                        </a>
+                        <a href="https://wa.me/966506350457" target="_blank" class="phone-btn whatsapp">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            واتساب
+                        </a>
+                    </div>
+                </div>
+                <div class="summary">
+                    مستشار استراتيجي وتنفيذي يتمتع بخبرة تزيد عن 25 عامًا في الاستشارات الإدارية، والاستشارات القانونية، وتطوير الأعمال، والاستثمار، وحوكمة الشركات عبر قطاعات متعددة تشمل التعليم، والضيافة، والصناعة، والأوقاف. ساهم في قيادة مشاريع استراتيجية، وتحسين أداء الشركات، وإدارة محافظ استثمارية كبيرة، وتطوير نماذج تشغيل مبتكرة، وإطلاق مبادرات رقمية ومؤسسية. مكّنت خبرته الشركات من اتخاذ قرارات أقوى، وتحسين ممارسات الحوكمة، ورفع الأداء التشغيلي والمالي.
+                </div>
+            </div>
+
+            <!-- Executive Profile Separator -->
+            <div class="profile-separator">
+                <span class="profile-label">Executive Profile</span>
+            </div>
+
+            <!-- Focus Areas Section -->
+            <div class="section">
+                <h2 class="section-title">مجالات التركيز القيادي</h2>
+                <div class="focus-grid">
+                    <div class="focus-item">قيادة التحول المؤسسي</div>
+                    <div class="focus-item">حوكمة الشركات والشركات العائلية</div>
+                    <div class="focus-item">إعداد الجاهزية للطرح أو الشراكات</div>
+                    <div class="focus-item">إدارة التعقيد القانوني والاستثماري</div>
+                    <div class="focus-item">بناء وقيادة الفرق التنفيذية</div>
+                </div>
+            </div>
+
+            <!-- Experience Section -->
+            <div class="section">
+                <h2 class="section-title">الخبرة العملية</h2>
+
+                <div class="experience-item">
+                    <div class="job-title">مستشار تنفيذي</div>
+                    <div class="job-context">حوكمة وتحول مؤسسي</div>
+                    <div class="company-name">مجموعة منيف النهدي</div>
+                    <div class="job-period">2023 – حتى الآن</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>قيادة قضايا قانونية حساسة بالاستناد إلى سوابق قوية وصياغة مذكرات قانونية مؤثرة نتج عنها أحكام قضائية بملايين الريالات لصالح المجموعة.</li>
+                            <li>تحسين قطاعات تشغيلية تشمل قطع الغيار، ومراكز الصيانة، ومصنع مسابك الحديد من خلال مبادرات إعادة الهيكلة والتطوير الاستراتيجي.</li>
+                            <li>تقديم الاستشارات الاستراتيجية لمجلس الإدارة بشأن المسائل المالية والتنظيمية والمخاطر، مما حسّن اتخاذ القرارات وكفاءة التكاليف.</li>
+                            <li>مراجعة وصياغة العقود وتقليل المخاطر القانونية بشكل كبير.</li>
+                            <li>الإشراف على إعادة الهيكلة التنظيمية والمالية وتعزيز أنظمة الحوكمة.</li>
+                            <li>تطوير منصة رقمية لزيوت السيارات كمسار لتنويع الأعمال.</li>
+                            <li>استقطاب امتياز عالمي وإدارة تطوير الامتيازات للمجموعة.</li>
+                            <li>استعادة علامتين تجاريتين تاريخيتين عمرهما أكثر من <strong>40 عامًا</strong>، مما أعاد أصول الملكية الفكرية.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">مستشار تنفيذي</div>
+                    <div class="job-context">جاهزية سوق مالية وتطوير نماذج تشغيل</div>
+                    <div class="company-name">مدارس الأقصى</div>
+                    <div class="job-period">2023 – حتى الآن</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>قيادة برنامج جاهزية مؤسسية يمتد لـ<strong>18 شهرًا</strong> تأهبًا للدخول للسوق المالية، شمل إعادة الهيكلة وبناء البنية المؤسسية وتطوير نموذج الفصل بين "المدرسة" و"الشركة"، وإعداد دراسات الإدراج والشراكات.</li>
+                            <li>إعداد وتحليل نموذج التشغيل لمشروع المدرسة الجديدة في الرياض وتقييم جدواه وأثره على قيمة الشركة واستدامة التوسع، ونتج عنه دعم قرار التوسع وفق نموذج استثماري أكثر أمانًا وربحية.</li>
+                            <li>تطوير نموذج تشغيل متقدم لمدارس الأقصى قائم على مقارنة النماذج العالمية ومؤشرات الجودة التعليمية، وقدّم توصية استراتيجية لمجلس الإدارة بنموذج تشغيلي أكثر كفاءة وربحية.</li>
+                            <li>إدارة التواصل والتفاوض مع مجموعات تشغيل عالمية وشركات استشارات تعليمية، وتقييم خيارات التشغيل (إدارة – استئجار – تشغيل – شراكات).</li>
+                            <li>قيادة مبادرة تسجيل مدارس الأقصى في مؤتمر الاستثمار في التعليم وإدارة إجراءات تسجيل المتحدث، الأمر الذي عزّز حضور المدارس أمام المستثمرين الإقليميين والمشغّلين الدوليين.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">مستشار الناظر</div>
+                    <div class="job-context">حوكمة أوقاف وتطوير استثماري</div>
+                    <div class="company-name">وقف عامر بن عبدالله النهدي</div>
+                    <div class="job-period">2023 – حتى الآن</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>قيادة تحويل أحد الأصول العقارية الرئيسية من نموذج التشغيل المباشر إلى نموذج الإيجار طويل الأجل، والمساهمة في التفاوض والتعاقد مع المستأجر، مما وفر عائدًا مستدامًا ومنضبطًا ماليًا.</li>
+                            <li>استقطاب شركة متخصصة في الأوقاف تضم خبراء رفيعي المستوى لإعداد اللوائح والحوكمة الشرعية والتنظيمية، وأسهم ذلك في رفع مستوى الامتثال الشرعي والإداري.</li>
+                            <li>تقييم واستقطاب فرص استثمارية ملائمة لطبيعة أموال الوقف، مع تحليل جدواها ورفع التوصيات المدعومة بمعايير الاستدامة المالية.</li>
+                            <li>تحليل أصول الوقف وتحديد أفضل الخيارات لتعظيم الدخل وتحسين الاستخدام، ساهم في رسم خارطة تطوير مستقبلية قائمة على تعظيم القيمة.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">مدير تنفيذي</div>
+                    <div class="job-context">حوكمة عائلية وإدارة محافظ</div>
+                    <div class="company-name">شركة منيف الرائدة</div>
+                    <div class="job-period">2023 – حتى الآن</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>متابعة وتنسيق الملكيات العائلية في عدد من الشركات وتقديم صورة تحليلية دقيقة لصاحب القرار حول الوضع الاستثماري العام.</li>
+                            <li>الإشراف على محفظة عقارية خاصة بالعائلة ومتابعة احتياجاتها التشغيلية والاستثمارية، مع رفع توصيات مبنية على دراسة جدوى وتوقعات السوق.</li>
+                            <li>الإسهام في صياغة وتطوير الميثاق العائلي والإشراف على جوانب الحوكمة المرتبطة بالعائلة، مما عمل على تعزيز النزاهة والعدالة في إدارة الملكيات.</li>
+                            <li>إعداد تصور أولي لوثيقة الوقف الخاص بالعائلة بالتنسيق مع الجهات الشرعية والقانونية.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">عضو مؤسس وعضو مجلس الإدارة</div>
+                    <div class="company-name">جمعية ملاك المطاعم والمقاهي</div>
+                    <div class="job-period">2020 – حتى الآن</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>لعبت دورًا محوريًا في تأسيس وتنظيم منتدى الضيافة وجمع قادة القطاع وأصحاب المصلحة، مما ساهم في إطلاق منصة وطنية لدعم الابتكار وتبادل الخبرات.</li>
+                            <li>الإشراف على المبادرات الاستراتيجية الموجهة للزوار والمهتمين بقطاع الضيافة، وأدى ذلك إلى تعزيز تجربة الزائر وتحسين جودة الخدمات.</li>
+                            <li>قيادة عملية فصل وتسجيل روّاد الضيافة كجمعية مستقلة مع تأسيس إطار الحوكمة لضمان استقلال تشغيلي وتنظيمي كامل.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">مؤسس والرئيس التنفيذي</div>
+                    <div class="company-name">شركة قهوة أثيل للاستثمار</div>
+                    <div class="job-period">2010 – 2025</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>تأسيس وتطوير شركة استثمار وتشغيل في قطاع المقاهي وبناء نموذج تجاري وهوية وتجربة عميل مستدامة على مدى <strong>15 عامًا</strong>، ساهمت في ترسيخ العلامة كأحد اللاعبين المؤثرين في سوق المقاهي المحلية.</li>
+                            <li>قيادة مشروع اندماج بين اثنين من أكبر مشغّلي المقاهي في المملكة، شمل التحليل المالي والتشغيلي وبناء التصور الاستراتيجي للكيان الموحد.</li>
+                            <li>الإشراف على إعداد ملف استحواذ استراتيجي على سلسلة مقاهٍ كبرى تقدّر قيمتها بمئات الملايين، متضمّنًا التقييم المالي وتحليل المخاطر والوضع التنافسي.</li>
+                            <li>قيادة خطط النمو والتوسع وتطوير المنتجات وفقًا لاتجاهات السوق وتحسين الكفاءة التشغيلية، نتج عنها رفع الربحية وزيادة عدد الفروع.</li>
+                            <li>بناء وإدارة فرق عمل احترافية ورفع جاهزيتها التشغيلية من خلال التدريب وتطوير المهارات.</li>
+                            <li>تطوير أنظمة وسياسات التشغيل ورفع كفاءة إدارة التكاليف، ما أدى إلى تحسين حدود الربحية واستدامة النمو.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">مدير تطوير الأعمال</div>
+                    <div class="company-name">الوقف العلمي بجامعة الملك عبدالعزيز</div>
+                    <div class="job-period">2012 – 2016</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>الإشراف على أمانة لجنة الاستثمار وتنظيم اجتماعاتها والتواصل مع كبار المستثمرين من أعضاء اللجنة، مما ساهم في رفع جاهزية القرارات عبر إعداد ملفات تحليلية دقيقة.</li>
+                            <li>استقطاب وتحليل وتقييم فرص استثمارية متنوعة ورفع توصيات مبنية على دراسات جدوى ومخاطر متقدمة.</li>
+                            <li>إدارة منظومة استثمارية لمحفظة كبيرة ومتنوعة تُقدّر بعشرات الملايين، تتضمن مراجعة العقود، ومتابعة الملكيات، وتحليل الأداء.</li>
+                            <li>تمثيل الوقف في المعارض الدولية والندوات وورش العمل، وبناء شبكة علاقات مؤسسية مع جهات محلية وعالمية.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">مدير مشاريع</div>
+                    <div class="company-name">الوقف العلمي بجامعة الملك عبدالعزيز</div>
+                    <div class="job-period">2009 – 2012</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>قيادة تطوير برنامج الاستقطاع الشهري لمنسوبي الجامعة وتحقيق نمو يفوق <strong>600%</strong> في الإيرادات خلال <strong>3 سنوات</strong> عبر تصميم برامج تمويل مبتكرة.
+                                <div class="achievement-highlight">✓ نمو الإيرادات: 600% خلال 3 سنوات</div>
+                            </li>
+                            <li>تصميم وإطلاق مبادرة مساهمة الطلاب من مكافآتهم الشهرية، نتج عنها توسّع كبير في عدد المساهمين وبناء قاعدة مانحين مستدامة من فئة الشباب.</li>
+                            <li>تقديم محاضرات توعوية وتفاعلية في القاعات الدراسية لتشجيع الطلاب على المشاركة في مشاريع الوقف.</li>
+                            <li>تطوير آليات المتابعة والتواصل وتحسين أنظمة جمع البيانات، مما رفع دقة التقارير المالية.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Section -->
+            <div class="section">
+                <h2 class="section-title">الشهادات العلمية</h2>
+                <div class="education-item">
+                    <div class="degree">بكالوريوس في الدراسات الإسلامية</div>
+                    <div class="university">جامعة الملك عبد العزيز • 2011</div>
+                </div>
+            </div>
+
+            <!-- Conferences & Exhibitions -->
+            <div class="section">
+                <h2 class="section-title">المعارض والمؤتمرات</h2>
+                <div class="experience-item">
+                    <div class="job-description">
+                        <p>خبرة دولية تمتد لأكثر من <strong>20 عامًا</strong> في حضور وتمثيل القطاع في المعارض والمنتديات والمؤتمرات العالمية في أكثر من <strong>30 دولة</strong>، طوّرت خلالها منهجية عملية للاستفادة القصوى من هذه الفعاليات. ومع تأسيس جمعية ملاك المطاعم والمقاهي، حوّلت هذه الخبرة إلى إطار مؤسسي منظم عبر تصميم رحلات مهنية متخصصة للأعضاء تربط بين:</p>
+                        <ul>
+                            <li>الاطلاع على أفضل الممارسات العالمية</li>
+                            <li>بناء التحالفات والعلاقات الدولية</li>
+                            <li>تطوير مبادرات نوعية تخدم قطاع الضيافة في المملكة</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Training Courses -->
+            <div class="section">
+                <h2 class="section-title">الدورات التدريبية</h2>
+                <div class="experience-item">
+                    <div class="job-description">
+                        <p>على مدار أكثر من <strong>25 عامًا</strong> من الخبرة العملية، أكملت مئات البرامج التدريبية المتخصصة في مجالات القيادة، الابتكار، الإدارة، وتطوير الأعمال. فيما يلي عينة من أبرز الدورات ذات الصلة المباشرة:</p>
+                    </div>
+                </div>
+                <div class="cert-list">
+                    <div class="cert-item">الابتكار في العمل الحكومي | مركز محمد بن راشد للابتكار الحكومي، دبي</div>
+                    <div class="cert-item">مشروع نحو بناء استجابة أفضل | جامعة هارفارد، الولايات المتحدة الأمريكية</div>
+                    <div class="cert-item">الإدارة التنفيذية الدولية للشركات الصغيرة والمتوسطة | جامعة بوكوني، إيطاليا</div>
+                    <div class="cert-item">تأسيس مجلس إدارة أكفأ في الشركات العائلية | الأكاديمية المالية</div>
+                </div>
+            </div>
+
+            <!-- Certifications & Memberships -->
+            <div class="section">
+                <h2 class="section-title">العضويات والاعتمادات</h2>
+                <div class="cert-list">
+                    <div class="cert-item">أخصائي تنمية مستدامة في القطاع الخيري</div>
+                    <div class="cert-item">أخصائي جودة منظمات غير ربحية</div>
+                    <div class="cert-item">عضو الشبكة الإقليمية للمسئولية المجتمعية</div>
+                </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="section">
+                <h2 class="section-title">المهارات</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <div class="skill-category-title">المهارات الشخصية</div>
+                        <p>حل المشكلات، التواصل، مهارات التعامل مع الآخرين، التفاوض، العمل الجماعي، اتخاذ القرار، والقيادة.</p>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">المهارات الإدارية</div>
+                        <p>الإدارة، حوكمة الشركات، التخطيط الاستراتيجي، التحليل المالي، التقييم، تحليل البيانات، إدارة التغيير، إدارة المشاريع.</p>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">المهارات المتقدمة</div>
+                        <p>تصميم نموذج الأعمال، تخطيط الاستثمار، الاستراتيجية القانونية، التفاوض على العقود، الإدارة الاستراتيجية، قيادة العمليات.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- English Content -->
+    <div id="en-content" class="lang-content">
+        <div class="container">
+            <!-- Header -->
+            <div class="header">
+                <div class="executive-badge">Board-Level Executive</div>
+                <h1>Naif Almohammadi</h1>
+                <div class="header-subtitle">Board Advisor & Chief Executive</div>
+                <div class="header-tagline">
+                    Over 25 years of executive leadership experience in advisory, institutional transformation, governance, and investment across family-owned, educational, and industrial enterprises.
+                </div>
+                <div class="contact-info">
+                    <div class="contact-item">📍 Jeddah, Saudi Arabia</div>
+                    <div class="contact-item">✉️ almohammdin@gmail.com</div>
+                </div>
+                <div class="phone-section">
+                    <span class="phone-number">📱 +966 50 635 0457</span>
+                    <div class="phone-actions">
+                        <a href="tel:+966506350457" class="phone-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>
+                            Call
+                        </a>
+                        <a href="https://wa.me/966506350457" target="_blank" class="phone-btn whatsapp">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                            WhatsApp
+                        </a>
+                    </div>
+                </div>
+                <div class="summary">
+                    An executive advisor with over 25 years of diverse experience in management consulting, legal advisory, business development, investment, and corporate governance across multiple sectors, including education, hospitality, manufacturing, and endowments. His contributions include leading strategic projects, improving corporate performance, managing large investment portfolios, developing innovative operating models, and launching digital and organizational initiatives. His experience has enabled companies to make stronger decisions, improve governance practices, and enhance operational and financial performance.
+                </div>
+            </div>
+
+            <!-- Executive Profile Separator -->
+            <div class="profile-separator">
+                <span class="profile-label">Executive Profile</span>
+            </div>
+
+            <!-- Focus Areas Section -->
+            <div class="section">
+                <h2 class="section-title">Leadership Focus Areas</h2>
+                <div class="focus-grid">
+                    <div class="focus-item">Leading Institutional Transformation</div>
+                    <div class="focus-item">Corporate & Family Business Governance</div>
+                    <div class="focus-item">Capital Market & Partnership Readiness</div>
+                    <div class="focus-item">Managing Legal & Investment Complexity</div>
+                    <div class="focus-item">Building & Leading Executive Teams</div>
+                </div>
+            </div>
+
+            <!-- Experience Section -->
+            <div class="section">
+                <h2 class="section-title">Experience</h2>
+
+                <div class="experience-item">
+                    <div class="job-title">Executive Advisor</div>
+                    <div class="job-context">Governance & Institutional Transformation</div>
+                    <div class="company-name">Muneef Al Nahdi Group of Companies</div>
+                    <div class="job-period">2023 – Present</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Led sensitive legal cases based on strong precedents and drafted impactful legal memoranda resulting in multi-million-riyals court rulings in favor of the group.</li>
+                            <li>Improved operational sectors including spare parts, maintenance centers, and the iron foundry through restructuring and strategic development initiatives.</li>
+                            <li>Provided strategic advisory to the Board on financial, regulatory, and risk matters improving decision-making and cost efficiency.</li>
+                            <li>Reviewed and drafted contracts and reduced legal risks significantly.</li>
+                            <li>Supervised organizational and financial restructuring and enhanced governance systems.</li>
+                            <li>Developed a digital automotive oil platform delivered as a diversification track.</li>
+                            <li>Attracted a global franchise and managed the group's franchise development.</li>
+                            <li>Recovered two historic trademarks older than <strong>40 years</strong>, restoring intellectual property assets.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">Executive Advisor</div>
+                    <div class="job-context">Capital Market Readiness & Operating Model Development</div>
+                    <div class="company-name">Al-Aqsa Schools</div>
+                    <div class="job-period">2023 – Present</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Led an <strong>18-month</strong> readiness program preparing the company for potential capital-market entry.</li>
+                            <li>Developed and analyzed the operating model for the Riyadh school project.</li>
+                            <li>Designed an advanced educational operating model based on global benchmarks.</li>
+                            <li>Managed negotiations with global operators and education advisory firms.</li>
+                            <li>Led the school's participation in the Education Investment Conference.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">Advisor to the Supervisor</div>
+                    <div class="job-context">Endowment Governance & Investment Development</div>
+                    <div class="company-name">Amer Al Nahdi Endowment</div>
+                    <div class="job-period">2023 – Present</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Transformed a major real-estate asset to a long-term lease model generating sustainable revenues.</li>
+                            <li>Attracted an expert endowment consulting firm to build governance and Shariah frameworks.</li>
+                            <li>Evaluated investment opportunities suitable for endowment requirements.</li>
+                            <li>Analyzed assets and developed a roadmap for value maximization.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">General Manager</div>
+                    <div class="job-context">Family Governance & Portfolio Management</div>
+                    <div class="company-name">Muneef Al-Raeda</div>
+                    <div class="job-period">2023 – Present</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Coordinated family ownership structures and provided analytical reports on investment performance.</li>
+                            <li>Oversaw a private family real-estate portfolio and issued strategic recommendations.</li>
+                            <li>Contributed to developing the family charter and governance frameworks.</li>
+                            <li>Prepared the concept for the family private endowment.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">Co-Founder & Board Member</div>
+                    <div class="company-name">Saudi Restaurants & Cafés Owners Association</div>
+                    <div class="job-period">2020 – Present</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Played a leading role in establishing and organizing the Hospitality Forum.</li>
+                            <li>Supervised strategic initiatives that enhanced visitor experience.</li>
+                            <li>Led the separation and registration of "Hospitality Leaders" as an independent association.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">Founder & CEO</div>
+                    <div class="company-name">Atheel Coffee Investment Company</div>
+                    <div class="job-period">2010 – 2025</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Founded and developed a major café-sector company over <strong>15 years</strong>.</li>
+                            <li>Led a strategic merger between two of the Kingdom's largest café operators.</li>
+                            <li>Supervised an acquisition file for a major café chain worth hundreds of millions.</li>
+                            <li>Led growth, expansion, and product-development initiatives.</li>
+                            <li>Built and trained high-performance operational teams.</li>
+                            <li>Improved systems and cost-management models increasing profitability.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">Business Development Manager</div>
+                    <div class="company-name">Scientific Endowment, King Abdulaziz University</div>
+                    <div class="job-period">2012 – 2016</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Managed the Investment Committee Secretariat and prepared analytical decision files.</li>
+                            <li>Evaluated diverse investment opportunities based on feasibility and risk.</li>
+                            <li>Managed a multi-million diversified portfolio.</li>
+                            <li>Represented the endowment in international events.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="experience-item">
+                    <div class="job-title">Project Manager</div>
+                    <div class="company-name">Scientific Endowment, King Abdulaziz University</div>
+                    <div class="job-period">2009 – 2012</div>
+                    <div class="job-description">
+                        <ul>
+                            <li>Achieved over <strong>600%</strong> revenue growth through redesigned monthly contribution programs.
+                                <div class="achievement-highlight">✓ Revenue Growth: 600% over 3 years</div>
+                            </li>
+                            <li>Launched student-donation initiatives building a sustainable young donor base.</li>
+                            <li>Delivered awareness lectures encouraging student participation.</li>
+                            <li>Enhanced monitoring, communication, and data-collection processes.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Education Section -->
+            <div class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="education-item">
+                    <div class="degree">Bachelor's Degree in Islamic Studies</div>
+                    <div class="university">King Abdulaziz University • 2011</div>
+                </div>
+            </div>
+
+            <!-- Conferences & Exhibitions -->
+            <div class="section">
+                <h2 class="section-title">Conferences & Exhibitions</h2>
+                <div class="experience-item">
+                    <div class="job-description">
+                        <p>More than <strong>20 years</strong> of global exhibition and conference participation across <strong>30+ countries</strong>, later institutionalized through specialized professional knowledge trips under the Saudi Restaurants & Cafés Owners Association, connecting:</p>
+                        <ul>
+                            <li>Exposure to global best practices</li>
+                            <li>Building international alliances and relationships</li>
+                            <li>Developing quality initiatives serving the hospitality sector in the Kingdom</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Training Programs -->
+            <div class="section">
+                <h2 class="section-title">Training Programs</h2>
+                <div class="experience-item">
+                    <div class="job-description">
+                        <p>Over <strong>25 years</strong> of professional experience, completed hundreds of specialized training programs in leadership, innovation, management, and business development. Below is a sample of the most relevant courses:</p>
+                    </div>
+                </div>
+                <div class="cert-list">
+                    <div class="cert-item">Innovation in Government – Mohammed bin Rashid Center for Government Innovation, Dubai</div>
+                    <div class="cert-item">Building a Better Response – Harvard University, United States</div>
+                    <div class="cert-item">International SME Executive Program – Bocconi University, Italy</div>
+                    <div class="cert-item">Family Business Board Effectiveness – Financial Academy</div>
+                </div>
+            </div>
+
+            <!-- Certifications & Memberships -->
+            <div class="section">
+                <h2 class="section-title">Memberships & Certifications</h2>
+                <div class="cert-list">
+                    <div class="cert-item">Sustainable Development Specialist – Charitable Sector</div>
+                    <div class="cert-item">Nonprofit Organizational Quality Specialist</div>
+                    <div class="cert-item">Member – Regional CSR Network</div>
+                </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="section">
+                <h2 class="section-title">Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <div class="skill-category-title">Personal Skills</div>
+                        <p>Problem solving, communication, interpersonal skills, negotiation, teamwork, decision-making, and leadership.</p>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">Management Skills</div>
+                        <p>Management, corporate governance, strategic planning, financial analysis, valuation, data analysis, change management, project management.</p>
+                    </div>
+                    <div class="skill-category">
+                        <div class="skill-category-title">Advanced Skills</div>
+                        <p>Business model design, investment planning, legal strategy, contract negotiation, strategic management, operations leadership.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchLang(lang) {
+            const arContent = document.getElementById('ar-content');
+            const enContent = document.getElementById('en-content');
+            const body = document.body;
+            const langBtns = document.querySelectorAll('.lang-btn');
+
+            if (lang === 'ar') {
+                arContent.classList.add('active');
+                enContent.classList.remove('active');
+                body.setAttribute('dir', 'rtl');
+                body.setAttribute('lang', 'ar');
+                langBtns[0].classList.add('active');
+                langBtns[1].classList.remove('active');
+            } else {
+                enContent.classList.add('active');
+                arContent.classList.remove('active');
+                body.setAttribute('dir', 'ltr');
+                body.setAttribute('lang', 'en');
+                langBtns[1].classList.add('active');
+                langBtns[0].classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
