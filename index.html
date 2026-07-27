@@ -188,15 +188,17 @@
     }
     .header-identity-copy { flex: 1; min-width: 0; }
     .profile-photo {
-      width: 104px;
-      height: 124px;
-      flex: 0 0 104px;
-      object-fit: cover;
-      object-position: 50% 15%;
-      border-radius: 14px;
-      border: 2px solid rgba(201,168,76,.62);
-      background: #fff;
-      box-shadow: 0 12px 28px rgba(0,0,0,.26);
+      width: 118px;
+      height: 150px;
+      flex: 0 0 118px;
+      object-fit: contain;
+      object-position: center bottom;
+      align-self: flex-end;
+      margin-bottom: -18px;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      filter: drop-shadow(0 12px 16px rgba(0,0,0,.24));
     }
 
     .naif-logo {
@@ -263,7 +265,22 @@
     .email-contact {
       direction:ltr;
       unicode-bidi:isolate;
-      white-space:nowrap;
+      white-space:nowrap !important;
+      flex:0 0 auto;
+      word-break:normal !important;
+      overflow-wrap:normal !important;
+      flex-wrap:nowrap !important;
+    }
+    .email-address {
+      display:inline-block;
+      direction:ltr;
+      unicode-bidi:isolate;
+      white-space:nowrap !important;
+      word-break:keep-all !important;
+      overflow-wrap:normal !important;
+      text-decoration:none;
+      color:inherit;
+      letter-spacing:0;
       flex:0 0 auto;
     }
 
@@ -441,11 +458,24 @@
       background: linear-gradient(to right, #189d94, #2f70bf, transparent);
     }
     .council-flags {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin: 0;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .council-flags img {
+      width: 20px;
+      height: 20px;
+      display: block;
+    }
+    .council-name {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
-      font-size: 1.18em;
+      justify-content: center;
+      gap: 7px;
+      flex-wrap: wrap;
     }
     .company-link { color:inherit; text-decoration:none; }
     .company-link:hover { color:var(--gold); }
@@ -664,8 +694,8 @@
       justify-content:center;
     }
     .tool-visual img {
-      width:100%;
-      height:100%;
+      width:70%;
+      height:70%;
       display:block;
       object-fit:contain;
       object-position:center;
@@ -785,13 +815,13 @@
       .cert-pro { flex-direction:column; gap:12px; }
       .naif-logo { width:175px; max-width:60%; }
       .header-identity { gap:16px; }
-      .profile-photo { width:82px; height:98px; flex-basis:82px; border-radius:11px; }
+      .profile-photo { width:88px; height:112px; flex-basis:88px; margin-bottom:-12px; }
     }
     @media (max-width:480px) {
       .impact-grid { grid-template-columns:1fr; }
       .tools-grid { grid-template-columns:1fr; }
       .header-identity { gap:12px; }
-      .profile-photo { width:70px; height:84px; flex-basis:70px; }
+      .profile-photo { width:74px; height:94px; flex-basis:74px; margin-bottom:-10px; }
       .naif-logo { width:150px; }
       .rcoa-badge { font-size:.69rem; padding:5px 10px; }
     }
@@ -817,7 +847,7 @@
     .pdf-document .header { border-radius:0; padding:26px 30px; margin-bottom:18px; break-after:avoid; }
     .pdf-document .header-pattern { display:none; }
     .pdf-document .naif-logo { width:155px; margin-bottom:14px; }
-    .pdf-document .profile-photo { width:78px; height:94px; flex-basis:78px; }
+    .pdf-document .profile-photo { width:82px; height:104px; flex-basis:82px; margin-bottom:-11px; }
     .pdf-document .header h1 { font-size:2.15em; }
     .pdf-document .header-title { margin-bottom:18px; padding-bottom:15px; }
     .pdf-document .phone-btn { display:none; }
@@ -826,7 +856,12 @@
     .pdf-document .impact-grid { gap:9px; margin-bottom:24px; grid-template-columns:repeat(4,1fr); }
     .pdf-document .impact-card { padding:16px 14px; }
     .pdf-document .section { margin-bottom:27px; }
-    .pdf-document .section-title { margin-bottom:16px; padding-bottom:8px; }
+    .pdf-document .section-title {
+      margin-bottom:16px;
+      padding-bottom:8px;
+      break-after:avoid-page;
+      page-break-after:avoid;
+    }
     .pdf-document .board-grid { gap:10px; grid-template-columns:repeat(3,1fr); }
     .pdf-document .board-card { padding:16px 17px; }
     .pdf-document .board-logo { width:126px; max-width:82%; height:auto; max-height:66px; }
@@ -884,10 +919,10 @@
           <button class="lang-btn active" id="btn-ar" onclick="switchLang('ar')">🇸🇦 عربي</button>
           <button class="lang-btn" id="btn-en" onclick="switchLang('en')">🇬🇧 EN</button>
         </div>
-        <button class="btn-download" id="downloadPdfButton" type="button" onclick="downloadCvPdf()">
+        <a class="btn-download" id="downloadPdfButton" href="./Naif-Almohammdi-CV-AR.pdf" download="Naif-Almohammdi-CV-AR.pdf">
           <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
           <span id="dl-label">تحميل PDF</span>
-        </button>
+        </a>
       </div>
     </div>
   </div>
@@ -935,11 +970,11 @@
                 قيادي ومستشار في الاستثمار وتطوير الأعمال &nbsp;|&nbsp; <strong>حوكمة مجالس الإدارة، تعظيم الأصول وصناعة الأثر</strong>
               </div>
             </div>
-            <img class="profile-photo" src="./assets/naif-photo.jpeg" alt="نايف المحمدي">
+            <img class="profile-photo" src="./assets/naif-photo-cutout.webp" alt="نايف المحمدي">
           </div>
           <div class="contact-row">
             <div class="contact-item">📍 جدة، المملكة العربية السعودية</div>
-            <div class="contact-item email-contact">✉️ almohammdin@gmail.com</div>
+            <div class="contact-item email-contact"><span aria-hidden="true">✉️</span><a class="email-address" dir="ltr" href="mailto:almohammdin@gmail.com">almohammdin@gmail.com</a></div>
           </div>
           <div class="phone-row">
             <span class="phone-num">📱 0506350457</span>
@@ -996,15 +1031,18 @@
             <div class="board-since">منذ 2026 | حتى الآن</div>
           </div>
           <div class="board-card">
+            <img class="board-logo" src="./assets/rcoa-logo.png" alt="شعار جمعية ملاك المطاعم والمقاهي">
             <div class="board-role">عضو مؤسس | عضو مجلس الإدارة</div>
             <div class="board-entity">جمعية ملاك المطاعم والمقاهي | RCOA</div>
             <div class="board-since">منذ 2020 | حتى الآن</div>
           </div>
           <div class="board-card council-card">
-            <div class="council-flags" aria-label="المملكة العربية السعودية والبيرو"><span>🇸🇦</span><span>🇵🇪</span></div>
             <img class="board-logo" src="./assets/federation-saudi-chambers.png" alt="شعار اتحاد الغرف السعودية">
             <div class="board-role">عضو</div>
-            <div class="board-entity">مجلس الأعمال السعودي البيروفي</div>
+            <div class="board-entity council-name">
+              <span>مجلس الأعمال السعودي البيروفي</span>
+              <span class="council-flags" aria-label="المملكة العربية السعودية والبيرو"><img src="./assets/flag-saudi-arabia.svg" alt="علم السعودية"><img src="./assets/flag-peru.svg" alt="علم البيرو"></span>
+            </div>
             <div class="board-since">اتحاد الغرف السعودية</div>
           </div>
         </div>
@@ -1128,7 +1166,6 @@
           <span class="tag">حوكمة الشركات العائلية</span>
           <span class="tag">قطاع الأغذية والمشروبات F&amp;B</span>
           <span class="tag">التفاوض وإدارة العقود</span>
-          <span class="tag primary">اللغة الإنجليزية | كفاءة مهنية</span>
         </div>
       </div>
       <div class="section">
@@ -1319,11 +1356,11 @@
                 Investment &amp; Business Development Executive Advisor &nbsp;|&nbsp; <strong>Board Governance, Asset Value &amp; Measurable Impact</strong>
               </div>
             </div>
-            <img class="profile-photo" src="./assets/naif-photo.jpeg" alt="Naif Almohammdi">
+            <img class="profile-photo" src="./assets/naif-photo-cutout.webp" alt="Naif Almohammdi">
           </div>
           <div class="contact-row">
             <div class="contact-item">📍 Jeddah, Saudi Arabia</div>
-            <div class="contact-item email-contact">✉️ almohammdin@gmail.com</div>
+            <div class="contact-item email-contact"><span aria-hidden="true">✉️</span><a class="email-address" dir="ltr" href="mailto:almohammdin@gmail.com">almohammdin@gmail.com</a></div>
           </div>
           <div class="phone-row">
             <span class="phone-num">📱 +966 50 635 0457</span>
@@ -1362,8 +1399,8 @@
         <h2 class="section-title">Current Roles & Board Memberships</h2>
         <div class="board-grid">
           <div class="board-card"><img class="board-logo" src="./assets/hatta-logo.jpg" alt="Hatta Business Solutions Company logo"><div class="board-role">Founder | Strategic Advisor</div><div class="board-entity">Hatta Business Solutions Company</div><div class="board-since">Since 2026 | Present</div></div>
-          <div class="board-card"><div class="board-role">Founding Member | Board Member</div><div class="board-entity">Restaurant & Café Owners Association | RCOA</div><div class="board-since">Since 2020 | Present</div></div>
-          <div class="board-card council-card"><div class="council-flags" aria-label="Saudi Arabia and Peru"><span>🇸🇦</span><span>🇵🇪</span></div><img class="board-logo" src="./assets/federation-saudi-chambers.png" alt="Federation of Saudi Chambers logo"><div class="board-role">Member</div><div class="board-entity">Saudi-Peruvian Business Council</div><div class="board-since">Federation of Saudi Chambers</div></div>
+          <div class="board-card"><img class="board-logo" src="./assets/rcoa-logo.png" alt="Restaurant & Café Owners Association logo"><div class="board-role">Founding Member | Board Member</div><div class="board-entity">Restaurant & Café Owners Association | RCOA</div><div class="board-since">Since 2020 | Present</div></div>
+          <div class="board-card council-card"><img class="board-logo" src="./assets/federation-saudi-chambers.png" alt="Federation of Saudi Chambers logo"><div class="board-role">Member</div><div class="board-entity council-name"><span>Saudi-Peruvian Business Council</span><span class="council-flags" aria-label="Saudi Arabia and Peru"><img src="./assets/flag-saudi-arabia.svg" alt="Saudi Arabia flag"><img src="./assets/flag-peru.svg" alt="Peru flag"></span></div><div class="board-since">Federation of Saudi Chambers</div></div>
         </div>
       </div>
 
@@ -1445,7 +1482,6 @@
           <span class="tag">Family Business Governance</span>
           <span class="tag">F&amp;B Sector Advisory</span>
           <span class="tag">Contract Negotiation</span>
-          <span class="tag primary">Bilingual | Arabic &amp; English</span>
         </div>
       </div>
 
@@ -1502,7 +1538,7 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-left footer-brand">
-        <img class="footer-naif-logo" src="https://almohammdin.github.io/emtidad/assets/images/naif-logo.png?v=0.4.6" alt="شعار نايف المحمدي">
+        <img class="footer-naif-logo" src="./assets/naif-footer-logo.png" alt="شعار نايف المحمدي">
         <div>
           <strong>نايف المحمدي</strong><br>
           المؤسس والمستشار الاستراتيجي | شركة حتى لحلول الأعمال
@@ -1524,12 +1560,11 @@
         </a>
       </nav>
       <div class="footer-copy">
-        <span>© 2026 نايف المحمدي | السيرة المهنية | الإصدار 2.4</span>
+        <span>© 2026 نايف المحمدي | السيرة المهنية | الإصدار 2.5</span>
       </div>
     </div>
   </footer>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <script>
     function switchLang(lang) {
       const ar = document.getElementById('ar-content');
@@ -1537,6 +1572,7 @@
       const btnAr = document.getElementById('btn-ar');
       const btnEn = document.getElementById('btn-en');
       const dlLabel = document.getElementById('dl-label');
+      const dlButton = document.getElementById('downloadPdfButton');
 
       if (lang === 'ar') {
         ar.classList.add('active');
@@ -1546,6 +1582,8 @@
         btnAr.classList.add('active');
         btnEn.classList.remove('active');
         dlLabel.textContent = 'تحميل PDF';
+        dlButton.href = './Naif-Almohammdi-CV-AR.pdf';
+        dlButton.setAttribute('download', 'Naif-Almohammdi-CV-AR.pdf');
       } else {
         en.classList.add('active');
         ar.classList.remove('active');
@@ -1554,102 +1592,8 @@
         btnEn.classList.add('active');
         btnAr.classList.remove('active');
         dlLabel.textContent = 'Download PDF';
-      }
-    }
-
-    function waitForPdfImages(root) {
-      const images = Array.from(root.querySelectorAll('img'));
-      return Promise.all(images.map((img) => {
-        img.loading = 'eager';
-        if (img.complete && img.naturalWidth > 0) return Promise.resolve();
-        return new Promise((resolve) => {
-          img.addEventListener('load', resolve, { once:true });
-          img.addEventListener('error', resolve, { once:true });
-        });
-      }));
-    }
-
-    async function downloadCvPdf() {
-      const button = document.getElementById('downloadPdfButton');
-      const label = document.getElementById('dl-label');
-      const lang = document.body.getAttribute('lang') || 'ar';
-      const source = document.querySelector(`#${lang === 'en' ? 'en-content' : 'ar-content'} .container`);
-      const originalLabel = label.textContent;
-
-      if (!source || typeof window.html2pdf !== 'function') {
-        alert(lang === 'en' ? 'PDF export is temporarily unavailable.' : 'تعذر تشغيل تصدير PDF حاليًا.');
-        return;
-      }
-
-      button.disabled = true;
-      button.setAttribute('aria-busy', 'true');
-      label.textContent = lang === 'en' ? 'Preparing PDF…' : 'جار تجهيز PDF…';
-
-      const stage = document.createElement('section');
-      stage.className = 'pdf-document';
-      stage.setAttribute('lang', lang);
-      stage.setAttribute('dir', lang === 'en' ? 'ltr' : 'rtl');
-      stage.appendChild(source.cloneNode(true));
-
-      const pdfFooter = document.createElement('div');
-      pdfFooter.className = 'pdf-export-footer';
-      pdfFooter.innerHTML = `
-        <img src="https://almohammdin.github.io/emtidad/assets/images/naif-logo.png?v=0.4.6" alt="${lang === 'en' ? 'Naif Almohammdi' : 'نايف المحمدي'}">
-        <div class="pdf-export-links">
-          <span>@almohammdin</span>
-          <span>|</span>
-          <a href="https://linktr.ee/almohammdin">Linktree</a>
-          <span>·</span>
-          <a href="https://wa.me/966506350457">WhatsApp</a>
-          <span>·</span>
-          <a href="https://www.linkedin.com/in/almohammdin/">LinkedIn</a>
-          <span>·</span>
-          <a href="https://x.com/almohammdin">X</a>
-          <span>| v2.4</span>
-        </div>`;
-      stage.appendChild(pdfFooter);
-      document.body.appendChild(stage);
-
-      try {
-        if (document.fonts?.ready) await document.fonts.ready;
-        await waitForPdfImages(stage);
-
-        const filename = lang === 'en'
-          ? 'Naif-Almohammdi-CV-EN.pdf'
-          : 'Naif-Almohammdi-CV-AR.pdf';
-        const options = {
-          margin: [6, 6, 8, 6],
-          filename,
-          image: { type:'jpeg', quality:.96 },
-          enableLinks: true,
-          html2canvas: {
-            scale: 1.6,
-            useCORS: true,
-            allowTaint: false,
-            backgroundColor: '#ffffff',
-            logging: false
-          },
-          jsPDF: {
-            unit: 'mm',
-            format: 'a4',
-            orientation: 'portrait',
-            compress: true
-          },
-          pagebreak: {
-            mode: ['css', 'legacy'],
-            avoid: ['.header', '.impact-card', '.board-card', '.exp-card', '.tool-card', '.cert-pro', '.cert-item', '.edu-card']
-          }
-        };
-
-        await window.html2pdf().set(options).from(stage).save();
-      } catch (error) {
-        console.error('PDF export failed', error);
-        alert(lang === 'en' ? 'PDF export failed. Please try again.' : 'تعذر إنشاء ملف PDF. حاول مرة أخرى.');
-      } finally {
-        stage.remove();
-        button.disabled = false;
-        button.removeAttribute('aria-busy');
-        label.textContent = originalLabel;
+        dlButton.href = './Naif-Almohammdi-CV-EN.pdf';
+        dlButton.setAttribute('download', 'Naif-Almohammdi-CV-EN.pdf');
       }
     }
   </script>
