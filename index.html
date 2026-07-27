@@ -281,6 +281,12 @@
       margin-bottom: 16px;
     }
     .contact-item { display:flex; align-items:center; gap:7px; }
+    .email-contact {
+      direction:ltr;
+      unicode-bidi:isolate;
+      white-space:nowrap;
+      flex:0 0 auto;
+    }
 
     /* Phone actions */
     .phone-row { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom: 28px; }
@@ -971,7 +977,7 @@
           </div>
           <div class="contact-row">
             <div class="contact-item">📍 جدة، المملكة العربية السعودية</div>
-            <div class="contact-item">✉️ almohammdin@gmail.com</div>
+            <div class="contact-item email-contact">✉️ almohammdin@gmail.com</div>
           </div>
           <div class="phone-row">
             <span class="phone-num">📱 0506350457</span>
@@ -1355,7 +1361,7 @@
           </div>
           <div class="contact-row">
             <div class="contact-item">📍 Jeddah, Saudi Arabia</div>
-            <div class="contact-item">✉️ almohammdin@gmail.com</div>
+            <div class="contact-item email-contact">✉️ almohammdin@gmail.com</div>
           </div>
           <div class="phone-row">
             <span class="phone-num">📱 +966 50 635 0457</span>
