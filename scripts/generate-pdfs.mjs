@@ -82,7 +82,7 @@ async function preparePage(page, lang) {
     `,
   });
   await page.emulateMedia({ media: "print" });
-  await page.evaluate(async () => {
+  await page.evaluate(async (selectedLang) => {
     await document.fonts.ready;
     const images = Array.from(document.images);
     images.forEach((image) => {
@@ -99,7 +99,15 @@ async function preparePage(page, lang) {
             }),
       ),
     );
-  });
+    const fontQuery =
+      selectedLang === "ar"
+        ? '16px "IBM Plex Sans Arabic"'
+        : '16px "IBM Plex Sans"';
+    const fontSample =
+      selectedLang === "ar" ? "نايف المحمدي" : "Naif Almohammdi";
+    await document.fonts.load(fontQuery, fontSample);
+    await document.fonts.ready;
+  }, lang);
 }
 
 async function generate(browser, lang, outputName) {
