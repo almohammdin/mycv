@@ -40,6 +40,8 @@ async function preparePage(page, lang) {
     const active = document.querySelector(".lang-content.active");
     if (!active) throw new Error(`Missing active language: ${selectedLang}`);
 
+    active.setAttribute("lang", selectedLang);
+    active.setAttribute("dir", selectedLang === "ar" ? "rtl" : "ltr");
     document.body.classList.add("pdf-build");
     active.classList.add("pdf-document");
     document.querySelector(".top-bar")?.remove();
