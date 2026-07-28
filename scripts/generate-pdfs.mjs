@@ -33,7 +33,7 @@ async function addLocalFonts(page) {
 }
 
 async function preparePage(page, lang) {
-  await page.goto(indexUrl, { waitUntil: "load" });
+  await page.goto(indexUrl, { waitUntil: "domcontentloaded" });
   await addLocalFonts(page);
   await page.evaluate((selectedLang) => {
     switchLang(selectedLang);
@@ -84,13 +84,18 @@ async function preparePage(page, lang) {
   await page.emulateMedia({ media: "print" });
   await page.evaluate(async () => {
     await document.fonts.ready;
+    const images = Array.from(document.images);
+    images.forEach((image) => {
+      image.loading = "eager";
+    });
     await Promise.all(
-      Array.from(document.images).map((image) =>
+      images.map((image) =>
         image.complete
           ? Promise.resolve()
           : new Promise((resolve) => {
               image.addEventListener("load", resolve, { once: true });
               image.addEventListener("error", resolve, { once: true });
+              setTimeout(resolve, 10000);
             }),
       ),
     );
