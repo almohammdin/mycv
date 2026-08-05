@@ -669,6 +669,38 @@
     .lang-bar-fill { height:100%; background:var(--gold); border-radius:4px; }
 
     /* ===== DIGITAL TOOLS ===== */
+    .knowledge-product-card {
+      display:grid;
+      grid-template-columns:minmax(0,1.08fr) minmax(260px,.92fr);
+      border:1px solid rgba(201,168,76,.34);
+      border-radius:14px;
+      overflow:hidden;
+      background:linear-gradient(135deg,var(--navy),#122046 64%,var(--navy-light));
+      box-shadow:0 10px 24px rgba(30,58,95,.1);
+      color:#fff;
+    }
+    .knowledge-product-content { padding:24px 22px; display:flex; flex-direction:column; justify-content:center; }
+    .knowledge-product-label {
+      display:inline-flex;
+      width:max-content;
+      margin-bottom:9px;
+      padding:4px 10px;
+      border:1px solid rgba(201,168,76,.52);
+      border-radius:999px;
+      background:rgba(201,168,76,.12);
+      color:#f0d782;
+      font-size:.7em;
+      font-weight:700;
+    }
+    .knowledge-product-title { margin-bottom:8px; color:#fff; font-size:1.22em; line-height:1.45; font-weight:700; }
+    .knowledge-product-desc { color:rgba(255,255,255,.82); font-size:.84em; line-height:1.8; }
+    .knowledge-product-note { margin-top:14px; padding:11px 12px; border:1px solid rgba(255,255,255,.14); border-radius:10px; background:rgba(255,255,255,.07); color:rgba(255,255,255,.76); font-size:.76em; line-height:1.75; }
+    .knowledge-product-note strong { display:block; margin-bottom:3px; color:#f0d782; }
+    .knowledge-product-media { position:relative; display:flex; min-height:240px; overflow:hidden; background:#eef2f7; }
+    .knowledge-product-media img { width:100%; height:100%; object-fit:cover; object-position:center; transition:transform .24s; }
+    .knowledge-product-media:hover img,.knowledge-product-media:focus-visible img { transform:scale(1.025); }
+    .knowledge-product-media span { position:absolute; right:13px; bottom:13px; padding:7px 11px; border-radius:9px; background:rgba(10,14,26,.9); border:1px solid rgba(201,168,76,.42); color:#fff; font-size:.74em; font-weight:700; }
+    [lang="en"] .knowledge-product-media span { right:auto; left:13px; }
     .tools-intro {
       color: var(--text-mid);
       font-size: .9em;
@@ -695,6 +727,21 @@
       box-shadow: 0 12px 26px rgba(30,58,95,.12);
       border-color: rgba(201,168,76,.64);
     }
+    .tool-card.featured {
+      grid-column:span 2;
+      border:2px solid rgba(201,168,76,.72);
+      box-shadow:0 13px 30px rgba(30,58,95,.12);
+    }
+    .tool-card.featured::before {
+      content:"";
+      position:absolute;
+      z-index:3;
+      inset:0 0 auto;
+      height:5px;
+      background:linear-gradient(90deg,#a87910,#efd87f,#a87910);
+    }
+    .tool-card.featured .tool-visual { aspect-ratio:3.25 / 1; }
+    .tool-card.featured .tool-title { font-size:.98em; }
     .tool-card > a {
       display:flex;
       flex-direction:column;
@@ -719,11 +766,19 @@
       object-fit:contain;
       object-position:center;
     }
+    .tool-visual:not(.logo) img {
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
     .tool-visual.logo img {
+      width:100%;
+      height:100%;
       object-fit:contain;
-      padding:10px 12px;
+      padding:18px;
       background:#fff;
     }
+    .tool-visual.mukhaalafat-logo img { padding:2px; transform:scale(1.34); object-position:center 62%; }
     .tool-body {
       padding: 14px 15px 15px;
       display:flex;
@@ -829,7 +884,10 @@
       .top-bar-inner { gap:10px; }
       .impact-grid { grid-template-columns:1fr 1fr; }
       .board-grid, .cert-list { grid-template-columns:1fr; }
+      .knowledge-product-card { grid-template-columns:1fr; }
+      .knowledge-product-media { min-height:210px; }
       .tools-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      .tool-card.featured { grid-column:auto; }
       .job-header { flex-direction:column; }
       .cert-pro { flex-direction:column; gap:12px; }
       .naif-logo { width:175px; max-width:60%; }
@@ -889,7 +947,11 @@
     .pdf-document .desc li { margin-bottom:6px; }
     .pdf-document .tags-cloud { gap:6px; }
     .pdf-document .tag { padding:5px 10px; font-size:.77em; }
+    .pdf-document .knowledge-product-card { grid-template-columns:1.1fr .9fr; break-inside:avoid; page-break-inside:avoid; }
+    .pdf-document .knowledge-product-content { padding:17px 18px; }
+    .pdf-document .knowledge-product-media { min-height:175px; }
     .pdf-document .tools-grid { grid-template-columns:repeat(2,1fr); gap:9px; }
+    .pdf-document .tool-card.featured { grid-column:auto; }
     .pdf-document .tool-card { min-height:116px; }
     .pdf-document .tool-card > a { flex-direction:row; }
     .pdf-document .tool-visual { width:118px; height:auto; min-height:116px; flex:0 0 118px; border-bottom:0; }
@@ -1187,15 +1249,60 @@
         </div>
       </div>
       <div class="section">
+        <h2 class="section-title">الرحلات المعرفية</h2>
+        <article class="knowledge-product-card">
+          <div class="knowledge-product-content">
+            <span class="knowledge-product-label">منتج مستقل</span>
+            <div class="knowledge-product-title">الرحلات المعرفية المهنية</div>
+            <div class="knowledge-product-desc">تصميم وتنظيم برامج مهنية للشركات والجمعيات تجمع المعارض الدولية والزيارات القطاعية واللقاءات مع الشركات والخبراء، وتربط المعرفة بالتجربة والعلاقات وفرص التعاون.</div>
+            <div class="knowledge-product-note"><strong>نموذج توضيحي</strong>صفحة رحلة سيئول المصاحبة لمعرض Cafe Show Seoul 2026 تعرض نموذج لشكل البرنامج فقط، ويجري إعداد رحلات أخرى ضمن المنتج.</div>
+          </div>
+          <a class="knowledge-product-media" href="https://almohammdin.github.io/Cafe-Show-Seoul2026/" target="_blank" rel="noopener noreferrer" aria-label="استعراض نموذج رحلة سيئول المعرفية">
+            <img src="https://almohammdin.github.io/Cafe-Show-Seoul2026/seoul-trip-preview-v2.png" alt="نموذج رحلة سيئول المعرفية" loading="lazy" decoding="async">
+            <span>استعراض النموذج ↗</span>
+          </a>
+        </article>
+      </div>
+      <div class="section">
         <h2 class="section-title">أدوات نايف التفاعلية</h2>
         <p class="tools-intro">أدوات رقمية طورت لتحويل الخبرة في الاستثمار والصفقات والحوكمة والمخاطر إلى نماذج عملية تساعد القيادات وأصحاب الأعمال على التشخيص والاستعداد واتخاذ القرار.</p>
         <div class="tools-grid">
-          <article class="tool-card">
-            <a href="https://almohammdin.github.io/valuation-guide/" target="_blank" rel="noopener noreferrer">
-              <div class="tool-visual"><img src="./assets/tools/valuation-guide.png" alt="هوية مقيّم الشركات"></div>
+          <article class="tool-card featured">
+            <a href="https://almohammdin.github.io/majalis/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-visual logo"><img src="./assets/tools/majalis-logo.svg" alt="شعار منظومة أعمال المجالس"></div>
               <div class="tool-body">
-                <div class="tool-title">مقيّم الشركات | دليل التقييم والجاهزية</div>
-                <div class="tool-desc">تقييم استرشادي ورفع الجاهزية قبل دخول المستثمر أو التفاوض على الصفقة.</div>
+                <div class="tool-title">منظومة أعمال المجالس | مجالس</div>
+                <div class="tool-desc">إدارة الاجتماعات والدعوات والمحاضر والقرارات للمجالس والجمعيات واللجان.</div>
+                <div class="tool-open">فتح الأداة</div>
+              </div>
+            </a>
+          </article>
+          <article class="tool-card featured">
+            <a href="https://almohammdin.github.io/emtidad/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-visual logo"><img src="./assets/tools/emtidad-logo.png" alt="شعار منصة امتداد"></div>
+              <div class="tool-body">
+                <div class="tool-title">منصة امتداد</div>
+                <div class="tool-desc">تشخيص استدامة الشركات العائلية وجاهزيتها للانتقال بين الأجيال.</div>
+                <div class="tool-open">فتح الأداة</div>
+              </div>
+            </a>
+          </article>
+          <article class="tool-card">
+            <a href="https://almohammdin.github.io/tawassu_branch/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-visual logo"><img src="./assets/tools/tawassu-preview.webp?v=4" alt="شعار توسّع"></div>
+              <div class="tool-body">
+                <div class="tool-title">توسّع | تقييم قرارات توسع الفروع</div>
+                <div class="tool-desc">تقييم مخاطر واشتراطات الفرع الجديد وفق طبيعة النشاط ونمط المبيعات والموقع، مع إبراز أهم نقاط الحسم قبل التوقيع.</div>
+                <div class="tool-open">فتح الأداة</div>
+              </div>
+            </a>
+          </article>
+          <article class="tool-card">
+            <a href="https://almohammdin.github.io/Mukhaalafat/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-visual logo mukhaalafat-logo"><img src="./assets/tools/mukhaalafat-logo.webp" alt="شعار أداة مخالفات"></div>
+              <div class="tool-body">
+                <div class="tool-title">مخالفات | مساعد إعداد الاعتراض</div>
+                <div class="tool-desc">ترتيب بيانات المخالفة وحساب المهلة وتجهيز نص الاعتراض ومعرفة طريقة التقديم.</div>
                 <div class="tool-open">فتح الأداة</div>
               </div>
             </a>
@@ -1221,6 +1328,26 @@
             </a>
           </article>
           <article class="tool-card">
+            <a href="https://almohammdin.github.io/ADsChek/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-visual logo"><img src="./assets/tools/adschek-logo-preview.jpg" alt="شعار فاحص الامتثال الإعلاني"></div>
+              <div class="tool-body">
+                <div class="tool-title">فاحص الامتثال الإعلاني</div>
+                <div class="tool-desc">مراجعة الإعلان قبل النشر وتحديد متطلبات الترخيص والمحتوى وبيانات العملاء بحسب نوع الحملة والقنوات المستخدمة.</div>
+                <div class="tool-open">فتح الأداة</div>
+              </div>
+            </a>
+          </article>
+          <article class="tool-card">
+            <a href="https://almohammdin.github.io/valuation-guide/" target="_blank" rel="noopener noreferrer">
+              <div class="tool-visual"><img src="./assets/tools/valuation-guide.png" alt="هوية مقيّم الشركات"></div>
+              <div class="tool-body">
+                <div class="tool-title">مقيّم الشركات | دليل التقييم والجاهزية</div>
+                <div class="tool-desc">تقييم استرشادي ورفع الجاهزية قبل دخول المستثمر أو التفاوض على الصفقة.</div>
+                <div class="tool-open">فتح الأداة</div>
+              </div>
+            </a>
+          </article>
+          <article class="tool-card">
             <a href="https://almohammdin.github.io/GrowthCompass/" target="_blank" rel="noopener noreferrer">
               <div class="tool-visual"><img src="./assets/tools/growth-compass.jpg" alt="هوية مستكشف مسارات النمو"></div>
               <div class="tool-body">
@@ -1241,51 +1368,11 @@
             </a>
           </article>
           <article class="tool-card">
-            <a href="https://almohammdin.github.io/majalis/" target="_blank" rel="noopener noreferrer">
-              <div class="tool-visual logo"><img src="./assets/tools/majalis-logo.svg" alt="شعار منظومة أعمال المجالس"></div>
-              <div class="tool-body">
-                <div class="tool-title">منظومة أعمال المجالس | مجالس</div>
-                <div class="tool-desc">إدارة الاجتماعات والدعوات والمحاضر والقرارات للمجالس والجمعيات واللجان.</div>
-                <div class="tool-open">فتح الأداة</div>
-              </div>
-            </a>
-          </article>
-          <article class="tool-card">
-            <a href="https://almohammdin.github.io/emtidad/" target="_blank" rel="noopener noreferrer">
-              <div class="tool-visual logo"><img src="./assets/tools/emtidad-logo.png" alt="شعار منصة امتداد"></div>
-              <div class="tool-body">
-                <div class="tool-title">منصة امتداد</div>
-                <div class="tool-desc">تشخيص استدامة الشركات العائلية وجاهزيتها للانتقال بين الأجيال.</div>
-                <div class="tool-open">فتح الأداة</div>
-              </div>
-            </a>
-          </article>
-          <article class="tool-card">
             <a href="https://almohammdin.github.io/authority-matrix/" target="_blank" rel="noopener noreferrer">
               <div class="tool-visual"><img src="./assets/tools/authority-matrix.png" alt="هوية مصفوفة الصلاحيات التفاعلية"></div>
               <div class="tool-body">
                 <div class="tool-title">مصفوفة الصلاحيات التفاعلية</div>
                 <div class="tool-desc">تحديد من يوصي ويراجع ويعتمد القرار بين الملكية والمجلس والإدارة التنفيذية.</div>
-                <div class="tool-open">فتح الأداة</div>
-              </div>
-            </a>
-          </article>
-          <article class="tool-card">
-            <a href="https://almohammdin.github.io/ADsChek/" target="_blank" rel="noopener noreferrer">
-              <div class="tool-visual logo"><img src="./assets/tools/adschek-logo-preview.jpg" alt="شعار فاحص الامتثال الإعلاني"></div>
-              <div class="tool-body">
-                <div class="tool-title">فاحص الامتثال الإعلاني</div>
-                <div class="tool-desc">مراجعة الإعلان قبل النشر وتحديد متطلبات الترخيص والمحتوى وبيانات العملاء بحسب نوع الحملة والقنوات المستخدمة.</div>
-                <div class="tool-open">فتح الأداة</div>
-              </div>
-            </a>
-          </article>
-          <article class="tool-card">
-            <a href="https://almohammdin.github.io/tawassu_branch/" target="_blank" rel="noopener noreferrer">
-              <div class="tool-visual"><img src="./assets/tools/tawassu-preview.webp?v=4" alt="صورة توسّع: أداة تقييم قرارات توسع الفروع"></div>
-              <div class="tool-body">
-                <div class="tool-title">توسّع | تقييم قرارات توسع الفروع</div>
-                <div class="tool-desc">تقييم مخاطر واشتراطات الفرع الجديد وفق طبيعة النشاط ونمط المبيعات والموقع، مع إبراز أهم نقاط الحسم قبل التوقيع.</div>
                 <div class="tool-open">فتح الأداة</div>
               </div>
             </a>
@@ -1522,21 +1609,38 @@
         </div>
       </div>
 
+      <div class="section">
+        <h2 class="section-title">Knowledge Journeys</h2>
+        <article class="knowledge-product-card">
+          <div class="knowledge-product-content">
+            <span class="knowledge-product-label">Independent product</span>
+            <div class="knowledge-product-title">Professional Knowledge Journeys</div>
+            <div class="knowledge-product-desc">Design and delivery of professional programs for companies and associations, combining international exhibitions, sector visits, and meetings with companies and experts to connect applied knowledge with relationships and collaboration opportunities.</div>
+            <div class="knowledge-product-note"><strong>Illustrative example</strong>The Cafe Show Seoul 2026 page demonstrates the program format only. Additional journeys are being prepared under this independent product.</div>
+          </div>
+          <a class="knowledge-product-media" href="https://almohammdin.github.io/Cafe-Show-Seoul2026/" target="_blank" rel="noopener noreferrer" aria-label="View the Seoul Knowledge Journey example">
+            <img src="https://almohammdin.github.io/Cafe-Show-Seoul2026/seoul-trip-preview-v2.png" alt="Seoul Knowledge Journey example" loading="lazy" decoding="async">
+            <span>View example ↗</span>
+          </a>
+        </article>
+      </div>
+
       <!-- EN Digital -->
       <div class="section">
         <h2 class="section-title">Naif’s Interactive Tools</h2>
         <p class="tools-intro">Digital tools developed to translate investment, deal, governance and risk expertise into practical diagnostics that help leaders and business owners prepare, assess and decide.</p>
         <div class="tools-grid">
-          <article class="tool-card"><a href="https://almohammdin.github.io/valuation-guide/" target="_blank" rel="noopener noreferrer"><div class="tool-visual"><img src="./assets/tools/valuation-guide.png" alt="Company Valuation Readiness tool identity"></div><div class="tool-body"><div class="tool-title">Company Valuation &amp; Readiness Guide</div><div class="tool-desc">Indicative valuation and readiness support before investor entry or deal negotiations.</div><div class="tool-open">Open tool</div></div></a></article>
+          <article class="tool-card featured"><a href="https://almohammdin.github.io/majalis/" target="_blank" rel="noopener noreferrer"><div class="tool-visual logo"><img src="./assets/tools/majalis-logo.svg" alt="Majalis Board Operations System logo"></div><div class="tool-body"><div class="tool-title">Majalis Board Operations System</div><div class="tool-desc">Manage board, assembly and committee meetings, documents and resolutions.</div><div class="tool-open">Open tool</div></div></a></article>
+          <article class="tool-card featured"><a href="https://almohammdin.github.io/emtidad/" target="_blank" rel="noopener noreferrer"><div class="tool-visual logo"><img src="./assets/tools/emtidad-logo.png" alt="Emtidad Platform logo"></div><div class="tool-body"><div class="tool-title">Emtidad Platform</div><div class="tool-desc">Diagnose family-business sustainability and intergenerational readiness.</div><div class="tool-open">Open tool</div></div></a></article>
+          <article class="tool-card"><a href="https://almohammdin.github.io/tawassu_branch/" target="_blank" rel="noopener noreferrer"><div class="tool-visual logo"><img src="./assets/tools/tawassu-preview.webp?v=4" alt="Tawassu logo"></div><div class="tool-body"><div class="tool-title">Tawassu | Branch Expansion Decision Tool</div><div class="tool-desc">Assess a proposed branch by business type, sales mix and location, highlighting its risk level and key decisions before signing.</div><div class="tool-open">Open tool</div></div></a></article>
+          <article class="tool-card"><a href="https://almohammdin.github.io/Mukhaalafat/" target="_blank" rel="noopener noreferrer"><div class="tool-visual logo mukhaalafat-logo"><img src="./assets/tools/mukhaalafat-logo.webp" alt="Mukhaalafat tool logo"></div><div class="tool-body"><div class="tool-title">Mukhaalafat | Objection Preparation Assistant</div><div class="tool-desc">Organize violation details, check the deadline, prepare the objection text, and identify the submission method.</div><div class="tool-open">Open tool</div></div></a></article>
           <article class="tool-card"><a href="https://almohammdin.github.io/deal-check/" target="_blank" rel="noopener noreferrer"><div class="tool-visual logo"><img src="./assets/tools/deal-check-logo.png" alt="Mergers and Acquisitions Pre-Screening Engine logo"></div><div class="tool-body"><div class="tool-title">M&amp;A Pre-Screening Engine</div><div class="tool-desc">An initial view of readiness, gaps and red flags before negotiations and professional due diligence.</div><div class="tool-open">Open tool</div></div></a></article>
           <article class="tool-card"><a href="https://almohammdin.github.io/risk-register/" target="_blank" rel="noopener noreferrer"><div class="tool-visual logo"><img src="./assets/tools/risk-register-logo.svg" alt="Enterprise Risk Observatory logo"></div><div class="tool-body"><div class="tool-title">Enterprise Risk Observatory</div><div class="tool-desc">Build, assess and monitor an enterprise risk register and treatment plans.</div><div class="tool-open">Open tool</div></div></a></article>
+          <article class="tool-card"><a href="https://almohammdin.github.io/ADsChek/" target="_blank" rel="noopener noreferrer"><div class="tool-visual logo"><img src="./assets/tools/adschek-logo-preview.jpg" alt="Ad Compliance Checker logo"></div><div class="tool-body"><div class="tool-title">Ad Compliance Checker</div><div class="tool-desc">Review an advertisement before publication and identify licensing, content and customer-data requirements for the selected campaign and channels.</div><div class="tool-open">Open tool</div></div></a></article>
+          <article class="tool-card"><a href="https://almohammdin.github.io/valuation-guide/" target="_blank" rel="noopener noreferrer"><div class="tool-visual"><img src="./assets/tools/valuation-guide.png" alt="Company Valuation Readiness tool identity"></div><div class="tool-body"><div class="tool-title">Company Valuation &amp; Readiness Guide</div><div class="tool-desc">Indicative valuation and readiness support before investor entry or deal negotiations.</div><div class="tool-open">Open tool</div></div></a></article>
           <article class="tool-card"><a href="https://almohammdin.github.io/GrowthCompass/" target="_blank" rel="noopener noreferrer"><div class="tool-visual"><img src="./assets/tools/growth-compass.jpg" alt="Growth Path Explorer identity"></div><div class="tool-body"><div class="tool-title">Growth Path Explorer</div><div class="tool-desc">Select growth direction, scale of change, execution method and institutional readiness.</div><div class="tool-open">Open tool</div></div></a></article>
           <article class="tool-card"><a href="https://almohammdin.github.io/SHARAKAH/" target="_blank" rel="noopener noreferrer"><div class="tool-visual"><img src="./assets/tools/sharakah.jpg" alt="Partnership Calculator identity"></div><div class="tool-body"><div class="tool-title">Partnership Calculator</div><div class="tool-desc">Estimate contributions, distribute equity and prepare key partnership terms.</div><div class="tool-open">Open tool</div></div></a></article>
-          <article class="tool-card"><a href="https://almohammdin.github.io/majalis/" target="_blank" rel="noopener noreferrer"><div class="tool-visual logo"><img src="./assets/tools/majalis-logo.svg" alt="Majalis Board Operations System logo"></div><div class="tool-body"><div class="tool-title">Majalis Board Operations System</div><div class="tool-desc">Manage board, assembly and committee meetings, documents and resolutions.</div><div class="tool-open">Open tool</div></div></a></article>
-          <article class="tool-card"><a href="https://almohammdin.github.io/emtidad/" target="_blank" rel="noopener noreferrer"><div class="tool-visual logo"><img src="./assets/tools/emtidad-logo.png" alt="Emtidad Platform logo"></div><div class="tool-body"><div class="tool-title">Emtidad Platform</div><div class="tool-desc">Diagnose family-business sustainability and intergenerational readiness.</div><div class="tool-open">Open tool</div></div></a></article>
           <article class="tool-card"><a href="https://almohammdin.github.io/authority-matrix/" target="_blank" rel="noopener noreferrer"><div class="tool-visual"><img src="./assets/tools/authority-matrix.png" alt="Interactive Authority Matrix identity"></div><div class="tool-body"><div class="tool-title">Interactive Authority Matrix</div><div class="tool-desc">Clarify who recommends, reviews and approves decisions across ownership, board and management.</div><div class="tool-open">Open tool</div></div></a></article>
-          <article class="tool-card"><a href="https://almohammdin.github.io/ADsChek/" target="_blank" rel="noopener noreferrer"><div class="tool-visual logo"><img src="./assets/tools/adschek-logo-preview.jpg" alt="Ad Compliance Checker logo"></div><div class="tool-body"><div class="tool-title">Ad Compliance Checker</div><div class="tool-desc">Review an advertisement before publication and identify licensing, content and customer-data requirements for the selected campaign and channels.</div><div class="tool-open">Open tool</div></div></a></article>
-          <article class="tool-card"><a href="https://almohammdin.github.io/tawassu_branch/" target="_blank" rel="noopener noreferrer"><div class="tool-visual"><img src="./assets/tools/tawassu-preview.webp?v=4" alt="Tawassu Branch Expansion Decision Tool identity"></div><div class="tool-body"><div class="tool-title">Tawassu | Branch Expansion Decision Tool</div><div class="tool-desc">Assess a proposed branch by business type, sales mix and location, highlighting its risk level and key decisions before signing.</div><div class="tool-open">Open tool</div></div></a></article>
         </div>
       </div>
 
