@@ -457,13 +457,13 @@
       display: block;
       width: 168px;
       max-width: 78%;
-      height: auto;
-      max-height: 88px;
+      height: 88px;
       object-fit: contain;
       object-position: center;
-      background: transparent;
-      border-radius: 6px;
-      padding: 0;
+      background: #fff;
+      border: 1px solid rgba(255,255,255,.9);
+      border-radius: 8px;
+      padding: 10px 12px;
       margin: 0 auto 13px;
     }
     .council-card {
@@ -680,18 +680,6 @@
       color:#fff;
     }
     .knowledge-product-content { padding:24px 22px; display:flex; flex-direction:column; justify-content:center; }
-    .knowledge-product-label {
-      display:inline-flex;
-      width:max-content;
-      margin-bottom:9px;
-      padding:4px 10px;
-      border:1px solid rgba(201,168,76,.52);
-      border-radius:999px;
-      background:rgba(201,168,76,.12);
-      color:#f0d782;
-      font-size:.7em;
-      font-weight:700;
-    }
     .knowledge-product-title { margin-bottom:8px; color:#fff; font-size:1.22em; line-height:1.45; font-weight:700; }
     .knowledge-product-desc { color:rgba(255,255,255,.82); font-size:.84em; line-height:1.8; }
     .knowledge-product-note { margin-top:14px; padding:11px 12px; border:1px solid rgba(255,255,255,.14); border-radius:10px; background:rgba(255,255,255,.07); color:rgba(255,255,255,.76); font-size:.76em; line-height:1.75; }
@@ -941,7 +929,7 @@
     }
     .pdf-document .board-grid { gap:10px; grid-template-columns:repeat(3,1fr); }
     .pdf-document .board-card { padding:16px 17px; }
-    .pdf-document .board-logo { width:126px; max-width:82%; height:auto; max-height:66px; }
+    .pdf-document .board-logo { width:126px; max-width:82%; height:66px; padding:8px 10px; }
     .pdf-document .exp-card { padding:19px 21px; margin-bottom:13px; }
     .pdf-document .achievement { padding:8px 12px; margin:7px 0; }
     .pdf-document .desc li { margin-bottom:6px; }
@@ -1249,21 +1237,6 @@
         </div>
       </div>
       <div class="section">
-        <h2 class="section-title">الرحلات المعرفية</h2>
-        <article class="knowledge-product-card">
-          <div class="knowledge-product-content">
-            <span class="knowledge-product-label">منتج مستقل</span>
-            <div class="knowledge-product-title">الرحلات المعرفية المهنية</div>
-            <div class="knowledge-product-desc">تصميم وتنظيم برامج مهنية للشركات والجمعيات تجمع المعارض الدولية والزيارات القطاعية واللقاءات مع الشركات والخبراء، وتربط المعرفة بالتجربة والعلاقات وفرص التعاون.</div>
-            <div class="knowledge-product-note"><strong>نموذج توضيحي</strong>صفحة رحلة سيئول المصاحبة لمعرض Cafe Show Seoul 2026 تعرض نموذج لشكل البرنامج فقط، ويجري إعداد رحلات أخرى ضمن المنتج.</div>
-          </div>
-          <a class="knowledge-product-media" href="https://almohammdin.github.io/Cafe-Show-Seoul2026/" target="_blank" rel="noopener noreferrer" aria-label="استعراض نموذج رحلة سيئول المعرفية">
-            <img src="https://almohammdin.github.io/Cafe-Show-Seoul2026/seoul-trip-preview-v2.png" alt="نموذج رحلة سيئول المعرفية" loading="lazy" decoding="async">
-            <span>استعراض النموذج ↗</span>
-          </a>
-        </article>
-      </div>
-      <div class="section">
         <h2 class="section-title">أدوات نايف التفاعلية</h2>
         <p class="tools-intro">أدوات رقمية طورت لتحويل الخبرة في الاستثمار والصفقات والحوكمة والمخاطر إلى نماذج عملية تساعد القيادات وأصحاب الأعمال على التشخيص والاستعداد واتخاذ القرار.</p>
         <div class="tools-grid">
@@ -1378,6 +1351,21 @@
             </a>
           </article>
         </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">الرحلات المعرفية</h2>
+        <article class="knowledge-product-card">
+          <div class="knowledge-product-content">
+            <div class="knowledge-product-title">الرحلات المعرفية المهنية</div>
+            <div class="knowledge-product-desc">تصميم وتنظيم برامج مهنية للشركات والجمعيات تجمع المعارض الدولية والزيارات القطاعية واللقاءات مع الشركات والخبراء، وتربط المعرفة بالتجربة والعلاقات وفرص التعاون.</div>
+            <div class="knowledge-product-note"><strong>نموذج من الرحلات</strong>سبق تنظيم رحلات معرفية إلى الصين وكوريا، ويجري العمل على رحلات جديدة. وتعرض صفحة رحلة سيئول المصاحبة لمعرض Cafe Show Seoul 2026 نموذج لشكل الرحلات وبرامجها.</div>
+          </div>
+          <a class="knowledge-product-media" href="https://almohammdin.github.io/Cafe-Show-Seoul2026/" target="_blank" rel="noopener noreferrer" aria-label="استعراض نموذج رحلة سيئول المعرفية">
+            <img src="https://almohammdin.github.io/Cafe-Show-Seoul2026/seoul-trip-preview-v2.png" alt="نموذج رحلة سيئول المعرفية" loading="lazy" decoding="async">
+            <span>استعراض النموذج ↗</span>
+          </a>
+        </article>
       </div>
 
       <!-- CERTIFICATIONS -->
@@ -1609,22 +1597,6 @@
         </div>
       </div>
 
-      <div class="section">
-        <h2 class="section-title">Knowledge Journeys</h2>
-        <article class="knowledge-product-card">
-          <div class="knowledge-product-content">
-            <span class="knowledge-product-label">Independent product</span>
-            <div class="knowledge-product-title">Professional Knowledge Journeys</div>
-            <div class="knowledge-product-desc">Design and delivery of professional programs for companies and associations, combining international exhibitions, sector visits, and meetings with companies and experts to connect applied knowledge with relationships and collaboration opportunities.</div>
-            <div class="knowledge-product-note"><strong>Illustrative example</strong>The Cafe Show Seoul 2026 page demonstrates the program format only. Additional journeys are being prepared under this independent product.</div>
-          </div>
-          <a class="knowledge-product-media" href="https://almohammdin.github.io/Cafe-Show-Seoul2026/" target="_blank" rel="noopener noreferrer" aria-label="View the Seoul Knowledge Journey example">
-            <img src="https://almohammdin.github.io/Cafe-Show-Seoul2026/seoul-trip-preview-v2.png" alt="Seoul Knowledge Journey example" loading="lazy" decoding="async">
-            <span>View example ↗</span>
-          </a>
-        </article>
-      </div>
-
       <!-- EN Digital -->
       <div class="section">
         <h2 class="section-title">Naif’s Interactive Tools</h2>
@@ -1642,6 +1614,21 @@
           <article class="tool-card"><a href="https://almohammdin.github.io/SHARAKAH/" target="_blank" rel="noopener noreferrer"><div class="tool-visual"><img src="./assets/tools/sharakah.jpg" alt="Partnership Calculator identity"></div><div class="tool-body"><div class="tool-title">Partnership Calculator</div><div class="tool-desc">Estimate contributions, distribute equity and prepare key partnership terms.</div><div class="tool-open">Open tool</div></div></a></article>
           <article class="tool-card"><a href="https://almohammdin.github.io/authority-matrix/" target="_blank" rel="noopener noreferrer"><div class="tool-visual"><img src="./assets/tools/authority-matrix.png" alt="Interactive Authority Matrix identity"></div><div class="tool-body"><div class="tool-title">Interactive Authority Matrix</div><div class="tool-desc">Clarify who recommends, reviews and approves decisions across ownership, board and management.</div><div class="tool-open">Open tool</div></div></a></article>
         </div>
+      </div>
+
+      <div class="section">
+        <h2 class="section-title">Knowledge Journeys</h2>
+        <article class="knowledge-product-card">
+          <div class="knowledge-product-content">
+            <div class="knowledge-product-title">Professional Knowledge Journeys</div>
+            <div class="knowledge-product-desc">Design and delivery of professional programs for companies and associations, combining international exhibitions, sector visits, and meetings with companies and experts to connect applied knowledge with relationships and collaboration opportunities.</div>
+            <div class="knowledge-product-note"><strong>Journey example</strong>Knowledge journeys have previously been organized in China and Korea, with new journeys in development. The Cafe Show Seoul 2026 page presents an example of the journey format and program.</div>
+          </div>
+          <a class="knowledge-product-media" href="https://almohammdin.github.io/Cafe-Show-Seoul2026/" target="_blank" rel="noopener noreferrer" aria-label="View the Seoul Knowledge Journey example">
+            <img src="https://almohammdin.github.io/Cafe-Show-Seoul2026/seoul-trip-preview-v2.png" alt="Seoul Knowledge Journey example" loading="lazy" decoding="async">
+            <span>View example ↗</span>
+          </a>
+        </article>
       </div>
 
       <!-- EN Certifications -->
