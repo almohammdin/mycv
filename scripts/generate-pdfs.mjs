@@ -56,6 +56,8 @@ async function preparePage(page, lang) {
         <span>•</span>
         <a href="mailto:almohammdin@gmail.com">almohammdin@gmail.com</a>
       </div>`;
+    const sections = active.querySelectorAll(".section");
+    sections[sections.length - 1]?.classList.add("pdf-final-section");
     active.querySelector(".container")?.append(exportFooter);
   }, lang);
 
@@ -77,6 +79,13 @@ async function preparePage(page, lang) {
       body.pdf-build .container { margin:0 !important; }
       body.pdf-build .header { margin-top:0 !important; }
       body.pdf-build a { color:inherit; }
+      body.pdf-build .pdf-final-section { margin-bottom:0 !important; }
+      body.pdf-build .pdf-export-footer {
+        margin-top:10px !important;
+        padding-top:8px !important;
+        break-inside:avoid;
+        page-break-inside:avoid;
+      }
       body.pdf-build .tool-card:hover,
       body.pdf-build .board-card:hover,
       body.pdf-build .exp-card:hover,
