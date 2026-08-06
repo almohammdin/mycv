@@ -974,7 +974,6 @@
     .pdf-export-links { display:flex; align-items:center; gap:5px; flex-wrap:wrap; justify-content:flex-end; }
     .pdf-export-links a { color:#536276; text-decoration:none; }
   </style>
-
 <style id="cv-static-fixes">
 @media screen {
   body { line-height:1.56; font-synthesis:none; -webkit-font-smoothing:antialiased; }
@@ -1023,7 +1022,58 @@
 @media print { .profile-portrait,.top-bar { display:none !important; } }
 .pdf-document .profile-portrait { display:none !important; }
 </style>
-</head>
+<style id="cv-main-final-fix">
+@media screen {
+  body { line-height:1.56; font-synthesis:none; -webkit-font-smoothing:antialiased; }
+  body[lang="en"] { line-height:1.5; }
+  .top-bar-inner.cv-controls { position:relative; min-height:44px; justify-content:center; }
+  .cv-controls .lang-row { margin:auto; }
+  .cv-controls .btn-download { position:absolute; inset-inline-end:24px; top:50%; transform:translateY(-50%); }
+  .header { padding-top:30px; padding-bottom:30px; }
+  .header-brand-top { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; margin:0 auto 20px; text-align:center; }
+  .header-brand-top img { display:block; width:96px; max-width:28vw; height:auto; object-fit:contain; }
+  .brand-person-name { margin:0; color:#fff; font-size:clamp(2.125rem,4.5vw,3rem); line-height:1.15; letter-spacing:0; }
+  .brand-role-line { color:var(--gold); font-size:.92rem; font-weight:600; line-height:1.35; }
+  .header-identity { display:grid !important; grid-template-columns:220px minmax(0,1fr); gap:28px; align-items:center; margin-bottom:18px; }
+  #en-content .header-identity { grid-template-columns:minmax(0,1fr) 220px; }
+  #en-content .profile-portrait { grid-column:2; grid-row:1; }
+  #en-content .header-identity-copy { grid-column:1; grid-row:1; }
+  .profile-portrait { width:220px; height:292px; padding:7px; border-radius:26px; background:linear-gradient(145deg,#fff,#e8edf5); border:1px solid rgba(201,168,76,.42); box-shadow:0 18px 38px rgba(0,0,0,.22); overflow:hidden; }
+  .profile-portrait-frame { width:100%; height:100%; border-radius:19px; overflow:hidden; background:#eef2f7; }
+  .profile-portrait img { width:100%; height:100%; display:block; object-fit:cover; object-position:center top; }
+  .header-title { margin:0; padding:0 0 14px; text-align:center; line-height:1.46; }
+  .contact-row,.phone-row { justify-content:center; }
+  .phone-row { margin-bottom:18px; }
+  .hook-box { padding:17px 21px; }
+  .hook-box p,.hook-box li,.desc,.desc li,.achievement,.tool-desc,.knowledge-product-desc,.cert-desc { line-height:1.52 !important; }
+  .section { margin-bottom:34px; }
+  .section-title { margin-bottom:16px; }
+  .exp-card { margin-bottom:15px; }
+  footer { padding:13px 20px 15px !important; }
+  footer .footer-inner { gap:5px !important; }
+  footer .footer-brand { gap:4px !important; }
+  footer .footer-naif-logo { width:78px !important; }
+  footer .footer-left { line-height:1.3 !important; }
+  footer .footer-copy { margin-top:1px !important; padding-top:7px !important; font-size:.72rem !important; }
+}
+@media screen and (max-width:768px) {
+  .cv-controls .btn-download { inset-inline-end:12px; }
+  .btn-download span { display:none; }
+  .btn-download { width:38px; height:38px; padding:0; justify-content:center; }
+  .header-brand-top img { width:82px; }
+  .header { padding:26px 20px 25px; }
+  .header-identity,#en-content .header-identity { grid-template-columns:170px minmax(0,1fr); gap:18px; }
+  #en-content .header-identity { grid-template-columns:minmax(0,1fr) 170px; }
+  .profile-portrait { width:170px; height:230px; }
+}
+@media screen and (max-width:560px) {
+  .header-identity,#en-content .header-identity { grid-template-columns:1fr; }
+  .profile-portrait,#en-content .profile-portrait { width:min(100%,215px); height:276px; grid-column:1; grid-row:auto; justify-self:center; }
+  .header-identity-copy,#en-content .header-identity-copy { grid-column:1; grid-row:auto; }
+}
+@media print { .profile-portrait,.top-bar { display:none !important; } }
+.pdf-document .profile-portrait { display:none !important; }
+</style></head>
 <body dir="rtl">
 <!-- TOP BAR -->
 <div class="top-bar">
@@ -1076,13 +1126,10 @@
 </div>
 <div class="header-identity"><div class="profile-portrait web-only">
 <div class="profile-portrait-frame">
-<img alt="صورة نايف المحمدي" src="./assets/naif-profile.jpg?v=20260806"/>
+<img alt="صورة نايف المحمدي" src="./assets/naif-profile.jpg?v=202608061300"/>
 </div>
 </div>
 <div class="header-identity-copy">
-
-
-
 <div class="header-title">
                 قيادي ومستشار في الاستثمار وتطوير الأعمال  |  <strong>حوكمة مجالس الإدارة، تعظيم الأصول وصناعة الأثر</strong>
 </div>
@@ -1498,13 +1545,10 @@
 </div>
 <div class="header-identity"><div class="profile-portrait web-only">
 <div class="profile-portrait-frame">
-<img alt="Portrait of Naif Almohammdi" src="./assets/naif-profile.jpg?v=20260806"/>
+<img alt="Portrait of Naif Almohammdi" src="./assets/naif-profile.jpg?v=202608061300"/>
 </div>
 </div>
 <div class="header-identity-copy">
-
-
-
 <div class="header-title">
                 Investment &amp; Business Development Executive Advisor  |  <strong>Board Governance, Asset Value &amp; Measurable Impact</strong>
 </div>
@@ -1721,12 +1765,11 @@
 </div>
 </footer>
 
-
 <script>
 (function(){
   const files={
-    ar:{href:'./Naif-Almohammdi-CV-AR.pdf',filename:'Naif-Almohammdi-CV-AR.pdf',label:'تحميل PDF',dir:'rtl'},
-    en:{href:'./Naif-Almohammdi-CV-EN.pdf',filename:'Naif-Almohammdi-CV-EN.pdf',label:'Download PDF',dir:'ltr'}
+    ar:{href:'./Naif-Almohammdi-CV-AR.pdf',filename:'Naif-Almohammdi-CV-AR.pdf',label:'تحميل PDF',dir:'rtl',aria:'تحميل السيرة العربية بصيغة PDF'},
+    en:{href:'./Naif-Almohammdi-CV-EN.pdf',filename:'Naif-Almohammdi-CV-EN.pdf',label:'Download PDF',dir:'ltr',aria:'Download the English CV as PDF'}
   };
   function applyLanguage(requested){
     const lang=requested==='en'?'en':'ar';
@@ -1737,6 +1780,7 @@
     const download=document.getElementById('downloadPdfButton');
     const label=document.getElementById('dl-label');
     const selected=files[lang];
+    if(!ar||!en||!btnAr||!btnEn||!download||!label)return;
     ar.classList.toggle('active',lang==='ar');
     en.classList.toggle('active',lang==='en');
     btnAr.classList.toggle('active',lang==='ar');
@@ -1749,6 +1793,7 @@
     document.body.dir=selected.dir;
     download.href=selected.href;
     download.setAttribute('download',selected.filename);
+    download.setAttribute('aria-label',selected.aria);
     label.textContent=selected.label;
     try{localStorage.setItem('cvLanguage',lang);}catch(e){}
   }
@@ -1757,6 +1802,5 @@
   let initial='ar';try{initial=localStorage.getItem('cvLanguage')||'ar';}catch(e){}
   applyLanguage(initial);
 })();
-</script>
-</body>
+</script></body>
 </html>
