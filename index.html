@@ -6,21 +6,16 @@
 {% capture header_open %}<div class="header-content">{{ header_brand }}{% endcapture %}
 {% assign page_source = page_source | replace: '<div class="header-content">', header_open %}
 
-{% assign page_source = page_source | replace: '<h1>نايف المحمدي</h1>', '<h1 class="sr-only">نايف المحمدي</h1>' %}
-{% assign page_source = page_source | replace: '<h1>Naif Almohammdi</h1>', '<h1 class="sr-only">Naif Almohammdi</h1>' %}
-
-{% capture identity_close %}            </div>
-          </div>
-          <div class="contact-row">{% endcapture %}
-{% capture identity_with_portrait %}            </div>
+{% capture portrait_markup %}<div class="header-identity">
             <div class="profile-portrait web-only">
               <div class="profile-portrait-frame">
-                <img src="./assets/naif-profile.webp?v=2" alt="صورة نايف المحمدي | Portrait of Naif Almohammdi" decoding="async">
+                <img src="./assets/naif-profile.webp?v=3" alt="صورة نايف المحمدي | Portrait of Naif Almohammdi" decoding="async">
               </div>
-            </div>
-          </div>
-          <div class="contact-row">{% endcapture %}
-{% assign page_source = page_source | replace: identity_close, identity_with_portrait %}
+            </div>{% endcapture %}
+{% assign page_source = page_source | replace: '<div class="header-identity">', portrait_markup %}
+
+{% assign page_source = page_source | replace: '<h1>نايف المحمدي</h1>', '<h1 class="sr-only">نايف المحمدي</h1>' %}
+{% assign page_source = page_source | replace: '<h1>Naif Almohammdi</h1>', '<h1 class="sr-only">Naif Almohammdi</h1>' %}
 
 {% capture footer_old %}        <div>
           <strong>نايف المحمدي</strong><br>
@@ -30,7 +25,7 @@
 {% assign page_source = page_source | replace: footer_old, footer_new %}
 {% assign page_source = page_source | replace: '© 2026 نايف المحمدي | السيرة المهنية | الإصدار 2.8', '© 2026 | السيرة المهنية | الإصدار 2.8' %}
 
-{% capture head_close %}<link rel="stylesheet" href="./assets/cv-overrides.css?v=5"></head>{% endcapture %}
+{% capture head_close %}<link rel="stylesheet" href="./assets/cv-overrides.css?v=6"></head>{% endcapture %}
 {% assign page_source = page_source | replace: '</head>', head_close %}
 
 {{ page_source }}
