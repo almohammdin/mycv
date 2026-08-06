@@ -164,8 +164,13 @@
 
       const styleLink = parsed.createElement('link');
       styleLink.rel = 'stylesheet';
-      styleLink.href = './assets/cv-final.css?v=3';
+      styleLink.href = './assets/cv-final.css?v=4';
       parsed.head.appendChild(styleLink);
+
+      const balanceLink = parsed.createElement('link');
+      balanceLink.rel = 'stylesheet';
+      balanceLink.href = './assets/cv-balance.css?v=1';
+      parsed.head.appendChild(balanceLink);
 
       rebuildControls(parsed);
       rebuildHeaders(parsed, 'data:image/jpeg;base64,' + portraitData.replace(/\s+/g, ''));
