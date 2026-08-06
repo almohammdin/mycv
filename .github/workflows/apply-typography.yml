@@ -199,3 +199,5 @@ jobs:
           git add index.html
           git commit -m "style: improve Arabic and English typography"
           git push
+
+# trigger: typography-2026
