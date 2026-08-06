@@ -130,19 +130,25 @@
     }
 
     try {
-      const [sourceResponse, portraitResponse, cssResponse] = await Promise.all([
-        fetch(rawBase + 'index-source.html?v=202608062', { cache: 'no-store' }),
-        fetch(rawBase + 'assets/portrait-base64.txt?v=202608062', { cache: 'no-store' }),
-        fetch(rawBase + 'assets/cv-final.css?v=202608062', { cache: 'no-store' })
+      const [sourceResponse, portraitResponse, cssResponse, balanceResponse] = await Promise.all([
+        fetch(rawBase + 'index-source.html?v=202608063', { cache: 'no-store' }),
+        fetch(rawBase + 'assets/portrait-base64.txt?v=202608063', { cache: 'no-store' }),
+        fetch(rawBase + 'assets/cv-final.css?v=202608063', { cache: 'no-store' }),
+        fetch(rawBase + 'assets/cv-balance.css?v=202608063', { cache: 'no-store' })
       ]);
-      if (!sourceResponse.ok || !portraitResponse.ok || !cssResponse.ok) throw new Error('تعذر تحميل ملفات السيرة');
-      const [sourceHtml, portraitData, cssText] = await Promise.all([sourceResponse.text(), portraitResponse.text(), cssResponse.text()]);
+      if (!sourceResponse.ok || !portraitResponse.ok || !cssResponse.ok || !balanceResponse.ok) throw new Error('تعذر تحميل ملفات السيرة');
+      const [sourceHtml, portraitData, cssText, balanceText] = await Promise.all([
+        sourceResponse.text(),
+        portraitResponse.text(),
+        cssResponse.text(),
+        balanceResponse.text()
+      ]);
       const parsed = new DOMParser().parseFromString(sourceHtml, 'text/html');
       parsed.querySelectorAll('script:not([type="application/ld+json"])').forEach(function (script) { script.remove(); });
       parsed.querySelectorAll('[src]').forEach(function (element) { element.setAttribute('src', absoluteAsset(element.getAttribute('src'))); });
       parsed.querySelectorAll('link[href]').forEach(function (element) { element.setAttribute('href', absoluteAsset(element.getAttribute('href'))); });
       const style = parsed.createElement('style');
-      style.textContent = cssText;
+      style.textContent = cssText + '\n' + balanceText;
       parsed.head.appendChild(style);
       rebuildControls(parsed);
       rebuildHeaders(parsed, 'data:image/jpeg;base64,' + portraitData.replace(/\s+/g, ''));
