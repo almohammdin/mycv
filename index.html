@@ -25,7 +25,7 @@
 {% assign page_source = page_source | replace: footer_old, footer_new %}
 {% assign page_source = page_source | replace: '© 2026 نايف المحمدي | السيرة المهنية | الإصدار 2.8', '© 2026 | السيرة المهنية | الإصدار 2.8' %}
 
-{% capture head_close %}<link rel="stylesheet" href="./assets/cv-overrides.css?v=6"></head>{% endcapture %}
+{% capture head_close %}<link rel="stylesheet" href="./assets/cv-overrides.css?v=6"><link rel="stylesheet" href="./assets/cv-header-fix.css?v=2"></head>{% endcapture %}
 {% assign page_source = page_source | replace: '</head>', head_close %}
 
 {{ page_source }}
