@@ -3,74 +3,13 @@
 {% capture page_source %}{% include_relative index-source.html %}{% endcapture %}
 {% capture portrait_data %}{% include_relative assets/portrait-base64.txt %}{% endcapture %}
 
-{% capture old_topbar %}  <!-- TOP BAR -->
-  <div class="top-bar">
-    <div class="top-bar-inner">
-      <!-- Language and download -->
-      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-        <div class="lang-row">
-          <button class="lang-btn active" id="btn-ar" onclick="switchLang('ar')">🇸🇦 عربي</button>
-          <button class="lang-btn" id="btn-en" onclick="switchLang('en')">🇬🇧 EN</button>
-        </div>
-        <a class="btn-download" id="downloadPdfButton" href="./Naif-Almohammdi-CV-AR.pdf" download="Naif-Almohammdi-CV-AR.pdf">
-          <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-          <span id="dl-label">تحميل PDF</span>
-        </a>
-      </div>
-    </div>
-  </div>{% endcapture %}
-
-{% capture new_topbar %}  <!-- TOP BAR -->
-  <div class="top-bar">
-    <div class="top-bar-inner cv-controls">
-      <div class="lang-row" role="group" aria-label="اختيار لغة السيرة">
-        <button type="button" class="lang-btn active" id="btn-ar" data-cv-lang="ar" aria-pressed="true">عربي</button>
-        <button type="button" class="lang-btn" id="btn-en" data-cv-lang="en" aria-pressed="false">EN</button>
-      </div>
-      <a class="btn-download" id="downloadPdfButton" href="./Naif-Almohammdi-CV-AR.pdf" download="Naif-Almohammdi-CV-AR.pdf" aria-label="تحميل السيرة بصيغة PDF">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-        <span id="dl-label">تحميل PDF</span>
-      </a>
-    </div>
-  </div>{% endcapture %}
-{% assign page_source = page_source | replace: old_topbar, new_topbar %}
-
-{% capture header_brand %}<div class="header-brand-top">
-            <img src="./naif-logo.svg" alt="شعار نايف المحمدي">
-            <h1 class="brand-person-name brand-person-name-ar">نايف المحمدي</h1>
-            <h1 class="brand-person-name brand-person-name-en">Naif Almohammdi</h1>
-            <div class="brand-role-line brand-role-line-ar">المؤسس والمستشار الاستراتيجي | شركة حتى لحلول الأعمال</div>
-            <div class="brand-role-line brand-role-line-en">Founder &amp; Strategic Advisor | Hatta Business Solutions Company</div>
-          </div>{% endcapture %}
-{% capture header_open %}<div class="header-content">
-          {{ header_brand }}{% endcapture %}
-{% assign page_source = page_source | replace: '<div class="header-content">', header_open %}
-
-{% capture portrait_markup %}<div class="header-identity">
-            <div class="profile-portrait web-only">
-              <div class="profile-portrait-frame">
-                <img src="data:image/jpeg;base64,{{ portrait_data | strip }}" alt="صورة نايف المحمدي | Portrait of Naif Almohammdi">
-              </div>
-            </div>{% endcapture %}
-{% assign page_source = page_source | replace: '<div class="header-identity">', portrait_markup %}
-
-{% assign page_source = page_source | replace: '<h1>نايف المحمدي</h1>', '' %}
-{% assign page_source = page_source | replace: '<h1>Naif Almohammdi</h1>', '' %}
-
-{% capture footer_old %}        <div>
-          <strong>نايف المحمدي</strong><br>
-          المؤسس والمستشار الاستراتيجي | شركة حتى لحلول الأعمال
-        </div>{% endcapture %}
-{% capture footer_new %}        <div class="footer-role-text">مستشار الحوكمة وتطوير الأعمال</div>{% endcapture %}
-{% assign page_source = page_source | replace: footer_old, footer_new %}
-{% assign page_source = page_source | replace: '© 2026 نايف المحمدي | السيرة المهنية | الإصدار 2.8', '© 2026 | السيرة المهنية | الإصدار 2.8' %}
-
-{% capture head_close %}<link rel="stylesheet" href="./assets/cv-final.css?v=1"></head>{% endcapture %}
+{% capture head_close %}<link rel="stylesheet" href="./assets/cv-final.css?v=2"></head>{% endcapture %}
 {% assign page_source = page_source | replace: '</head>', head_close %}
 
-{% capture controls_script %}<script>
+{% capture final_script %}<script>
 (function () {
-  const files = {
+  const portraitSource = 'data:image/jpeg;base64,{{ portrait_data | strip }}';
+  const pdfFiles = {
     ar: {
       href: './Naif-Almohammdi-CV-AR.pdf',
       filename: 'Naif-Almohammdi-CV-AR.pdf',
@@ -87,6 +26,64 @@
     }
   };
 
+  function rebuildControls() {
+    const inner = document.querySelector('.top-bar-inner');
+    if (!inner) return;
+    inner.className = 'top-bar-inner cv-controls';
+    inner.innerHTML = `
+      <div class="lang-row" role="group" aria-label="اختيار لغة السيرة">
+        <button type="button" class="lang-btn active" id="btn-ar" data-cv-lang="ar" aria-pressed="true">عربي</button>
+        <button type="button" class="lang-btn" id="btn-en" data-cv-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="btn-download" id="downloadPdfButton" href="./Naif-Almohammdi-CV-AR.pdf" download="Naif-Almohammdi-CV-AR.pdf" aria-label="تحميل السيرة بصيغة PDF">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></svg>
+        <span id="dl-label">تحميل PDF</span>
+      </a>`;
+  }
+
+  function rebuildHeaders() {
+    document.querySelectorAll('.header-content').forEach(function (header) {
+      const english = Boolean(header.closest('#en-content'));
+      const brand = document.createElement('div');
+      brand.className = 'header-brand-top';
+      brand.innerHTML = `
+        <img src="./naif-logo.svg" alt="${english ? 'Naif Almohammdi logo' : 'شعار نايف المحمدي'}">
+        <h1 class="brand-person-name">${english ? 'Naif Almohammdi' : 'نايف المحمدي'}</h1>
+        <div class="brand-role-line">${english ? 'Founder & Strategic Advisor | Hatta Business Solutions Company' : 'المؤسس والمستشار الاستراتيجي | شركة حتى لحلول الأعمال'}</div>`;
+      header.prepend(brand);
+
+      const identity = header.querySelector('.header-identity');
+      const copy = header.querySelector('.header-identity-copy');
+      if (!identity || !copy) return;
+
+      copy.querySelector('.naif-logo')?.remove();
+      copy.querySelector('.rcoa-badge')?.remove();
+      copy.querySelector('h1')?.remove();
+
+      const portrait = document.createElement('div');
+      portrait.className = 'profile-portrait web-only';
+      portrait.innerHTML = `
+        <div class="profile-portrait-frame">
+          <img src="${portraitSource}" alt="${english ? 'Portrait of Naif Almohammdi' : 'صورة نايف المحمدي'}">
+        </div>`;
+      identity.prepend(portrait);
+    });
+  }
+
+  function rebuildFooter() {
+    const brand = document.querySelector('footer .footer-brand');
+    if (brand) {
+      const text = brand.querySelector('div');
+      if (text) {
+        text.className = 'footer-role-text';
+        text.textContent = 'مستشار الحوكمة وتطوير الأعمال';
+      }
+    }
+
+    const copy = document.querySelector('footer .footer-copy span');
+    if (copy) copy.textContent = '© 2026 | السيرة المهنية | الإصدار 2.8';
+  }
+
   function applyLanguage(requestedLanguage) {
     const lang = requestedLanguage === 'en' ? 'en' : 'ar';
     const ar = document.getElementById('ar-content');
@@ -95,7 +92,7 @@
     const btnEn = document.getElementById('btn-en');
     const download = document.getElementById('downloadPdfButton');
     const label = document.getElementById('dl-label');
-    const selected = files[lang];
+    const selected = pdfFiles[lang];
 
     if (!ar || !en || !btnAr || !btnEn || !download || !label) return;
 
@@ -119,9 +116,11 @@
     try { localStorage.setItem('cvLanguage', lang); } catch (error) {}
   }
 
-  window.switchLang = applyLanguage;
+  function initialize() {
+    rebuildControls();
+    rebuildHeaders();
+    rebuildFooter();
 
-  function initializeControls() {
     document.querySelectorAll('[data-cv-lang]').forEach(function (button) {
       button.addEventListener('click', function () {
         applyLanguage(button.dataset.cvLang);
@@ -140,14 +139,16 @@
     applyLanguage(savedLanguage);
   }
 
+  window.switchLang = applyLanguage;
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initializeControls, { once: true });
+    document.addEventListener('DOMContentLoaded', initialize, { once: true });
   } else {
-    initializeControls();
+    initialize();
   }
 })();
 </script>
 </body>{% endcapture %}
-{% assign page_source = page_source | replace: '</body>', controls_script %}
+{% assign page_source = page_source | replace: '</body>', final_script %}
 
 {{ page_source }}
