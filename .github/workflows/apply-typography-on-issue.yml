@@ -1,0 +1,82 @@
+name: One-time typography update
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  apply:
+    if: github.event.issue.title == '[system] apply typography'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Update CV typography
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('index.html')
+          text = path.read_text(encoding='utf-8')
+          marker = '/* ===== TYPOGRAPHY SYSTEM 2026 ===== */'
+          if marker not in text:
+              css = r'''
+    /* ===== TYPOGRAPHY SYSTEM 2026 ===== */
+    body { font-synthesis:none; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; }
+    body > .lang-content { font-size:18px; line-height:1.75; }
+    body[lang="en"] > .lang-content { font-size:17px; line-height:1.62; }
+    .top-bar .lang-btn,.top-bar .btn-download { font-size:.875rem; }
+    body > .lang-content h1,body > .lang-content h2,body > .lang-content h3 { text-wrap:balance; }
+    body > .lang-content p,body > .lang-content li { text-wrap:pretty; }
+    body > .lang-content .header h1 { font-size:clamp(2.125rem,4.5vw,3rem); line-height:1.25; letter-spacing:0; }
+    body[lang="en"] > .lang-content .header h1 { line-height:1.15; letter-spacing:-.02em; }
+    body > .lang-content .header-title { font-size:1.125rem; line-height:1.7; }
+    body > .lang-content .section-title { font-size:clamp(1.55rem,2.5vw,1.9rem); line-height:1.4; }
+    body > .lang-content .rcoa-badge { font-size:.875rem; letter-spacing:0; }
+    body > .lang-content .contact-row,body > .lang-content .phone-btn { font-size:.9375rem; }
+    body > .lang-content .hook-box li { font-size:1.0625rem; line-height:1.75; }
+    body > .lang-content .impact-label { font-size:.9375rem; line-height:1.6; }
+    body > .lang-content .board-role,body > .lang-content .board-since,body > .lang-content .job-period { font-size:.875rem; }
+    body > .lang-content .board-entity { font-size:1.0625rem; }
+    body > .lang-content .job-title { font-size:1.25rem; line-height:1.4; }
+    body > .lang-content .company-name { font-size:1.0625rem; }
+    body > .lang-content .achievement,body > .lang-content .desc li { font-size:1rem; line-height:1.75; }
+    body > .lang-content .tag { font-size:.875rem; }
+    body > .lang-content .cert-title { font-size:1.0625rem; }
+    body > .lang-content .cert-inst,body > .lang-content .cert-desc,body > .lang-content .cert-item,body > .lang-content .university { font-size:.9375rem; line-height:1.7; }
+    body > .lang-content .degree { font-size:1.125rem; }
+    body > .lang-content .lang-name { font-size:1rem; }
+    body > .lang-content .lang-level-text { font-size:.875rem; }
+    body > .lang-content .knowledge-product-title { font-size:1.35rem; line-height:1.45; }
+    body > .lang-content .knowledge-product-desc { font-size:1rem; line-height:1.75; }
+    body > .lang-content .knowledge-product-note { font-size:.875rem; line-height:1.7; }
+    body > .lang-content .tool-title { font-size:1.0625rem; line-height:1.5; }
+    body > .lang-content .tool-desc { font-size:.9375rem; line-height:1.7; }
+    body > .lang-content .tool-open { font-size:.875rem; }
+    body > footer .footer-left,body > footer .social-username { font-size:.875rem; }
+    body > footer .footer-copy { font-size:.8125rem; }
+    @media (max-width:768px) {
+      body > .lang-content { font-size:17px; }
+      body > .lang-content .header h1 { font-size:clamp(2rem,9vw,2.35rem); }
+      body > .lang-content .section-title { font-size:1.55rem; }
+      body > .lang-content .header-title { font-size:1.0625rem; }
+    }
+'''
+              i = text.find('</style>')
+              if i < 0: raise RuntimeError('Closing style tag not found')
+              path.write_text(text[:i] + css + '\n  ' + text[i:], encoding='utf-8')
+          PY
+          if ! git diff --quiet; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "style: improve Arabic and English typography"
+            git push
+          fi
+      - name: Close trigger issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue close "${{ github.event.issue.number }}" --comment "Typography update applied."
