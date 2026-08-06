@@ -1,0 +1,35 @@
+name: Fix CV liquid output
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-liquid-final.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore static page
+        run: |
+          cp index-source.html index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace('./assets/naif-profile.webp', './assets/naif-profile.jpg?v=202608061320')
+          s = s.replace('./assets/naif-profile.png', './assets/naif-profile.jpg?v=202608061320')
+          p.write_text(s, encoding='utf-8')
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f .github/workflows/fix-liquid-final.yml
+          git add index.html
+          git commit -m "fix: restore static CV page" || true
+          git push origin HEAD:main
