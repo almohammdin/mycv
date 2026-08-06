@@ -1,0 +1,221 @@
+name: Fix main CV
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-main-cv.yml'
+      - '.github/fix-main-cv-trigger.txt'
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Rebuild CV header and controls
+        run: |
+          python3 -m pip install --quiet beautifulsoup4
+          python3 <<'PY'
+          from pathlib import Path
+          from bs4 import BeautifulSoup
+
+          path = Path('index.html')
+          source = path.read_text(encoding='utf-8')
+          soup = BeautifulSoup(source, 'html.parser')
+
+          # Remove previous one-time override block if present.
+          old_fix = soup.find(id='cv-main-final-fix')
+          if old_fix:
+              old_fix.decompose()
+
+          # Rebuild language controls and place PDF download in the corner.
+          topbar = soup.select_one('.top-bar-inner')
+          if topbar:
+              topbar.clear()
+              topbar['class'] = ['top-bar-inner', 'cv-controls']
+              controls = BeautifulSoup('''
+              <div class="lang-row" role="group" aria-label="اختيار لغة السيرة">
+                <button type="button" class="lang-btn active" id="btn-ar" data-cv-lang="ar" aria-pressed="true">عربي</button>
+                <button type="button" class="lang-btn" id="btn-en" data-cv-lang="en" aria-pressed="false">EN</button>
+              </div>
+              <a class="btn-download" id="downloadPdfButton" href="./Naif-Almohammdi-CV-AR.pdf" download="Naif-Almohammdi-CV-AR.pdf" aria-label="تحميل السيرة العربية بصيغة PDF">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></svg>
+                <span id="dl-label">تحميل PDF</span>
+              </a>
+              ''', 'html.parser')
+              for node in list(controls.contents):
+                  topbar.append(node)
+
+          # Rebuild both Arabic and English headers while keeping all original content.
+          for header in soup.select('.header-content'):
+              english = header.find_parent(id='en-content') is not None
+
+              for prior in header.select('.header-brand-top'):
+                  prior.decompose()
+
+              identity = header.select_one('.header-identity')
+              copy = header.select_one('.header-identity-copy')
+              if not identity or not copy:
+                  continue
+
+              for prior in identity.select('.profile-portrait'):
+                  prior.decompose()
+
+              for selector in ('.naif-logo', '.rcoa-badge', 'h1'):
+                  node = copy.select_one(selector)
+                  if node:
+                      node.decompose()
+
+              brand = BeautifulSoup(f'''
+              <div class="header-brand-top">
+                <img src="./naif-logo.svg" alt="{'Naif Almohammdi logo' if english else 'شعار نايف المحمدي'}">
+                <h1 class="brand-person-name">{'Naif Almohammdi' if english else 'نايف المحمدي'}</h1>
+                <div class="brand-role-line">{'Founder & Strategic Advisor | Hatta Business Solutions Company' if english else 'المؤسس والمستشار الاستراتيجي | شركة حتى لحلول الأعمال'}</div>
+              </div>
+              ''', 'html.parser').div
+              header.insert(0, brand)
+
+              portrait = BeautifulSoup(f'''
+              <div class="profile-portrait web-only">
+                <div class="profile-portrait-frame">
+                  <img src="./assets/naif-profile.jpg?v=202608061300" alt="{'Portrait of Naif Almohammdi' if english else 'صورة نايف المحمدي'}">
+                </div>
+              </div>
+              ''', 'html.parser').div
+              identity.insert(0, portrait)
+
+          # Footer without repeating the name.
+          footer_brand = soup.select_one('footer .footer-brand')
+          if footer_brand:
+              text_div = footer_brand.find('div')
+              if text_div:
+                  text_div.clear()
+                  text_div['class'] = ['footer-role-text']
+                  text_div.string = 'مستشار الحوكمة وتطوير الأعمال'
+
+          footer_copy = soup.select_one('footer .footer-copy span')
+          if footer_copy:
+              footer_copy.string = '© 2026 | السيرة المهنية | الإصدار 2.8'
+
+          # Remove the old language script.
+          for script in soup.find_all('script'):
+              if 'function switchLang' in script.get_text() or 'window.switchLang' in script.get_text():
+                  script.decompose()
+
+          css = BeautifulSoup('''
+          <style id="cv-main-final-fix">
+          @media screen {
+            body { line-height:1.56; font-synthesis:none; -webkit-font-smoothing:antialiased; }
+            body[lang="en"] { line-height:1.5; }
+            .top-bar-inner.cv-controls { position:relative; min-height:44px; justify-content:center; }
+            .cv-controls .lang-row { margin:auto; }
+            .cv-controls .btn-download { position:absolute; inset-inline-end:24px; top:50%; transform:translateY(-50%); }
+            .header { padding-top:30px; padding-bottom:30px; }
+            .header-brand-top { position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; margin:0 auto 20px; text-align:center; }
+            .header-brand-top img { display:block; width:96px; max-width:28vw; height:auto; object-fit:contain; }
+            .brand-person-name { margin:0; color:#fff; font-size:clamp(2.125rem,4.5vw,3rem); line-height:1.15; letter-spacing:0; }
+            .brand-role-line { color:var(--gold); font-size:.92rem; font-weight:600; line-height:1.35; }
+            .header-identity { display:grid !important; grid-template-columns:220px minmax(0,1fr); gap:28px; align-items:center; margin-bottom:18px; }
+            #en-content .header-identity { grid-template-columns:minmax(0,1fr) 220px; }
+            #en-content .profile-portrait { grid-column:2; grid-row:1; }
+            #en-content .header-identity-copy { grid-column:1; grid-row:1; }
+            .profile-portrait { width:220px; height:292px; padding:7px; border-radius:26px; background:linear-gradient(145deg,#fff,#e8edf5); border:1px solid rgba(201,168,76,.42); box-shadow:0 18px 38px rgba(0,0,0,.22); overflow:hidden; }
+            .profile-portrait-frame { width:100%; height:100%; border-radius:19px; overflow:hidden; background:#eef2f7; }
+            .profile-portrait img { width:100%; height:100%; display:block; object-fit:cover; object-position:center top; }
+            .header-title { margin:0; padding:0 0 14px; text-align:center; line-height:1.46; }
+            .contact-row,.phone-row { justify-content:center; }
+            .phone-row { margin-bottom:18px; }
+            .hook-box { padding:17px 21px; }
+            .hook-box p,.hook-box li,.desc,.desc li,.achievement,.tool-desc,.knowledge-product-desc,.cert-desc { line-height:1.52 !important; }
+            .section { margin-bottom:34px; }
+            .section-title { margin-bottom:16px; }
+            .exp-card { margin-bottom:15px; }
+            footer { padding:13px 20px 15px !important; }
+            footer .footer-inner { gap:5px !important; }
+            footer .footer-brand { gap:4px !important; }
+            footer .footer-naif-logo { width:78px !important; }
+            footer .footer-left { line-height:1.3 !important; }
+            footer .footer-copy { margin-top:1px !important; padding-top:7px !important; font-size:.72rem !important; }
+          }
+          @media screen and (max-width:768px) {
+            .cv-controls .btn-download { inset-inline-end:12px; }
+            .btn-download span { display:none; }
+            .btn-download { width:38px; height:38px; padding:0; justify-content:center; }
+            .header-brand-top img { width:82px; }
+            .header { padding:26px 20px 25px; }
+            .header-identity,#en-content .header-identity { grid-template-columns:170px minmax(0,1fr); gap:18px; }
+            #en-content .header-identity { grid-template-columns:minmax(0,1fr) 170px; }
+            .profile-portrait { width:170px; height:230px; }
+          }
+          @media screen and (max-width:560px) {
+            .header-identity,#en-content .header-identity { grid-template-columns:1fr; }
+            .profile-portrait,#en-content .profile-portrait { width:min(100%,215px); height:276px; grid-column:1; grid-row:auto; justify-self:center; }
+            .header-identity-copy,#en-content .header-identity-copy { grid-column:1; grid-row:auto; }
+          }
+          @media print { .profile-portrait,.top-bar { display:none !important; } }
+          .pdf-document .profile-portrait { display:none !important; }
+          </style>
+          ''', 'html.parser').style
+          soup.head.append(css)
+
+          controller = BeautifulSoup('''
+          <script>
+          (function(){
+            const files={
+              ar:{href:'./Naif-Almohammdi-CV-AR.pdf',filename:'Naif-Almohammdi-CV-AR.pdf',label:'تحميل PDF',dir:'rtl',aria:'تحميل السيرة العربية بصيغة PDF'},
+              en:{href:'./Naif-Almohammdi-CV-EN.pdf',filename:'Naif-Almohammdi-CV-EN.pdf',label:'Download PDF',dir:'ltr',aria:'Download the English CV as PDF'}
+            };
+            function applyLanguage(requested){
+              const lang=requested==='en'?'en':'ar';
+              const ar=document.getElementById('ar-content');
+              const en=document.getElementById('en-content');
+              const btnAr=document.getElementById('btn-ar');
+              const btnEn=document.getElementById('btn-en');
+              const download=document.getElementById('downloadPdfButton');
+              const label=document.getElementById('dl-label');
+              const selected=files[lang];
+              if(!ar||!en||!btnAr||!btnEn||!download||!label)return;
+              ar.classList.toggle('active',lang==='ar');
+              en.classList.toggle('active',lang==='en');
+              btnAr.classList.toggle('active',lang==='ar');
+              btnEn.classList.toggle('active',lang==='en');
+              btnAr.setAttribute('aria-pressed',String(lang==='ar'));
+              btnEn.setAttribute('aria-pressed',String(lang==='en'));
+              document.documentElement.lang=lang;
+              document.documentElement.dir=selected.dir;
+              document.body.lang=lang;
+              document.body.dir=selected.dir;
+              download.href=selected.href;
+              download.setAttribute('download',selected.filename);
+              download.setAttribute('aria-label',selected.aria);
+              label.textContent=selected.label;
+              try{localStorage.setItem('cvLanguage',lang);}catch(e){}
+            }
+            window.switchLang=applyLanguage;
+            document.querySelectorAll('[data-cv-lang]').forEach(btn=>btn.addEventListener('click',()=>applyLanguage(btn.dataset.cvLang)));
+            let initial='ar';try{initial=localStorage.getItem('cvLanguage')||'ar';}catch(e){}
+            applyLanguage(initial);
+          })();
+          </script>
+          ''', 'html.parser').script
+          soup.body.append(controller)
+
+          path.write_text(str(soup), encoding='utf-8')
+          PY
+
+      - name: Commit final main CV
+        run: |
+          if git diff --quiet; then
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git commit -m "fix: finalize CV header portrait controls and footer"
+          git push origin main
