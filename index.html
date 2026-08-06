@@ -1,6 +1,7 @@
 ---
 ---
 {% capture page_source %}{% include_relative index-source.html %}{% endcapture %}
+{% assign page_source = page_source | replace: '<strong>نايف المحمدي</strong><br>', '' %}
 {% capture typography_head %}
 <style id="typography-system-2026">
 @media screen {
@@ -12,11 +13,11 @@
 
   body > .lang-content {
     font-size: 18px;
-    line-height: 1.75;
+    line-height: 1.58;
   }
   body[lang="en"] > .lang-content {
     font-size: 17px;
-    line-height: 1.62;
+    line-height: 1.55;
   }
 
   .top-bar .lang-btn,
@@ -34,89 +35,146 @@
     text-wrap: pretty;
   }
 
+  body > .lang-content .header {
+    padding-top: 44px;
+    padding-bottom: 38px;
+  }
+  body > .lang-content .header-identity {
+    align-items: stretch;
+    gap: 28px;
+  }
   body > .lang-content .header h1 {
     font-size: clamp(2.125rem, 4.5vw, 3rem);
-    line-height: 1.25;
+    line-height: 1.18;
     letter-spacing: 0;
   }
   body[lang="en"] > .lang-content .header h1 {
-    line-height: 1.15;
+    line-height: 1.12;
     letter-spacing: -.02em;
   }
   body > .lang-content .header-title {
     font-size: 1.125rem;
-    line-height: 1.7;
+    line-height: 1.48;
+    margin-bottom: 22px;
+    padding-bottom: 17px;
+  }
+  body > .lang-content .section {
+    margin-bottom: 38px;
   }
   body > .lang-content .section-title {
     font-size: clamp(1.55rem, 2.5vw, 1.9rem);
-    line-height: 1.4;
+    line-height: 1.28;
+    margin-bottom: 18px;
+    padding-bottom: 9px;
   }
 
   body > .lang-content .rcoa-badge {
     font-size: .875rem;
     letter-spacing: 0;
+    margin-bottom: 15px;
   }
   body > .lang-content .contact-row,
   body > .lang-content .phone-btn {
     font-size: .9375rem;
+    line-height: 1.45;
+  }
+  body > .lang-content .phone-row {
+    margin-bottom: 20px;
+  }
+  body > .lang-content .hook-box {
+    padding: 18px 22px;
   }
   body > .lang-content .hook-box > div:first-child {
     font-size: 1.125rem !important;
+    line-height: 1.3 !important;
     letter-spacing: 0 !important;
+    margin-bottom: 10px !important;
   }
   body > .lang-content .hook-box > p {
     font-size: 1rem !important;
-    line-height: 1.75 !important;
+    line-height: 1.56 !important;
+    margin-bottom: 13px !important;
   }
   body > .lang-content .hook-box > div:nth-of-type(2) {
     font-size: .875rem !important;
+    line-height: 1.35 !important;
     letter-spacing: 0 !important;
+    margin-bottom: 8px !important;
   }
   body > .lang-content .hook-box li {
-    font-size: 1.0625rem;
-    line-height: 1.75;
+    font-size: 1rem;
+    line-height: 1.56;
+    margin-bottom: 6px;
+  }
+  body > .lang-content .impact-grid {
+    margin-bottom: 30px;
   }
   body > .lang-content .impact-label {
     font-size: .9375rem;
-    line-height: 1.6;
+    line-height: 1.45;
   }
 
   body > .lang-content .board-role,
   body > .lang-content .board-since,
   body > .lang-content .job-period {
     font-size: .875rem;
+    line-height: 1.4;
   }
   body > .lang-content .board-entity {
     font-size: 1.0625rem;
+    line-height: 1.35;
   }
   body > .lang-content .job-title {
     font-size: 1.25rem;
-    line-height: 1.4;
+    line-height: 1.3;
   }
   body > .lang-content .company-name {
     font-size: 1.0625rem;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+  body > .lang-content .exp-card {
+    padding: 24px 26px;
+    margin-bottom: 16px;
   }
   body > .lang-content .achievement,
+  body > .lang-content .desc,
   body > .lang-content .desc li {
     font-size: 1rem;
-    line-height: 1.75;
+    line-height: 1.58;
+  }
+  body > .lang-content .achievement {
+    padding-top: 9px;
+    padding-bottom: 9px;
+    margin: 8px 0;
+  }
+  body > .lang-content .desc li {
+    margin-bottom: 6px;
   }
   body > .lang-content .tag {
     font-size: .875rem;
+    line-height: 1.3;
   }
 
   body > .lang-content .cert-title {
     font-size: 1.0625rem;
+    line-height: 1.35;
   }
   body > .lang-content .cert-inst,
   body > .lang-content .cert-desc,
   body > .lang-content .cert-item,
   body > .lang-content .university {
     font-size: .9375rem;
-    line-height: 1.7;
+    line-height: 1.55;
+  }
+  body > .lang-content .cert-pro {
+    padding-top: 19px;
+    padding-bottom: 19px;
+    margin-bottom: 14px;
   }
   body > .lang-content .degree {
     font-size: 1.125rem;
+    line-height: 1.35;
   }
   body > .lang-content .lang-name {
     font-size: 1rem;
@@ -127,40 +185,139 @@
 
   body > .lang-content .knowledge-product-title {
     font-size: 1.35rem;
-    line-height: 1.45;
+    line-height: 1.32;
   }
   body > .lang-content .knowledge-product-desc {
     font-size: 1rem;
-    line-height: 1.75;
+    line-height: 1.56;
   }
   body > .lang-content .knowledge-product-note {
     font-size: .875rem;
-    line-height: 1.7;
+    line-height: 1.52;
+  }
+  body > .lang-content .tools-intro {
+    line-height: 1.55;
   }
   body > .lang-content .tool-title {
     font-size: 1.0625rem;
-    line-height: 1.5;
+    line-height: 1.38;
   }
   body > .lang-content .tool-desc {
     font-size: .9375rem;
-    line-height: 1.7;
+    line-height: 1.52;
   }
   body > .lang-content .tool-open {
     font-size: .875rem;
   }
 
-  body > footer .footer-left,
+  .profile-portrait {
+    position: relative;
+    flex: 0 0 218px;
+    min-height: 286px;
+    align-self: stretch;
+    padding: 8px;
+    border-radius: 28px;
+    background:
+      linear-gradient(145deg, rgba(255,255,255,.98), rgba(239,243,248,.95));
+    border: 1px solid rgba(201,168,76,.38);
+    box-shadow: 0 20px 45px rgba(0,0,0,.2);
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .profile-portrait::before {
+    content: '';
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    left: -48px;
+    bottom: -52px;
+    border-radius: 50%;
+    background: rgba(201,168,76,.18);
+    z-index: -1;
+  }
+  .profile-portrait::after {
+    content: '';
+    position: absolute;
+    width: 78px;
+    height: 78px;
+    right: 12px;
+    top: 12px;
+    border-radius: 22px;
+    border: 1px solid rgba(27,58,107,.14);
+    background: rgba(27,58,107,.06);
+    transform: rotate(8deg);
+    z-index: -1;
+  }
+  .profile-portrait-frame {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-height: 270px;
+    border-radius: 21px;
+    overflow: hidden;
+    background: linear-gradient(180deg,#fff,#eef2f7);
+  }
+  .profile-portrait-frame::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 0;
+    height: 34%;
+    background: linear-gradient(to top,rgba(10,14,26,.22),transparent);
+    pointer-events: none;
+  }
+  .profile-portrait img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 270px;
+    object-fit: cover;
+    object-position: center 8%;
+    filter: saturate(.96) contrast(1.02);
+  }
+
+  body > footer {
+    padding: 15px 20px 17px;
+  }
+  body > footer .footer-inner {
+    gap: 6px;
+  }
+  body > footer .footer-left {
+    font-size: .875rem;
+    line-height: 1.35;
+  }
+  body > footer .footer-naif-logo {
+    width: 82px;
+  }
   body > footer .social-username {
     font-size: .875rem;
+    line-height: 1.2;
+  }
+  body > footer .footer-social {
+    gap: 7px;
+  }
+  body > footer .footer-social a {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
   }
   body > footer .footer-copy {
-    font-size: .8125rem;
+    font-size: .75rem;
+    line-height: 1.3;
+    padding-top: 8px;
+    margin-top: 2px;
   }
 }
 
 @media screen and (max-width: 768px) {
   body > .lang-content {
     font-size: 17px;
+  }
+  body > .lang-content .header {
+    padding-top: 30px;
+    padding-bottom: 28px;
+  }
+  body > .lang-content .header-identity {
+    gap: 18px;
   }
   body > .lang-content .header h1 {
     font-size: clamp(2rem, 9vw, 2.35rem);
@@ -171,8 +328,64 @@
   body > .lang-content .header-title {
     font-size: 1.0625rem;
   }
+  .profile-portrait {
+    flex-basis: 166px;
+    min-height: 230px;
+    border-radius: 23px;
+  }
+  .profile-portrait-frame,
+  .profile-portrait img {
+    min-height: 214px;
+  }
 }
+
+@media screen and (max-width: 560px) {
+  body > .lang-content .header-identity {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .profile-portrait {
+    width: min(100%, 220px);
+    min-height: 270px;
+    justify-self: center;
+    margin-top: 2px;
+  }
+  .profile-portrait-frame,
+  .profile-portrait img {
+    min-height: 254px;
+  }
+}
+
+@media print {
+  .profile-portrait { display: none !important; }
+}
+.pdf-document .profile-portrait { display: none !important; }
 </style>
 </head>
 {% endcapture %}
-{{ page_source | replace: '</head>', typography_head }}
+{% capture portrait_script %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.header-identity').forEach(function (header) {
+    if (header.querySelector('.profile-portrait')) return;
+    var english = Boolean(header.closest('#en-content'));
+    var card = document.createElement('div');
+    card.className = 'profile-portrait web-only';
+    var frame = document.createElement('div');
+    frame.className = 'profile-portrait-frame';
+    var image = document.createElement('img');
+    image.src = './assets/naif-profile.webp';
+    image.alt = english ? 'Naif Almohammdi' : 'نايف المحمدي';
+    image.decoding = 'async';
+    if (!english) image.fetchPriority = 'high';
+    frame.appendChild(image);
+    card.appendChild(frame);
+    header.appendChild(card);
+  });
+});
+</script>
+</body>
+{% endcapture %}
+{% assign rendered_page = page_source | replace: '</head>', typography_head %}
+{% assign rendered_page = rendered_page | replace: '</body>', portrait_script %}
+{{ rendered_page }}
