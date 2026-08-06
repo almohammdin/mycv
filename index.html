@@ -1,154 +1,187 @@
----
----
-{% capture page_source %}{% include_relative index-source.html %}{% endcapture %}
-{% capture portrait_data %}{% include_relative assets/portrait-base64.txt %}{% endcapture %}
-
-{% capture head_close %}<link rel="stylesheet" href="./assets/cv-final.css?v=2"></head>{% endcapture %}
-{% assign page_source = page_source | replace: '</head>', head_close %}
-
-{% capture final_script %}<script>
-(function () {
-  const portraitSource = 'data:image/jpeg;base64,{{ portrait_data | strip }}';
-  const pdfFiles = {
-    ar: {
-      href: './Naif-Almohammdi-CV-AR.pdf',
-      filename: 'Naif-Almohammdi-CV-AR.pdf',
-      label: 'تحميل PDF',
-      aria: 'تحميل السيرة العربية بصيغة PDF',
-      dir: 'rtl'
-    },
-    en: {
-      href: './Naif-Almohammdi-CV-EN.pdf',
-      filename: 'Naif-Almohammdi-CV-EN.pdf',
-      label: 'Download PDF',
-      aria: 'Download the English CV as PDF',
-      dir: 'ltr'
-    }
-  };
-
-  function rebuildControls() {
-    const inner = document.querySelector('.top-bar-inner');
-    if (!inner) return;
-    inner.className = 'top-bar-inner cv-controls';
-    inner.innerHTML = `
-      <div class="lang-row" role="group" aria-label="اختيار لغة السيرة">
-        <button type="button" class="lang-btn active" id="btn-ar" data-cv-lang="ar" aria-pressed="true">عربي</button>
-        <button type="button" class="lang-btn" id="btn-en" data-cv-lang="en" aria-pressed="false">EN</button>
-      </div>
-      <a class="btn-download" id="downloadPdfButton" href="./Naif-Almohammdi-CV-AR.pdf" download="Naif-Almohammdi-CV-AR.pdf" aria-label="تحميل السيرة بصيغة PDF">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></svg>
-        <span id="dl-label">تحميل PDF</span>
-      </a>`;
-  }
-
-  function rebuildHeaders() {
-    document.querySelectorAll('.header-content').forEach(function (header) {
-      const english = Boolean(header.closest('#en-content'));
-      const brand = document.createElement('div');
-      brand.className = 'header-brand-top';
-      brand.innerHTML = `
-        <img src="./naif-logo.svg" alt="${english ? 'Naif Almohammdi logo' : 'شعار نايف المحمدي'}">
-        <h1 class="brand-person-name">${english ? 'Naif Almohammdi' : 'نايف المحمدي'}</h1>
-        <div class="brand-role-line">${english ? 'Founder & Strategic Advisor | Hatta Business Solutions Company' : 'المؤسس والمستشار الاستراتيجي | شركة حتى لحلول الأعمال'}</div>`;
-      header.prepend(brand);
-
-      const identity = header.querySelector('.header-identity');
-      const copy = header.querySelector('.header-identity-copy');
-      if (!identity || !copy) return;
-
-      copy.querySelector('.naif-logo')?.remove();
-      copy.querySelector('.rcoa-badge')?.remove();
-      copy.querySelector('h1')?.remove();
-
-      const portrait = document.createElement('div');
-      portrait.className = 'profile-portrait web-only';
-      portrait.innerHTML = `
-        <div class="profile-portrait-frame">
-          <img src="${portraitSource}" alt="${english ? 'Portrait of Naif Almohammdi' : 'صورة نايف المحمدي'}">
-        </div>`;
-      identity.prepend(portrait);
-    });
-  }
-
-  function rebuildFooter() {
-    const brand = document.querySelector('footer .footer-brand');
-    if (brand) {
-      const text = brand.querySelector('div');
-      if (text) {
-        text.className = 'footer-role-text';
-        text.textContent = 'مستشار الحوكمة وتطوير الأعمال';
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0a0e1a">
+  <title>نايف المحمدي | قيادة الاستثمار والأثر</title>
+  <meta name="description" content="السيرة المهنية لنايف المحمدي في الاستثمار وتطوير الأعمال وحوكمة مجالس الإدارة.">
+  <style>
+    html,body{margin:0;min-height:100%;background:#f8f9fb;font-family:Arial,sans-serif}
+    .cv-loading{min-height:100vh;display:grid;place-items:center;color:#0a0e1a;font-size:16px}
+    .cv-loading::before{content:"";width:28px;height:28px;border:3px solid #d9dee7;border-top-color:#c9a84c;border-radius:50%;animation:spin .8s linear infinite;margin-inline-end:10px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+  </style>
+</head>
+<body>
+  <div class="cv-loading">جاري تحميل السيرة</div>
+  <script>
+  (async function () {
+    const pdfFiles = {
+      ar: {
+        href: './Naif-Almohammdi-CV-AR.pdf',
+        filename: 'Naif-Almohammdi-CV-AR.pdf',
+        label: 'تحميل PDF',
+        aria: 'تحميل السيرة العربية بصيغة PDF',
+        dir: 'rtl'
+      },
+      en: {
+        href: './Naif-Almohammdi-CV-EN.pdf',
+        filename: 'Naif-Almohammdi-CV-EN.pdf',
+        label: 'Download PDF',
+        aria: 'Download the English CV as PDF',
+        dir: 'ltr'
       }
+    };
+
+    function rebuildControls(doc) {
+      const inner = doc.querySelector('.top-bar-inner');
+      if (!inner) return;
+      inner.className = 'top-bar-inner cv-controls';
+      inner.innerHTML = `
+        <div class="lang-row" role="group" aria-label="اختيار لغة السيرة">
+          <button type="button" class="lang-btn active" id="btn-ar" data-cv-lang="ar" aria-pressed="true">عربي</button>
+          <button type="button" class="lang-btn" id="btn-en" data-cv-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <a class="btn-download" id="downloadPdfButton" href="./Naif-Almohammdi-CV-AR.pdf" download="Naif-Almohammdi-CV-AR.pdf" aria-label="تحميل السيرة بصيغة PDF">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"></path></svg>
+          <span id="dl-label">تحميل PDF</span>
+        </a>`;
     }
 
-    const copy = document.querySelector('footer .footer-copy span');
-    if (copy) copy.textContent = '© 2026 | السيرة المهنية | الإصدار 2.8';
-  }
+    function rebuildHeaders(doc, portraitSource) {
+      doc.querySelectorAll('.header-content').forEach(function (header) {
+        const english = Boolean(header.closest('#en-content'));
+        const brand = doc.createElement('div');
+        brand.className = 'header-brand-top';
+        brand.innerHTML = `
+          <img src="./naif-logo.svg" alt="${english ? 'Naif Almohammdi logo' : 'شعار نايف المحمدي'}">
+          <h1 class="brand-person-name">${english ? 'Naif Almohammdi' : 'نايف المحمدي'}</h1>
+          <div class="brand-role-line">${english ? 'Founder & Strategic Advisor | Hatta Business Solutions Company' : 'المؤسس والمستشار الاستراتيجي | شركة حتى لحلول الأعمال'}</div>`;
+        header.prepend(brand);
 
-  function applyLanguage(requestedLanguage) {
-    const lang = requestedLanguage === 'en' ? 'en' : 'ar';
-    const ar = document.getElementById('ar-content');
-    const en = document.getElementById('en-content');
-    const btnAr = document.getElementById('btn-ar');
-    const btnEn = document.getElementById('btn-en');
-    const download = document.getElementById('downloadPdfButton');
-    const label = document.getElementById('dl-label');
-    const selected = pdfFiles[lang];
+        const identity = header.querySelector('.header-identity');
+        const copy = header.querySelector('.header-identity-copy');
+        if (!identity || !copy) return;
 
-    if (!ar || !en || !btnAr || !btnEn || !download || !label) return;
+        copy.querySelector('.naif-logo')?.remove();
+        copy.querySelector('.rcoa-badge')?.remove();
+        copy.querySelector('h1')?.remove();
 
-    ar.classList.toggle('active', lang === 'ar');
-    en.classList.toggle('active', lang === 'en');
-    btnAr.classList.toggle('active', lang === 'ar');
-    btnEn.classList.toggle('active', lang === 'en');
-    btnAr.setAttribute('aria-pressed', String(lang === 'ar'));
-    btnEn.setAttribute('aria-pressed', String(lang === 'en'));
-
-    document.documentElement.lang = lang;
-    document.documentElement.dir = selected.dir;
-    document.body.lang = lang;
-    document.body.dir = selected.dir;
-
-    download.href = new URL(selected.href, document.baseURI).href;
-    download.setAttribute('download', selected.filename);
-    download.setAttribute('aria-label', selected.aria);
-    label.textContent = selected.label;
-
-    try { localStorage.setItem('cvLanguage', lang); } catch (error) {}
-  }
-
-  function initialize() {
-    rebuildControls();
-    rebuildHeaders();
-    rebuildFooter();
-
-    document.querySelectorAll('[data-cv-lang]').forEach(function (button) {
-      button.addEventListener('click', function () {
-        applyLanguage(button.dataset.cvLang);
-      });
-    });
-
-    const download = document.getElementById('downloadPdfButton');
-    if (download) {
-      download.addEventListener('click', function () {
-        applyLanguage(document.body.lang === 'en' ? 'en' : 'ar');
+        const portrait = doc.createElement('div');
+        portrait.className = 'profile-portrait web-only';
+        portrait.innerHTML = `
+          <div class="profile-portrait-frame">
+            <img src="${portraitSource}" alt="${english ? 'Portrait of Naif Almohammdi' : 'صورة نايف المحمدي'}">
+          </div>`;
+        identity.prepend(portrait);
       });
     }
 
-    let savedLanguage = 'ar';
-    try { savedLanguage = localStorage.getItem('cvLanguage') || 'ar'; } catch (error) {}
-    applyLanguage(savedLanguage);
-  }
+    function rebuildFooter(doc) {
+      const brand = doc.querySelector('footer .footer-brand');
+      if (brand) {
+        const text = brand.querySelector('div');
+        if (text) {
+          text.className = 'footer-role-text';
+          text.textContent = 'مستشار الحوكمة وتطوير الأعمال';
+        }
+      }
+      const copy = doc.querySelector('footer .footer-copy span');
+      if (copy) copy.textContent = '© 2026 | السيرة المهنية | الإصدار 2.8';
+    }
 
-  window.switchLang = applyLanguage;
+    function bindControls() {
+      function applyLanguage(requestedLanguage) {
+        const lang = requestedLanguage === 'en' ? 'en' : 'ar';
+        const ar = document.getElementById('ar-content');
+        const en = document.getElementById('en-content');
+        const btnAr = document.getElementById('btn-ar');
+        const btnEn = document.getElementById('btn-en');
+        const download = document.getElementById('downloadPdfButton');
+        const label = document.getElementById('dl-label');
+        const selected = pdfFiles[lang];
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initialize, { once: true });
-  } else {
-    initialize();
-  }
-})();
-</script>
-</body>{% endcapture %}
-{% assign page_source = page_source | replace: '</body>', final_script %}
+        if (!ar || !en || !btnAr || !btnEn || !download || !label) return;
 
-{{ page_source }}
+        ar.classList.toggle('active', lang === 'ar');
+        en.classList.toggle('active', lang === 'en');
+        btnAr.classList.toggle('active', lang === 'ar');
+        btnEn.classList.toggle('active', lang === 'en');
+        btnAr.setAttribute('aria-pressed', String(lang === 'ar'));
+        btnEn.setAttribute('aria-pressed', String(lang === 'en'));
+
+        document.documentElement.lang = lang;
+        document.documentElement.dir = selected.dir;
+        document.body.lang = lang;
+        document.body.dir = selected.dir;
+
+        download.href = new URL(selected.href, document.baseURI).href;
+        download.setAttribute('download', selected.filename);
+        download.setAttribute('aria-label', selected.aria);
+        label.textContent = selected.label;
+
+        try { localStorage.setItem('cvLanguage', lang); } catch (error) {}
+      }
+
+      window.switchLang = applyLanguage;
+
+      document.querySelectorAll('[data-cv-lang]').forEach(function (button) {
+        button.addEventListener('click', function () {
+          applyLanguage(button.dataset.cvLang);
+        });
+      });
+
+      const download = document.getElementById('downloadPdfButton');
+      if (download) {
+        download.addEventListener('click', function () {
+          applyLanguage(document.body.lang === 'en' ? 'en' : 'ar');
+        });
+      }
+
+      let savedLanguage = 'ar';
+      try { savedLanguage = localStorage.getItem('cvLanguage') || 'ar'; } catch (error) {}
+      applyLanguage(savedLanguage);
+    }
+
+    try {
+      const [sourceResponse, portraitResponse] = await Promise.all([
+        fetch('./index-source.html?v=202608061', { cache: 'no-store' }),
+        fetch('./assets/portrait-base64.txt?v=202608061', { cache: 'no-store' })
+      ]);
+
+      if (!sourceResponse.ok || !portraitResponse.ok) throw new Error('تعذر تحميل ملفات السيرة');
+
+      const [sourceHtml, portraitData] = await Promise.all([
+        sourceResponse.text(),
+        portraitResponse.text()
+      ]);
+
+      const parsed = new DOMParser().parseFromString(sourceHtml, 'text/html');
+      parsed.querySelectorAll('script:not([type="application/ld+json"])').forEach(function (script) {
+        script.remove();
+      });
+
+      const styleLink = parsed.createElement('link');
+      styleLink.rel = 'stylesheet';
+      styleLink.href = './assets/cv-final.css?v=3';
+      parsed.head.appendChild(styleLink);
+
+      rebuildControls(parsed);
+      rebuildHeaders(parsed, 'data:image/jpeg;base64,' + portraitData.replace(/\s+/g, ''));
+      rebuildFooter(parsed);
+
+      document.head.replaceWith(document.importNode(parsed.head, true));
+      document.body.replaceWith(document.importNode(parsed.body, true));
+      document.documentElement.lang = 'ar';
+      document.documentElement.dir = 'rtl';
+
+      bindControls();
+    } catch (error) {
+      document.body.innerHTML = '<div class="cv-loading">تعذر تحميل السيرة. حدّث الصفحة مرة أخرى.</div>';
+      console.error(error);
+    }
+  })();
+  </script>
+</body>
+</html>
