@@ -85,6 +85,9 @@
       --card-bg:     #ffffff;
       --section-bg:  #f8f9fb;
       --accent-bar:  3px solid var(--navy-light);
+      --ease-out:    cubic-bezier(0.23, 1, 0.32, 1);
+      --motion-fast: 160ms;
+      --motion-ui:   220ms;
     }
 
     html { scroll-behavior: smooth; }
@@ -132,10 +135,13 @@
       font-weight: 600;
       cursor: pointer;
       font-family: inherit;
-      transition: all .2s;
+      transition:
+        background-color var(--motion-fast) ease,
+        color var(--motion-fast) ease,
+        border-color var(--motion-fast) ease,
+        transform var(--motion-fast) var(--ease-out);
     }
-    .lang-btn.active,
-    .lang-btn:hover {
+    .lang-btn.active {
       background: var(--gold);
       color: var(--navy);
       border-color: var(--gold);
@@ -156,12 +162,12 @@
       cursor: pointer;
       font-family: inherit;
       text-decoration: none;
-      transition: all .2s;
+      transition:
+        background-color var(--motion-fast) ease,
+        color var(--motion-fast) ease,
+        border-color var(--motion-fast) ease,
+        transform var(--motion-fast) var(--ease-out);
       white-space: nowrap;
-    }
-    .btn-download:hover {
-      background: var(--gold-light);
-      transform: translateY(-1px);
     }
     .btn-download:disabled {
       opacity: .68;
@@ -170,7 +176,6 @@
     }
     .btn-download svg { width:14px; height:14px; fill:currentColor; flex-shrink:0; }
     .btn-download.secondary { background:transparent; color:var(--gold); border:1px solid var(--gold); }
-    .btn-download.secondary:hover { background:rgba(201,168,76,.1); }
     .btn-download[hidden] { display:none; }
 
     /* ===== MAIN CONTAINER ===== */
@@ -316,14 +321,15 @@
       border:1px solid rgba(255,255,255,0.22);
       border-radius:6px; color:white;
       text-decoration:none; font-size:.83em; font-weight:600;
-      transition:all .2s;
+      transition:
+        background-color var(--motion-fast) ease,
+        border-color var(--motion-fast) ease,
+        color var(--motion-fast) ease,
+        transform var(--motion-fast) var(--ease-out);
     }
     .phone-btn svg { width:14px; height:14px; fill:currentColor; }
-    .phone-btn:hover { background:rgba(255,255,255,0.20); }
     .phone-btn.wa { background:rgba(37,211,102,0.18); border-color:rgba(37,211,102,0.38); }
-    .phone-btn.wa:hover { background:#25D366; border-color:#25D366; }
     .phone-btn.linkedin { background:rgba(10,102,194,0.22); border-color:rgba(72,150,229,0.48); }
-    .phone-btn.linkedin:hover { background:#0a66c2; border-color:#0a66c2; }
 
     /* Hook bullets */
     .hook-box {
@@ -424,12 +430,6 @@
       border: 1px solid rgba(201,168,76,0.18);
       position: relative;
       overflow: hidden;
-      transition: all .25s;
-    }
-    .board-card:hover {
-      border-color: rgba(201,168,76,0.45);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(10,14,26,0.18);
     }
     .board-card::after {
       content: '';
@@ -506,8 +506,7 @@
       gap: 7px;
       flex-wrap: wrap;
     }
-    .company-link { color:inherit; text-decoration:none; }
-    .company-link:hover { color:var(--gold); }
+    .company-link { color:inherit; text-decoration:none; transition:color var(--motion-fast) ease; }
 
 
     /* ===== EXPERIENCE CARDS ===== */
@@ -518,15 +517,8 @@
       padding: 28px 30px;
       margin-bottom: 20px;
       border-right: 3px solid var(--navy-light);
-      transition: all .25s;
     }
     [lang="en"] .exp-card { border-right: 1px solid var(--border-lt); border-left: 3px solid var(--navy-light); }
-    .exp-card:hover {
-      box-shadow: 0 4px 16px rgba(30,58,95,0.08);
-      transform: translateX(-2px);
-      border-right-color: var(--gold);
-    }
-    [lang="en"] .exp-card:hover { transform:translateX(2px); border-left-color:var(--gold); border-right-color:var(--border-lt); }
 
     .job-header { display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:12px; }
     .job-title { font-size:1.12em; font-weight:700; color:var(--navy-light); line-height:1.3; }
@@ -577,13 +569,7 @@
       background: var(--section-bg);
       color: var(--navy-light);
       border: 1px solid var(--border);
-      transition: all .2s;
       cursor: default;
-    }
-    .tag:hover {
-      background: var(--navy);
-      color: var(--gold);
-      border-color: rgba(201,168,76,.3);
     }
     .tag.primary {
       background: var(--navy);
@@ -602,10 +588,8 @@
       display: flex;
       gap: 18px;
       align-items: flex-start;
-      transition: all .25s;
     }
     [lang="en"] .cert-pro { border-right:1px solid var(--border-lt); border-left:3px solid var(--navy-light); }
-    .cert-pro:hover { box-shadow:0 4px 12px rgba(30,58,95,.07); }
 
     .cert-logo {
       flex-shrink:0;
@@ -695,8 +679,7 @@
     .knowledge-product-note { margin-top:14px; padding:11px 12px; border:1px solid rgba(255,255,255,.14); border-radius:10px; background:rgba(255,255,255,.07); color:rgba(255,255,255,.76); font-size:.76em; line-height:1.75; }
     .knowledge-product-note strong { display:block; margin-bottom:3px; color:#f0d782; }
     .knowledge-product-media { position:relative; display:flex; min-height:240px; overflow:hidden; background:#eef2f7; }
-    .knowledge-product-media img { width:100%; height:100%; object-fit:cover; object-position:center; transition:transform .24s; }
-    .knowledge-product-media:hover img,.knowledge-product-media:focus-visible img { transform:scale(1.025); }
+    .knowledge-product-media img { width:100%; height:100%; object-fit:cover; object-position:center; transition:transform var(--motion-ui) var(--ease-out); }
     .knowledge-product-media span { position:absolute; right:13px; bottom:13px; padding:7px 11px; border-radius:9px; background:rgba(10,14,26,.9); border:1px solid rgba(201,168,76,.42); color:#fff; font-size:.74em; font-weight:700; }
     [lang="en"] .knowledge-product-media span { right:auto; left:13px; }
     .tools-intro {
@@ -717,11 +700,12 @@
       border-radius: 12px;
       overflow: hidden;
       position: relative;
-      transition: transform .22s, box-shadow .22s, border-color .22s;
+      transition:
+        transform var(--motion-ui) var(--ease-out),
+        box-shadow var(--motion-ui) ease,
+        border-color var(--motion-ui) ease;
     }
-    .tool-card:hover,
     .tool-card:focus-within {
-      transform: translateY(-4px);
       box-shadow: 0 12px 26px rgba(30,58,95,.12);
       border-color: rgba(201,168,76,.64);
     }
@@ -852,13 +836,11 @@
       border:1px solid #d6dee7;
       background:#f8fafc;
       text-decoration:none; color:var(--navy);
-      transition:transform .18s,border-color .18s,background .18s,box-shadow .18s;
-    }
-    .footer-social a:hover {
-      transform:translateY(-2px);
-      border-color:var(--navy);
-      background:#f1f4f7;
-      box-shadow:0 8px 18px rgba(11,26,43,.10);
+      transition:
+        transform var(--motion-fast) var(--ease-out),
+        border-color var(--motion-fast) ease,
+        background-color var(--motion-fast) ease,
+        box-shadow var(--motion-fast) ease;
     }
     .footer-social svg { width:17px; height:17px; fill:currentColor; }
     .footer-copy {
@@ -873,6 +855,67 @@
     /* ===== LANG TOGGLE ===== */
     .lang-content { display:none; }
     .lang-content.active { display:block; }
+
+    /* ===== INTERACTION & MOTION ===== */
+    @media screen {
+      :where(.lang-btn, .btn-download, .phone-btn, .company-link, .knowledge-product-media, .tool-card a, .footer-social a):focus-visible {
+        outline: 3px solid #2f70bf;
+        outline-offset: 3px;
+      }
+      :where(.lang-btn, .btn-download, .phone-btn, .footer-social a):active {
+        transform: scale(.97);
+      }
+      :where(.knowledge-product-media, .tool-card):active {
+        transform: scale(.99);
+      }
+    }
+
+    @media screen and (hover:hover) and (pointer:fine) {
+      .lang-btn:hover {
+        background: var(--gold);
+        color: var(--navy);
+        border-color: var(--gold);
+      }
+      .btn-download:hover {
+        background: var(--gold-light);
+        transform: translateY(-1px);
+      }
+      .btn-download.secondary:hover { background:rgba(201,168,76,.1); }
+      .phone-btn:hover { background:rgba(255,255,255,0.20); }
+      .phone-btn.wa:hover { background:#25D366; border-color:#25D366; }
+      .phone-btn.linkedin:hover { background:#0a66c2; border-color:#0a66c2; }
+      .company-link:hover { color:var(--gold); }
+      .knowledge-product-media:hover img { transform:scale(1.025); }
+      .tool-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 26px rgba(30,58,95,.12);
+        border-color: rgba(201,168,76,.64);
+      }
+      .footer-social a:hover {
+        transform:translateY(-2px);
+        border-color:var(--navy);
+        background:#f1f4f7;
+        box-shadow:0 8px 18px rgba(11,26,43,.10);
+      }
+    }
+
+    @media screen and (prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      .lang-btn,
+      .btn-download,
+      .phone-btn,
+      .company-link,
+      .knowledge-product-media img,
+      .tool-card,
+      .footer-social a { transition-duration:120ms; }
+      .btn-download:hover,
+      .knowledge-product-media:hover img,
+      .tool-card:hover,
+      .footer-social a:hover,
+      :where(.lang-btn, .btn-download, .phone-btn, .footer-social a, .knowledge-product-media, .tool-card):active {
+        transform:none;
+      }
+    }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width:768px) {
