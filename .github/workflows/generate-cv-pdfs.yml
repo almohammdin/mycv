@@ -7,7 +7,7 @@ on:
     paths:
       - index.html
       - assets/**
-      - scripts/generate-pdfs.mjs
+      - scripts/**
       - .github/workflows/generate-cv-pdfs.yml
 
 permissions:
@@ -33,19 +33,22 @@ jobs:
           npm install --no-save playwright @fontsource/ibm-plex-sans-arabic @fontsource/ibm-plex-sans
           npx playwright install --with-deps chromium
 
-      - name: Generate Arabic and English PDFs
+      - name: Generate full and short Arabic PDFs and the English PDF
         run: node scripts/generate-pdfs.mjs
 
       - name: Verify PDFs
         run: |
           test -s Naif-Almohammdi-CV-AR.pdf
+          test -s Naif-Almohammdi-CV-AR-Short.pdf
           test -s Naif-Almohammdi-CV-EN.pdf
+          python -m pip install pypdf
+          python scripts/verify-pdfs.py
 
       - name: Publish generated PDFs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add Naif-Almohammdi-CV-AR.pdf Naif-Almohammdi-CV-EN.pdf
+          git add Naif-Almohammdi-CV-AR.pdf Naif-Almohammdi-CV-AR-Short.pdf Naif-Almohammdi-CV-EN.pdf
           git diff --cached --quiet && exit 0
           git commit -m "تحديث ملفات السيرة PDF"
           git push

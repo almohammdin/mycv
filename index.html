@@ -169,6 +169,9 @@
       transform: none;
     }
     .btn-download svg { width:14px; height:14px; fill:currentColor; flex-shrink:0; }
+    .btn-download.secondary { background:transparent; color:var(--gold); border:1px solid var(--gold); }
+    .btn-download.secondary:hover { background:rgba(201,168,76,.1); }
+    .btn-download[hidden] { display:none; }
 
     /* ===== MAIN CONTAINER ===== */
     .container {
@@ -992,7 +995,11 @@
         </div>
         <a class="btn-download" id="downloadPdfButton" href="./Naif-Almohammdi-CV-AR.pdf" download="Naif-Almohammdi-CV-AR.pdf">
           <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
-          <span id="dl-label">تحميل PDF</span>
+          <span id="dl-label">PDF كامل · 6 صفحات</span>
+        </a>
+        <a class="btn-download secondary" id="downloadShortPdfButton" href="./Naif-Almohammdi-CV-AR-Short.pdf" download="Naif-Almohammdi-CV-AR-Short.pdf" lang="ar" dir="rtl">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          <span>PDF مختصر · صفحتان</span>
         </a>
       </div>
     </div>
@@ -1713,6 +1720,8 @@
       const btnEn = document.getElementById('btn-en');
       const dlLabel = document.getElementById('dl-label');
       const dlButton = document.getElementById('downloadPdfButton');
+      const shortDlButton = document.getElementById('downloadShortPdfButton');
+      shortDlButton.hidden = lang !== 'ar';
 
       if (lang === 'ar') {
         ar.classList.add('active');
@@ -1721,7 +1730,7 @@
         document.body.setAttribute('lang', 'ar');
         btnAr.classList.add('active');
         btnEn.classList.remove('active');
-        dlLabel.textContent = 'تحميل PDF';
+        dlLabel.textContent = 'PDF كامل · 6 صفحات';
         dlButton.href = './Naif-Almohammdi-CV-AR.pdf';
         dlButton.setAttribute('download', 'Naif-Almohammdi-CV-AR.pdf');
       } else {

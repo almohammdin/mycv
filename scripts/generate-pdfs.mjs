@@ -2,6 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { chromium } from "playwright";
+import { generateArabicPdfs } from './arabic-pdf-layout.mjs';
 
 const projectDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const indexUrl = pathToFileURL(path.join(projectDir, "index.html")).href;
@@ -150,10 +151,10 @@ async function generate(browser, lang, outputName) {
   await page.close();
 }
 
-const browser = await chromium.launch({ headless: true });
+const browser = await chromium.launch({ headless: true, ...(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH ? {executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH} : {}) });
 try {
-  await generate(browser, "ar", "Naif-Almohammdi-CV-AR.pdf");
-  await generate(browser, "en", "Naif-Almohammdi-CV-EN.pdf");
+  await generateArabicPdfs(browser, projectDir, addLocalFonts);
+  if (!process.argv.includes('--arabic-only')) await generate(browser, "en", "Naif-Almohammdi-CV-EN.pdf");
 } finally {
   await browser.close();
 }

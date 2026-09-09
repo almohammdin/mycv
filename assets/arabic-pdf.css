@@ -1,0 +1,74 @@
+@page { size: A4; margin: 14mm; }
+* { box-sizing: border-box; }
+html { color: #172b3d; background: #fff; font-family: 'IBM Plex Sans Arabic', sans-serif; }
+body { margin: 0; font-size: 10.7pt; line-height: 1.68; }
+a { color: #536638; text-decoration: none; }
+p { margin: 0 0 2.6mm; }
+h1,h2,h3 { margin: 0; }
+h1 { font-size: 33pt; line-height: 1.3; margin: 2mm 0 3mm; }
+h2 { color: #243d4d; font-size: 14pt; font-weight: 700; line-height: 1.45; padding-inline-start: 3mm; border-inline-start: 1mm solid #af8845; margin-bottom: 4mm; }
+h3 { font-size: 11.1pt; line-height: 1.55; font-weight: 600; }
+ul { margin: 0; padding-inline-start: 5mm; }
+li { padding-inline-start: 1mm; margin-bottom: 2mm; }
+li::marker { color: #9e7c3e; }
+section { margin-bottom: 6mm; }
+.sheet { position: relative; width: 182mm; height: 268mm; break-after: page; page-break-after: always; }
+.sheet:last-child { break-after: auto; page-break-after: auto; }
+.running-head { display: flex; justify-content: space-between; align-items: center; border-bottom: .3mm solid #cbd3d5; color: #63747f; font-size: 8.3pt; padding-bottom: 3mm; margin-bottom: 7mm; }
+.running-head span:first-child { color: #253c4b; font-weight: 600; }
+footer { position: absolute; bottom: 0; inset-inline: 0; display: flex; justify-content: space-between; border-top: .3mm solid #cbd3d5; padding-top: 3mm; font-size: 7.8pt; color: #63747f; }
+footer a { color: inherit; }
+.identity { display: flex; gap: 7mm; align-items: center; background: #172b3d; color: #fff; padding: 8mm; border-bottom: 1.1mm solid #af8845; margin-bottom: 4mm; }
+.identity-copy { flex: 1; }
+.eyebrow { color: #e4cb9b; font-size: 8.8pt; }
+.headline { font-size: 10.4pt; color: #edf1f2; margin: 0; line-height: 1.8; }
+.portrait { width: 32mm; height: 44mm; object-fit: contain; object-position: bottom; align-self: end; background: #e9eef0; border-radius: 2mm; }
+.contact { display: flex; justify-content: space-between; gap: 2mm; font-size: 8.8pt; }
+.contact a { color: #243d4d; }
+.contact-links { margin: 1mm 0 7mm; font-size: 8.7pt; color: #91a0a4; }
+.impact { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+.impact article { background: #f2f5f5; border: .25mm solid #d4dcde; padding: 3.5mm 5mm; break-inside: avoid; }
+.impact strong { display: inline-block; color: #8b6931; font-size: 25pt; line-height: 1.35; }
+.impact p { font-size: 9.7pt; margin-top: 2mm; margin-bottom: 0; }
+.boards { display: flex; flex-direction: column; gap: 3mm; }
+.board { display: flex; align-items: center; gap: 5mm; border: .25mm solid #d8dfe1; padding: 3mm 4mm; }
+.board img { width: 22mm; height: 12mm; object-fit: contain; }
+.board h3 { font-size: 10.4pt; }
+.board p { margin: 0; font-size: 9pt; }
+.muted { color: #6d7c85; font-size: 8.3pt !important; }
+.experience { margin-bottom: 5mm; break-inside: avoid; }
+.job-heading { display: flex; justify-content: space-between; gap: 4mm; align-items: baseline; margin-bottom: 2.5mm; }
+.company { color: #69783f; font-weight: 500; margin: 0; font-size: 10.2pt; }
+.period { flex-shrink: 0; font-size: 9pt; color: #5f7180; }
+.achievement { background: #f3f5ee; border-inline-start: .6mm solid #a8b48b; padding: 2mm 3mm; margin-bottom: 2.5mm; font-size: 9.8pt; line-height: 1.55; }
+.experience li { margin-bottom: 2.3mm; }
+.expertise { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1mm 7mm; font-size: 10pt; }
+.expertise li { margin-bottom: 0; }
+.tools { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+.tool { border: .25mm solid #d8dfe1; border-top: .6mm solid #af8845; background: #fafbfb; padding: 4mm; break-inside: avoid; }
+.tool h3 { font-size: 10.6pt; margin-bottom: 2mm; }
+.tool h3 a { color: #243d4d; }
+.tool p { font-size: 10pt; margin-bottom: 2mm; }
+.tool-link { font-size: 8pt; }
+.journey { background: #f2f5f5; padding: 5mm; border-inline-start: .7mm solid #9e7c3e; }
+.journey h3 { margin-bottom: 3mm; }
+.journey a { font-size: 9.3pt; }
+.certificate { border-bottom: .25mm solid #d8dfe1; padding-bottom: 3mm; margin-bottom: 4mm; break-inside: avoid; }
+.certificate p { font-size: 10pt; margin-bottom: 0; }
+.institution { color: #69783f; font-weight: 500; margin: 1mm 0 !important; }
+.education { padding: 3mm 4mm; background: #f2f5f5; }
+.education p { margin: 1mm 0 0; }
+.short { font-size: 10.7pt; line-height: 1.68; }
+.short .running-head { margin-bottom: 5mm; }
+.short h2 { font-size: 12.5pt; margin-bottom: 3mm; }
+.short h3 { font-size: 10.6pt; }
+.short section { margin-bottom: 4.5mm; }
+.short .identity { padding: 5mm 6mm; margin-bottom: 3mm; }
+.short h1 { font-size: 28pt; margin: 1mm 0 2mm; }
+.short .headline { font-size: 9.5pt; line-height: 1.6; }
+.short .contact { font-size: 8.3pt; }
+.short .contact-links { margin-bottom: 4mm; }
+.short .experience { margin-bottom: 3.5mm; }
+.short .job-heading { margin-bottom: 1.5mm; }
+.short .company { font-size: 9.7pt; }
+.short li { margin-bottom: 1.3mm; }
