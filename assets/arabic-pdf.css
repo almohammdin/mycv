@@ -33,6 +33,7 @@ footer a { color: inherit; }
 .boards { display: flex; flex-direction: column; gap: 3mm; }
 .board { display: flex; align-items: center; gap: 5mm; border: .25mm solid #d8dfe1; padding: 3mm 4mm; }
 .board img { width: 22mm; height: 12mm; object-fit: contain; }
+.board img[src*="federation-saudi-chambers"] { width: 36mm; height: 12mm; }
 .board h3 { font-size: 10.4pt; }
 .board p { margin: 0; font-size: 9pt; }
 .muted { color: #6d7c85; font-size: 8.3pt !important; }
