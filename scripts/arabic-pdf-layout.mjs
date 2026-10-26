@@ -2,7 +2,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-const escape = (value) => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const escape = (value) => String(value).replace(/[\u064b-\u0652]/g,'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const inline = text => escape(text).replace(/\+?\d[\d,]*(?:\.\d+)?%/g, value => `<bdi dir="ltr">${value}</bdi>`);
 const p = text => `<p>${inline(text)}</p>`;
 const list = items => `<ul>${items.map(item => `<li>${inline(item)}</li>`).join('')}</ul>`;
@@ -19,9 +19,9 @@ async function readArabicContent(page, projectDir) {
     const all = (node, selector) => [...node.querySelectorAll(selector)];
     return {
       name: text(root, 'h1'), role: text(root, '.rcoa-badge'), title: text(root, '.header-title'),
-      intro: text(root, '.hook-box p'), paths: all(root, '.hook-box li').map(x => x.textContent.trim()),
+      intro: text(root, '.hero-summary'), paths: all(root, '.value-paths li').map(x => x.textContent.trim()),
       impact: all(root, '.impact-card').map(x => ({number:text(x,'.impact-num'),label:text(x,'.impact-label')})),
-      boards: all(root, '.board-card').map(x => ({role:text(x,'.board-role'),entity:text(x,'.board-entity'),since:text(x,'.board-since'),image:x.querySelector('.board-logo').getAttribute('src')})),
+      boards: all(root, '.board-card').map(x => ({role:text(x,'.board-role'),entity:text(x,'.board-entity'),since:text(x,'.board-since'),image:x.querySelector('.board-logo')?.getAttribute('src') || ''})),
       experience: all(root, '.exp-card').map(x => ({title:text(x,'.job-title'),company:text(x,'.company-name'),period:text(x,'.job-period'),achievements:all(x,'.achievement').map(y=>y.textContent.trim().replace(/^✓\s*/,'')),bullets:all(x,'.desc li').map(y=>y.textContent.trim())})),
       expertise: all(root,'.tag').map(x=>x.textContent.trim()),
       toolsIntro: text(root,'.tools-intro'),
@@ -45,7 +45,7 @@ async function readArabicContent(page, projectDir) {
 }
 
 function identity(data, compact = false) {
-  return `<header class="identity ${compact ? 'compact-identity' : ''}"><div class="identity-copy"><div class="eyebrow">${escape(data.role)}</div><h1>${escape(data.name)}</h1><p class="headline">${escape(data.title)}</p></div>${compact ? '' : '<img class="portrait" src="assets/naif-photo-cutout.webp" alt="نايف المحمدي">'}</header>
+  return `<header class="identity ${compact ? 'compact-identity' : ''}"><div class="identity-copy"><div class="eyebrow">السيرة المهنية</div><img class="identity-logo" src="naif-logo.svg" alt="${escape(data.name)}"><h1 class="sr-only">${escape(data.name)}</h1><p class="headline">${escape(data.title)}</p></div>${compact ? '' : '<img class="portrait" src="assets/naif-photo-cutout.webp" alt="نايف المحمدي">'}</header>
   <div class="contact"><span>جدة، المملكة العربية السعودية</span><a dir="ltr" href="tel:+966506350457">0506350457</a><a dir="ltr" href="mailto:almohammdin@gmail.com">almohammdin@gmail.com</a></div>
   <div class="contact-links">${link('https://www.linkedin.com/in/almohammdin/','لينكدإن')}<span> | </span>${link('https://wa.me/966506350457','واتساب')}<span> | </span>${link('https://almohammdin.github.io/mycv/','السيرة المهنية والأدوات التفاعلية')}</div>`;
 }
@@ -57,7 +57,7 @@ function tools(items) {
   return `<div class="tools">${items.map(t=>`<article class="tool"><h3>${link(t.url,t.title)}</h3>${p(t.description)}<a class="tool-link" href="${escape(t.url)}">استعراض الأداة ↗</a></article>`).join('')}</div>`;
 }
 function boards(data) {
-  return `<div class="boards">${data.boards.map(b=>`<article class="board"><img src="${escape(b.image)}" alt=""><div><h3>${escape(b.entity)}</h3>${p(b.role)}<p class="muted">${escape(b.since)}</p></div></article>`).join('')}</div>`;
+  return `<div class="boards">${data.boards.map(b=>`<article class="board">${b.image ? `<img src="${escape(b.image)}" alt="">` : '<span class="board-mark" aria-hidden="true">◇</span>'}<div><h3>${escape(b.entity)}</h3>${p(b.role)}<p class="muted">${escape(b.since)}</p></div></article>`).join('')}</div>`;
 }
 
 const institutions = ['كلية إس دي إيه بوكوني للإدارة | إيطاليا', 'الأكاديمية الإنسانية بجامعة هارفارد', 'جامعة ولاية نيويورك | عبر كورسيرا', ''];
@@ -73,10 +73,10 @@ const training = [
 
 function fullPages(d) {
   return [
-    {title:'الملف التنفيذي', html:identity(d)+section('قيادة الاستثمار من الفرصة إلى العائد والأثر',p(d.intro))+section('مسارات صناعة القيمة',list(d.paths))+section('أبرز مؤشرات الأثر',`<div class="impact">${d.impact.map(x=>`<article><strong dir="ltr">${escape(x.number)}</strong>${p(x.label)}</article>`).join('')}</div>`)},
+    {title:'الملف التنفيذي', html:identity(d)+section('الاستثمار والقرار المؤسسي',p(d.intro))+section('مسارات صناعة القيمة',list(d.paths))+section('أبرز مؤشرات الأثر',`<div class="impact">${d.impact.map(x=>`<article><strong dir="ltr">${escape(x.number)}</strong>${p(x.label)}</article>`).join('')}</div>`)},
     {title:'المناصب الحالية والخبرة المهنية', html:section(d.sections[0],boards(d))+section('الخبرة المهنية | الأدوار الحالية',d.experience.slice(0,2).map(experience).join(''))},
     {title:'الخبرة المهنية والإنجازات', html:section('الخبرة المهنية | الاستثمار والتحول المؤسسي',d.experience.slice(2).map(experience).join(''))},
-    {title:'مناطق الخبرة والأدوات التفاعلية', html:section(d.sections[2],`<ul class="expertise">${d.expertise.map(x=>`<li>${escape(x)}</li>`).join('')}</ul>`)+section(d.sections[3],p(d.toolsIntro)+tools(d.tools.slice(0,6)))},
+    {title:'مجالات الخبرة والأدوات التفاعلية', html:section(d.sections[2],`<ul class="expertise">${d.expertise.map(x=>`<li>${escape(x)}</li>`).join('')}</ul>`)+section(d.sections[3],p(d.toolsIntro)+tools(d.tools.slice(0,6)))},
     {title:'الأدوات التفاعلية والرحلات المعرفية', html:section('أدوات نايف التفاعلية | تتمة',tools(d.tools.slice(6)))+section(d.sections[4],`<article class="journey"><h3>${escape(d.journey.title)}</h3>${p(d.journey.description)}${p(d.journey.note.replace('الرحلاتسبق','الرحلات: سبق').replace('نموذج لشكل','نموذجًا لشكل'))}<a href="${escape(d.journey.url)}">استعراض نموذج رحلة سيئول المعرفية ↗</a></article>`)},
     {title:'التأهيل العلمي والتطوير المهني', html:section(d.sections[5],d.certificates.map((c,i)=>`<article class="certificate"><h3>${escape(c.title)}</h3>${institutions[i]?`<p class="institution">${escape(institutions[i])}</p>`:''}${p(c.description)}</article>`).join(''))+section(d.sections[6],`<article class="education"><h3>${escape(d.education.degree)}</h3>${p(d.education.university)}</article>`)+section(d.sections[7],list(training))},
   ];
@@ -111,7 +111,7 @@ export async function generateArabicPdfs(browser, projectDir, addLocalFonts) {
       await addLocalFonts(page);
       await page.emulateMedia({media:'print'});
       await page.evaluate(async()=>{
-        await Promise.all([400,500,600,700].map(w=>document.fonts.load(`${w} 16px "IBM Plex Sans Arabic"`,'نايف المحمدي الاستثمار')));
+        await Promise.all([400,500,600,700].map(w=>document.fonts.load(`${w} 16px "Thmanyah Sans"`,'نايف المحمدي الاستثمار')));
         await document.fonts.ready;
         await Promise.all([...document.images].map(img=>img.decode()));
       });
