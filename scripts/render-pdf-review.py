@@ -6,6 +6,7 @@ review=root/'review';review.mkdir(exist_ok=True)
 for name in ['AR','AR-Short','EN']:
     source=root/f'Naif-Almohammdi-CV-{name}.pdf'
     prefix=review/f'pdf-{name}'
+    for previous in review.glob(f'pdf-{name}-[0-9]*.jpg'): previous.unlink()
     subprocess.run(['pdftoppm','-scale-to','1050','-jpeg','-jpegopt','quality=78',str(source),str(prefix)],check=True)
     pages=sorted(review.glob(f'pdf-{name}-[0-9]*.jpg'))
     thumbs=[]

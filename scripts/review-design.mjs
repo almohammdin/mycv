@@ -42,9 +42,13 @@ try{
  }
  await page.setViewportSize({width:1200,height:630});
  const base=pathToFileURL(root+path.sep).href;
- await page.setContent('<!doctype html><html lang="ar" dir="rtl"><head><base href="'+base+'"><link rel="stylesheet" href="assets/fonts.css"><style>*{box-sizing:border-box}body{margin:0;width:1200px;height:630px;background:#061f56;color:white;display:flex;align-items:center;justify-content:center;text-align:center;position:relative}body:before{content:"";position:absolute;inset:34px;border:1px solid #b47a2d66;border-radius:24px}img{width:520px;height:220px;object-fit:contain;margin:0 auto 35px;display:block}h1{font:700 58px/1.4 "Thmanyah Serif Display";margin:0;font-feature-settings:"salt" 1}p{font:400 36px/1.5 "Thmanyah Sans";color:#e6d2ae;margin:14px 0 0}</style></head><body><main><img src="naif-logo.svg" alt="نايف المحمدي"><h1>الاستثمار وتطوير الأعمال</h1><p>حوكمة مجالس الإدارة</p></main></body></html>',{waitUntil:'load'});
+ await page.setContent('<!doctype html><html lang="ar" dir="rtl"><head><base href="'+base+'"><link rel="stylesheet" href="assets/fonts.css"><style>*{box-sizing:border-box}body{margin:0;width:1200px;height:630px;background:#061f56;color:white;display:flex;align-items:center;justify-content:center;text-align:center;position:relative}body:before{content:"";position:absolute;inset:34px;border:1px solid #b47a2d66;border-radius:24px}img{width:520px;height:220px;object-fit:contain;margin:0 auto 35px;display:block}h1{font:700 80px/1.4 "Thmanyah Serif Display";margin:0;font-feature-settings:"salt" 1}p{font:500 40px/1.5 "Thmanyah Sans";color:#e6d2ae;margin:14px 0 0;font-feature-settings:"salt" 1}</style></head><body><main><img src="naif-logo.svg" alt="نايف المحمدي"><h1>الاستثمار وتطوير الأعمال</h1><p>حوكمة مجالس الإدارة</p></main></body></html>',{waitUntil:'load'});
  await page.evaluate(async()=>{await document.fonts.ready;await Promise.all([...document.images].map(i=>i.decode()));});
  await page.screenshot({path:path.join(root,'assets/social/naif-link-preview-v3.png')});
+ await page.setViewportSize({width:320,height:168});
+ await page.setContent('<html><head><base href="'+base+'"></head><body style="margin:0"><img src="assets/social/naif-link-preview-v3.png" style="width:320px;height:168px"></body></html>',{waitUntil:'load'});
+ await page.evaluate(async()=>Promise.all([...document.images].map(i=>i.decode())));
+ await page.screenshot({path:path.join(root,'review','og-small.jpg'),type:'jpeg',quality:90});
  await writeFile(path.join(root,'review','checks.json'),JSON.stringify({errors},null,2));
  if(errors.length)throw Error(errors.join('; '));
  console.log('Arabic and English at 1440, 390 and 320 pixels: layout, fonts, tools and download controls passed.');
