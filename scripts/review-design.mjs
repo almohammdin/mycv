@@ -15,6 +15,7 @@ try{
    const issues=await page.evaluate(({lang,width})=>{
     const active=document.querySelector('.lang-content.active');const bad=[];
     if(document.documentElement.lang!==lang)bad.push('language');
+    if(document.querySelector('#btn-'+lang).getAttribute('aria-pressed')!=='true')bad.push('language button state');
     if(document.documentElement.scrollWidth>width+1)bad.push('page overflow '+document.documentElement.scrollWidth);
     if(active.querySelectorAll('.exp-card').length!==5)bad.push('experience lost');
     if(active.querySelectorAll('.tool-card').length!==11)bad.push('tools lost');

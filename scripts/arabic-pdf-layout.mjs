@@ -122,7 +122,7 @@ export async function generateArabicPdfs(browser, projectDir, addLocalFonts) {
           const main=sheet.querySelector('main').getBoundingClientRect();
           const foot=sheet.querySelector('footer').getBoundingClientRect();
           const bounds=sheet.getBoundingClientRect();
-          if(main.bottom>foot.top-10) problems.push(`Page ${index+1}: content reaches footer`);
+          if(main.bottom>foot.top-10) problems.push(`Page ${index+1}: content reaches footer by ${Math.round(main.bottom-foot.top+10)}px`);
           for(const el of sheet.querySelectorAll('main *')) {
             const r=el.getBoundingClientRect();
             if(r.width && (r.left < bounds.left-1 || r.right > bounds.right+1)) problems.push(`Page ${index+1}: horizontal overflow in ${el.className || el.tagName}`);
@@ -131,7 +131,10 @@ export async function generateArabicPdfs(browser, projectDir, addLocalFonts) {
         if(/[\u202a-\u202e\u2066-\u2069\u200e\u200f\u061c]/u.test(document.body.textContent)) problems.push('Unexpected bidi controls');
         return problems;
       });
-      if(errors.length) throw new Error(`${variant} Arabic PDF validation failed: ${errors.join('; ')}`);
+      if(errors.length) {
+        if(process.env.PDF_REVIEW_DIR) await page.screenshot({path:path.join(process.env.PDF_REVIEW_DIR,'failure-'+variant+'.jpg'),type:'jpeg',quality:85});
+        throw new Error(`${variant} Arabic PDF validation failed: ${errors.join('; ')}`);
+      }
       const filename = variant === 'full' ? 'Naif-Almohammdi-CV-AR.pdf' : 'Naif-Almohammdi-CV-AR-Short.pdf';
       await page.pdf({path:path.join(projectDir,filename),format:'A4',preferCSSPageSize:true,printBackground:true,tagged:true,outline:true,displayHeaderFooter:false});
       console.log(`${filename}: ${pages.length} designed pages; RTL, fonts and overflow checks passed`);
