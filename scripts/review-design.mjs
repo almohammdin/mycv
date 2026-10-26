@@ -32,6 +32,8 @@ try{
     if(hero.querySelector('.rcoa-badge').classList.contains('sr-only'))bad.push('professional role hidden');
     const intro=hero.querySelector('.hero-summary').textContent;
     if(!intro.includes(lang==='ar'?'هيكلة الصفقات، وبناء القرار المؤسسي':'deal structuring and institutional decision-making'))bad.push('introduction shortened');
+    if(active.querySelectorAll('.expertise-group').length!==4||active.querySelectorAll('.tag').length!==16)bad.push('expertise groups or content lost');
+    if(active.querySelectorAll('.impact-heading').length!==4)bad.push('impact headings lost');
     if(active.querySelectorAll('.exp-card').length!==5)bad.push('experience lost');
     if(active.querySelectorAll('.tool-card').length!==11)bad.push('tools lost');
     if(active.querySelectorAll('.tools-grid:not(.additional-tools) > .tool-card').length!==6)bad.push('featured count');
@@ -52,6 +54,7 @@ try{
    if(await scope.locator('.download-menu').getAttribute('open')!==null)errors.push('Escape menu');
    await scope.locator('.more-tools summary').click();
    if(!await scope.locator('.additional-tools').isVisible())errors.push('Tools expansion '+lang);
+   if(width===1440)await scope.locator('#expertise-'+lang).screenshot({path:path.join(root,'review','expertise-'+lang+'.jpg'),type:'jpeg',animations:'disabled',quality:80});
    if(width===1440)await scope.locator('#tools-'+lang).screenshot({path:path.join(root,'review','tools-'+lang+'.jpg'),type:'jpeg',animations:'disabled',quality:72});
   }
  }
