@@ -12,12 +12,14 @@ try{
    await page.setViewportSize({width,height:width>1000?1050:844});
    await page.goto(pathToFileURL(path.join(root,'index.html')).href);
    await page.evaluate(lang=>switchLang(lang),lang);await page.evaluate(async()=>{await Promise.all([document.fonts.load('400 16px "Thmanyah Sans"','الاستثمار'),document.fonts.load('400 16px "Thmanyah Serif Display"','الاستثمار'),document.fonts.load('400 16px "El Messiri"','Investment')]);await document.fonts.ready;});
+   await page.evaluate(()=>window.scrollTo({top:0,left:0,behavior:'instant'}));
    const issues=await page.evaluate(({lang,width})=>{
     const active=document.querySelector('.lang-content.active');const bad=[];
     if(document.documentElement.lang!==lang)bad.push('language');
     if(document.querySelector('#btn-'+lang).getAttribute('aria-pressed')!=='true')bad.push('language button state');
     if(document.documentElement.scrollWidth>width+1)bad.push('page overflow '+document.documentElement.scrollWidth);
     const hero=active.querySelector('.header');
+    if(hero.querySelector('.naif-logo').getBoundingClientRect().top<60)bad.push('logo above initial viewport');
     for(const href of ['https://wa.me/966506350457','https://www.linkedin.com/in/almohammdin/','tel:+966506350457','mailto:almohammdin@gmail.com']){
      const a=hero.querySelector('a[href="'+href+'"]');
      if(!a||!a.getClientRects().length)bad.push('initial contact missing '+href);
