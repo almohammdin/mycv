@@ -19,7 +19,7 @@ async function readArabicContent(page, projectDir) {
     const all = (node, selector) => [...node.querySelectorAll(selector)];
     return {
       name: text(root, 'h1'), role: text(root, '.rcoa-badge'), title: text(root, '.header-title'),
-      intro: text(root, '.hero-summary'), paths: all(root, '.value-paths li').map(x => x.textContent.trim()),
+      introHeading: text(root, '.hero-summary-title'), intro: text(root, '.hero-summary'), paths: all(root, '.value-paths li').map(x => x.textContent.trim()),
       impact: all(root, '.impact-card').map(x => ({number:text(x,'.impact-num'),label:text(x,'.impact-label')})),
       boards: all(root, '.board-card').map(x => ({role:text(x,'.board-role'),entity:text(x,'.board-entity'),since:text(x,'.board-since'),image:x.querySelector('.board-logo')?.getAttribute('src') || ''})),
       experience: all(root, '.exp-card').map(x => ({title:text(x,'.job-title'),company:text(x,'.company-name'),period:text(x,'.job-period'),achievements:all(x,'.achievement').map(y=>y.textContent.trim().replace(/^✓\s*/,'')),bullets:all(x,'.desc li').map(y=>y.textContent.trim())})),
@@ -45,7 +45,7 @@ async function readArabicContent(page, projectDir) {
 }
 
 function identity(data, compact = false) {
-  return `<header class="identity ${compact ? 'compact-identity' : ''}"><div class="identity-copy"><div class="eyebrow">السيرة المهنية</div><img class="identity-logo" src="naif-logo.svg" alt="${escape(data.name)}"><h1 class="sr-only">${escape(data.name)}</h1><p class="headline">${escape(data.title)}</p></div>${compact ? '' : '<img class="portrait" src="assets/naif-photo-cutout.webp" alt="نايف المحمدي">'}</header>
+  return `<header class="identity ${compact ? 'compact-identity' : ''}"><div class="identity-copy"><div class="eyebrow">${escape(data.role)}</div><img class="identity-logo" src="naif-logo.svg" alt="${escape(data.name)}"><h1 class="sr-only">${escape(data.name)}</h1><p class="headline">${escape(data.title)}</p></div>${compact ? '' : '<img class="portrait" src="assets/naif-photo-cutout.webp" alt="نايف المحمدي">'}</header>
   <div class="contact"><span>جدة، المملكة العربية السعودية</span><a dir="ltr" href="tel:+966506350457">0506350457</a><a dir="ltr" href="mailto:almohammdin@gmail.com">almohammdin@gmail.com</a></div>
   <div class="contact-links">${link('https://www.linkedin.com/in/almohammdin/','لينكدإن')}<span> | </span>${link('https://wa.me/966506350457','واتساب')}<span> | </span>${link('https://almohammdin.github.io/mycv/','السيرة المهنية والأدوات التفاعلية')}</div>`;
 }
@@ -73,7 +73,7 @@ const training = [
 
 function fullPages(d) {
   return [
-    {title:'الملف التنفيذي', html:identity(d)+section('الاستثمار والقرار المؤسسي',p(d.intro))+section('مسارات صناعة القيمة',list(d.paths))+section('أبرز مؤشرات الأثر',`<div class="impact">${d.impact.map(x=>`<article><strong dir="ltr">${escape(x.number)}</strong>${p(x.label)}</article>`).join('')}</div>`)},
+    {title:'الملف التنفيذي', html:identity(d)+section(d.introHeading,p(d.intro))+section('مسارات صناعة القيمة',list(d.paths))+section('أبرز مؤشرات الأثر',`<div class="impact">${d.impact.map(x=>`<article><strong dir="ltr">${escape(x.number)}</strong>${p(x.label)}</article>`).join('')}</div>`)},
     {title:'المناصب الحالية والخبرة المهنية', html:section(d.sections[0],boards(d))+section('الخبرة المهنية | الأدوار الحالية',d.experience.slice(0,2).map(experience).join(''))},
     {title:'الخبرة المهنية والإنجازات', html:section('الخبرة المهنية | الاستثمار والتحول المؤسسي',d.experience.slice(2).map(experience).join(''))},
     {title:'مجالات الخبرة والأدوات التفاعلية', html:section(d.sections[2],`<ul class="expertise">${d.expertise.map(x=>`<li>${escape(x)}</li>`).join('')}</ul>`)+section(d.sections[3],p(d.toolsIntro)+tools(d.tools.slice(0,6)))},

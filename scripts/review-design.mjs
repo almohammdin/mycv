@@ -12,11 +12,26 @@ try{
    await page.setViewportSize({width,height:width>1000?1050:844});
    await page.goto(pathToFileURL(path.join(root,'index.html')).href);
    await page.evaluate(lang=>switchLang(lang),lang);await page.evaluate(async()=>{await Promise.all([document.fonts.load('400 16px "Thmanyah Sans"','الاستثمار'),document.fonts.load('400 16px "Thmanyah Serif Display"','الاستثمار'),document.fonts.load('400 16px "El Messiri"','Investment')]);await document.fonts.ready;});
+   await page.evaluate(()=>window.scrollTo({top:0,left:0,behavior:'instant'}));
    const issues=await page.evaluate(({lang,width})=>{
     const active=document.querySelector('.lang-content.active');const bad=[];
     if(document.documentElement.lang!==lang)bad.push('language');
     if(document.querySelector('#btn-'+lang).getAttribute('aria-pressed')!=='true')bad.push('language button state');
     if(document.documentElement.scrollWidth>width+1)bad.push('page overflow '+document.documentElement.scrollWidth);
+    const hero=active.querySelector('.header');
+    if(hero.querySelector('.naif-logo').getBoundingClientRect().top<60)bad.push('logo above initial viewport');
+    for(const href of ['https://wa.me/966506350457','https://www.linkedin.com/in/almohammdin/','tel:+966506350457','mailto:almohammdin@gmail.com']){
+     const a=hero.querySelector('a[href="'+href+'"]');
+     if(!a||!a.getClientRects().length)bad.push('initial contact missing '+href);
+     if(a&&a.getBoundingClientRect().top>hero.querySelector('.hero-summary').getBoundingClientRect().top)bad.push('contact below introduction '+href);
+    }
+    for(const a of hero.querySelectorAll('.phone-btn')){
+     const rect=a.getBoundingClientRect();
+     if(rect.width<44||rect.height<44)bad.push('contact touch target');
+    }
+    if(hero.querySelector('.rcoa-badge').classList.contains('sr-only'))bad.push('professional role hidden');
+    const intro=hero.querySelector('.hero-summary').textContent;
+    if(!intro.includes(lang==='ar'?'هيكلة الصفقات، وبناء القرار المؤسسي':'deal structuring and institutional decision-making'))bad.push('introduction shortened');
     if(active.querySelectorAll('.exp-card').length!==5)bad.push('experience lost');
     if(active.querySelectorAll('.tool-card').length!==11)bad.push('tools lost');
     if(active.querySelectorAll('.tools-grid:not(.additional-tools) > .tool-card').length!==6)bad.push('featured count');
@@ -28,7 +43,7 @@ try{
     return bad;
    },{lang,width});
    errors.push(...issues.map(x=>lang+' '+width+': '+x));
-   await page.screenshot({path:path.join(root,'review',lang+'-'+width+'.jpg'),type:'jpeg',quality:78});
+   await page.screenshot({path:path.join(root,'review',lang+'-'+width+'.jpg'),type:'jpeg',animations:'disabled',quality:78});
    const scope=page.locator('#'+lang+'-content');
    await scope.locator('.download-menu summary').click();
    const links=await scope.locator('.download-options a').count();
@@ -37,7 +52,7 @@ try{
    if(await scope.locator('.download-menu').getAttribute('open')!==null)errors.push('Escape menu');
    await scope.locator('.more-tools summary').click();
    if(!await scope.locator('.additional-tools').isVisible())errors.push('Tools expansion '+lang);
-   if(width===1440)await scope.locator('#tools-'+lang).screenshot({path:path.join(root,'review','tools-'+lang+'.jpg'),type:'jpeg',quality:72});
+   if(width===1440)await scope.locator('#tools-'+lang).screenshot({path:path.join(root,'review','tools-'+lang+'.jpg'),type:'jpeg',animations:'disabled',quality:72});
   }
  }
  await page.setViewportSize({width:1200,height:630});
@@ -48,7 +63,7 @@ try{
  await page.setViewportSize({width:320,height:168});
  await page.setContent('<html><head><base href="'+base+'"></head><body style="margin:0"><img src="assets/social/naif-link-preview-v3.png" style="width:320px;height:168px"></body></html>',{waitUntil:'load'});
  await page.evaluate(async()=>Promise.all([...document.images].map(i=>i.decode())));
- await page.screenshot({path:path.join(root,'review','og-small.jpg'),type:'jpeg',quality:90});
+ await page.screenshot({path:path.join(root,'review','og-small.jpg'),type:'jpeg',animations:'disabled',quality:90});
  await writeFile(path.join(root,'review','checks.json'),JSON.stringify({errors},null,2));
  if(errors.length)throw Error(errors.join('; '));
  console.log('Arabic and English at 1440, 390 and 320 pixels: layout, fonts, tools and download controls passed.');
