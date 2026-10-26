@@ -11,7 +11,7 @@ try{
   for(const width of [1440,390,320]){
    await page.setViewportSize({width,height:width>1000?1050:844});
    await page.goto(pathToFileURL(path.join(root,'index.html')).href);
-   await page.evaluate(lang=>switchLang(lang),lang);await page.evaluate(()=>document.fonts.ready);
+   await page.evaluate(lang=>switchLang(lang),lang);await page.evaluate(async()=>{await Promise.all([document.fonts.load('400 16px "Thmanyah Sans"','الاستثمار'),document.fonts.load('400 16px "Thmanyah Serif Display"','الاستثمار'),document.fonts.load('400 16px "El Messiri"','Investment')]);await document.fonts.ready;});
    const issues=await page.evaluate(({lang,width})=>{
     const active=document.querySelector('.lang-content.active');const bad=[];
     if(document.documentElement.lang!==lang)bad.push('language');
