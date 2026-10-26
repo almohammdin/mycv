@@ -7,37 +7,17 @@ import { generateArabicPdfs } from './arabic-pdf-layout.mjs';
 const projectDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const indexUrl = pathToFileURL(path.join(projectDir, "index.html")).href;
 
-async function fontCss(packageName) {
-  const packageDir = path.join(
-    projectDir,
-    "node_modules",
-    "@fontsource",
-    packageName,
-  );
-  const filesUrl = `${pathToFileURL(path.join(packageDir, "files")).href}/`;
-  const styles = await Promise.all(
-    [300, 400, 500, 600, 700].map(async (weight) => {
-      const css = await readFile(path.join(packageDir, `${weight}.css`), "utf8");
-      return css.replaceAll("url(./files/", `url(${filesUrl}`);
-    }),
-  );
-  return styles.join("\n");
-}
-
 async function addLocalFonts(page) {
-  const css = [
-    await fontCss("ibm-plex-sans-arabic"),
-    await fontCss("ibm-plex-sans"),
-  ].join("\n");
-  await page.addStyleTag({ content: css });
-  await page.evaluate(async () => document.fonts.ready);
+ const css=(await readFile(path.join(projectDir,'assets/fonts.css'),'utf8')).replaceAll("url('fonts/", "url('"+pathToFileURL(path.join(projectDir,'assets/fonts')).href+"/");
+ await page.addStyleTag({content:css});
+ await page.evaluate(async()=>{await Promise.all([document.fonts.load('400 16px "Thmanyah Sans"','الاستثمار'),document.fonts.load('700 32px "Thmanyah Serif Display"','الاستثمار'),document.fonts.load('400 16px "El Messiri"','Investment')]);await document.fonts.ready;});
 }
-
 async function preparePage(page, lang) {
   await page.goto(indexUrl, { waitUntil: "domcontentloaded" });
   await addLocalFonts(page);
   await page.evaluate((selectedLang) => {
     switchLang(selectedLang);
+    document.querySelectorAll(".more-tools").forEach(el=>el.open=true);
     const active = document.querySelector(".lang-content.active");
     if (!active) throw new Error(`Missing active language: ${selectedLang}`);
 
@@ -51,7 +31,7 @@ async function preparePage(page, lang) {
     const exportFooter = document.createElement("div");
     exportFooter.className = "pdf-export-footer";
     exportFooter.innerHTML = `
-      <img src="./assets/naif-footer-logo.png" alt="">
+      <img src="./naif-logo.svg" alt="">
       <div class="pdf-export-links">
         <a href="https://almohammdin.github.io/mycv/">almohammdin.github.io/mycv</a>
         <span>•</span>
@@ -113,8 +93,8 @@ async function preparePage(page, lang) {
     );
     const fontQuery =
       selectedLang === "ar"
-        ? '16px "IBM Plex Sans Arabic"'
-        : '16px "IBM Plex Sans"';
+        ? '16px "Thmanyah Sans"'
+        : '16px "El Messiri"';
     const fontSample =
       selectedLang === "ar" ? "نايف المحمدي" : "Naif Almohammdi";
     await document.fonts.load(fontQuery, fontSample);
@@ -130,10 +110,10 @@ async function generate(browser, lang, outputName) {
   await preparePage(page, lang);
   const fontLoaded = await page.evaluate((selectedLang) =>
     selectedLang === "ar"
-      ? document.fonts.check('16px "IBM Plex Sans Arabic"', "نايف المحمدي")
-      : document.fonts.check('16px "IBM Plex Sans"', "Naif Almohammdi"),
+      ? document.fonts.check('16px "Thmanyah Sans"', "نايف المحمدي")
+      : document.fonts.check('16px "El Messiri"', "Naif Almohammdi"),
   lang);
-  if (!fontLoaded) throw new Error(`IBM Plex did not load for ${lang}`);
+  if (!fontLoaded) throw new Error(`Brand font did not load for ${lang}`);
 
   const pdf = await page.pdf({
     format: "A4",

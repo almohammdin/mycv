@@ -28,9 +28,10 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install PDF runtime and IBM Plex fonts
+      - name: Install PDF runtime and brand fonts
         run: |
-          npm install --no-save playwright @fontsource/ibm-plex-sans-arabic @fontsource/ibm-plex-sans
+          npm install --no-save playwright
+          node scripts/download-brand-fonts.mjs
           npx playwright install --with-deps chromium
 
       - name: Generate full and short Arabic PDFs and the English PDF
