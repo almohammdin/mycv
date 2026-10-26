@@ -20,10 +20,11 @@ async function readArabicContent(page, projectDir) {
     return {
       name: text(root, 'h1'), role: text(root, '.rcoa-badge'), title: text(root, '.header-title'),
       introHeading: text(root, '.hero-summary-title'), intro: text(root, '.hero-summary'), paths: all(root, '.value-paths li').map(x => x.textContent.trim()),
-      impact: all(root, '.impact-card').map(x => ({number:text(x,'.impact-num'),label:text(x,'.impact-label')})),
+      impact: all(root, '.impact-card').map(x => ({heading:text(x,'.impact-heading'),number:text(x,'.impact-num'),label:text(x,'.impact-label')})),
       boards: all(root, '.board-card').map(x => ({role:text(x,'.board-role'),entity:text(x,'.board-entity'),since:text(x,'.board-since'),image:x.querySelector('.board-logo')?.getAttribute('src') || ''})),
       experience: all(root, '.exp-card').map(x => ({title:text(x,'.job-title'),company:text(x,'.company-name'),period:text(x,'.job-period'),achievements:all(x,'.achievement').map(y=>y.textContent.trim().replace(/^✓\s*/,'')),bullets:all(x,'.desc li').map(y=>y.textContent.trim())})),
       expertise: all(root,'.tag').map(x=>x.textContent.trim()),
+      expertiseGroups: all(root,'.expertise-group').map(x=>({title:text(x,'.expertise-group-title'),items:all(x,'.tag').map(y=>y.textContent.trim()),description:text(x,'.expertise-group-copy'),links:all(x,'.expertise-tool-link').map(a=>({label:a.textContent.replace('↗','').trim(),url:a.href}))})),
       toolsIntro: text(root,'.tools-intro'),
       tools: all(root,'.tool-card').map(x=>({title:text(x,'.tool-title'),description:text(x,'.tool-desc'),url:x.querySelector('a').href})),
       journey: {title:text(root,'.knowledge-product-title'),description:text(root,'.knowledge-product-desc'),note:text(root,'.knowledge-product-note'),url:root.querySelector('.knowledge-product-media').href},
@@ -33,7 +34,7 @@ async function readArabicContent(page, projectDir) {
       sections: all(root,'.section').map(x=>text(x,'.section-title')),
     };
   });
-  for (const [key, count] of Object.entries({impact:4,boards:3,experience:5,expertise:16,tools:11,certificates:4,training:7,sections:8})) {
+  for (const [key, count] of Object.entries({impact:4,boards:3,experience:5,expertise:16,expertiseGroups:4,tools:11,certificates:4,training:7,sections:8})) {
     if (data[key].length !== count) throw new Error(`Arabic PDF layout needs review: ${key} has ${data[key].length}, expected ${count}`);
   }
   data.experience.forEach(job => { job.title = job.title.replace('مؤسس والرئيس التنفيذي', 'المؤسس والرئيس التنفيذي'); });
@@ -73,10 +74,10 @@ const training = [
 
 function fullPages(d) {
   return [
-    {title:'الملف التنفيذي', html:identity(d)+section(d.introHeading,p(d.intro))+section('مسارات صناعة القيمة',list(d.paths))+section('أبرز مؤشرات الأثر',`<div class="impact">${d.impact.map(x=>`<article><strong dir="ltr">${escape(x.number)}</strong>${p(x.label)}</article>`).join('')}</div>`)},
+    {title:'الملف التنفيذي', html:identity(d)+section(d.introHeading,p(d.intro))+section('مسارات صناعة القيمة',list(d.paths))+section('أبرز مؤشرات الأثر',`<div class="impact">${d.impact.map(x=>`<article><h3 class="impact-heading">${escape(x.heading)}</h3><strong dir="ltr">${escape(x.number)}</strong>${p(x.label)}</article>`).join('')}</div>`)},
     {title:'المناصب الحالية والخبرة المهنية', html:section(d.sections[0],boards(d))+section('الخبرة المهنية | الأدوار الحالية',d.experience.slice(0,2).map(experience).join(''))},
     {title:'الخبرة المهنية والإنجازات', html:section('الخبرة المهنية | الاستثمار والتحول المؤسسي',d.experience.slice(2).map(experience).join(''))},
-    {title:'مجالات الخبرة والأدوات التفاعلية', html:section(d.sections[2],`<ul class="expertise">${d.expertise.map(x=>`<li>${escape(x)}</li>`).join('')}</ul>`)+section(d.sections[3],p(d.toolsIntro)+tools(d.tools.slice(0,6)))},
+    {title:'مجالات الخبرة والأدوات التفاعلية', html:section(d.sections[2],`<div class="expertise-groups">${d.expertiseGroups.map(g=>`<article class="expertise-group"><h3>${escape(g.title)}</h3><p>${g.items.length ? g.items.map(escape).join("، ") : inline(g.description)}</p>${g.links.length?`<div class="expertise-links">${g.links.map(a=>link(a.url,a.label)).join(" | ")}</div>`:""}</article>`).join("")}</div>`)+section(d.sections[3],p(d.toolsIntro)+tools(d.tools.slice(0,6)))},
     {title:'الأدوات التفاعلية والرحلات المعرفية', html:section('أدوات نايف التفاعلية | تتمة',tools(d.tools.slice(6)))+section(d.sections[4],`<article class="journey"><h3>${escape(d.journey.title)}</h3>${p(d.journey.description)}${p(d.journey.note.replace('الرحلاتسبق','الرحلات: سبق').replace('نموذج لشكل','نموذجًا لشكل'))}<a href="${escape(d.journey.url)}">استعراض نموذج رحلة سيئول المعرفية ↗</a></article>`)},
     {title:'التأهيل العلمي والتطوير المهني', html:section(d.sections[5],d.certificates.map((c,i)=>`<article class="certificate"><h3>${escape(c.title)}</h3>${institutions[i]?`<p class="institution">${escape(institutions[i])}</p>`:''}${p(c.description)}</article>`).join(''))+section(d.sections[6],`<article class="education"><h3>${escape(d.education.degree)}</h3>${p(d.education.university)}</article>`)+section(d.sections[7],list(training))},
   ];
@@ -91,7 +92,7 @@ function shortPages(d) {
     ['إدارة وحوكمة محفظة استثمارية تجاوزت 100 مليون ريال؛ نمو الإيرادات بنسبة 600% وقاعدة المشتركين بنسبة 1,700%، مع تقييم الفرص وتطوير برامج التمويل المستدام.'],
   ];
   const jobs = d.experience.map((job,i)=>experience({...job,achievements:[],bullets:concise[i]}));
-  const summary = 'قيادي ومستشار بخبرة تنفيذية واستشارية تتجاوز 25 عامًا في الاستثمار وتطوير الأصول وهيكلة الصفقات وحوكمة مجالس الإدارة. يساند القيادات في تحويل الفرص إلى مبادرات قابلة للتنفيذ والقياس، تربط العائد المالي بالأثر المؤسسي المستدام.';
+  const summary = 'قيادي ومستشار بخبرة تتجاوز 25 عاما تجمع تأسيس وتشغيل الأعمال، وقيادة مفاوضات الصفقات، والعمل مع الملاك ومجالس الإدارة. تشمل خبرته الاستثمار وتطوير الأصول وهيكلة الصفقات والحوكمة، ومساندة القيادات في تحويل الفرص إلى مبادرات قابلة للتنفيذ والقياس، تربط العائد المالي بالأثر المؤسسي المستدام.';
   return [
     {title:'الخبرة التنفيذية والاستشارية',html:identity(d,true)+section('الملخص المهني',p(summary))+section('الخبرة المهنية المختارة',jobs.slice(0,3).join(''))+section('عضويات إضافية',p('عضو مجلس الأعمال السعودي البيروفي | اتحاد الغرف السعودية'))},
     {title:'الإنجازات والتأهيل ومناطق الخبرة',html:section('الخبرة المهنية المختارة | تتمة',jobs.slice(3).join(''))+section('مناطق الخبرة',p('الاستثمار وتطوير الأصول، هيكلة الصفقات والشراكات، الاندماج والاستحواذ، التحليل المالي والتقييم، حوكمة مجالس الإدارة والشركات العائلية، إدارة المخاطر، التحول وإعادة الهيكلة، وقياس العائد والأثر.'))+section('المؤهل العلمي والشهادات المهنية',`<p><strong>${escape(d.education.degree)}</strong> | ${escape(d.education.university)}</p>`+list(d.certificates.map((c,i)=>`${c.title}${institutions[i]?' | '+institutions[i]:''}`)))+section('تطوير مهني وعضويات',p('فاعلية مجالس إدارة الشركات العائلية | الأكاديمية المالية؛ الابتكار في الحكومة | مركز محمد بن راشد للحكومة الذكية؛ تنمية مستدامة وجودة مؤسسية في القطاع غير الربحي؛ عضو شبكة المسؤولية الاجتماعية الإقليمية.'))+section('الأدوات الرقمية والرحلات المعرفية',p('تطوير 11 أداة تفاعلية في أعمال المجالس والشركات العائلية والتوسع والصفقات والمخاطر والامتثال والتقييم والنمو والشراكات والصلاحيات. تصميم رحلات معرفية مهنية إلى المعارض والأسواق الدولية، تشمل تجارب في الصين وكوريا.')+`<p>${link('https://almohammdin.github.io/mycv/','استعراض الأدوات والتفاصيل في السيرة الكاملة ↗')}</p>`)},
